@@ -153,6 +153,8 @@ Func BotStop()
 	If $g_iTownHallLevel > 2 Then GUICtrlSetState($g_hBtnSearchMode, $GUI_ENABLE)
 	GUICtrlSetState($g_hBtnSearchMode, $GUI_SHOW)
 	;GUICtrlSetState($g_hBtnMakeScreenshot, $GUI_ENABLE)
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE) ; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE) ; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
 
 	; hide attack buttons if show
 	GUICtrlSetState($g_hBtnAttackNowDB, $GUI_HIDE)

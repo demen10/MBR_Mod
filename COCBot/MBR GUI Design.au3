@@ -114,6 +114,8 @@ Global $g_oCtrlIconData = ObjCreate("Scripting.Dictionary")
 #include "GUI\MBR GUI Design Attack.au3"
 #include "GUI\MBR GUI Design Bot.au3"
 #include "GUI\MBR GUI Design About.au3"
+;Demen Mod
+#include "MOD_Demen\GUI Design_Demen.au3"
 
 Func CreateMainGUI()
 

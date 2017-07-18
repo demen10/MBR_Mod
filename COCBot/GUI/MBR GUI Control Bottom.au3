@@ -72,6 +72,8 @@ Func Initiate()
 		ZoomOut()
 		If Not $g_bRunState Then Return
 
+		If $ichkSwitchAcc = 1 Then InitiateSwitchAcc(); SwitchAcc Demen
+
 		If Not $g_bSearchMode Then
 			BotDetectFirstTime()
 			If Not $g_bRunState Then Return
@@ -189,12 +191,37 @@ EndFunc   ;==>btnSearchMode
 Func btnPause($RunNow = True)
 	;Send("{PAUSE}")
 	TogglePause()
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_SHOW)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
 EndFunc   ;==>btnPause
 
 Func btnResume()
 	;Send("{PAUSE}")
 	TogglePause()
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
 EndFunc   ;==>btnResume
+
+Func btnEnableGUI() 	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE)
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_SHOW)
+	GUICtrlSetState($g_hBtnResume, $GUI_DISABLE)
+	AndroidShieldForceDown(True)
+	EnableGuiControls() ; enable emulator menu controls
+	SetLog("Enabled bot controls as you wished", $COLOR_SUCCESS)
+EndFunc
+
+Func btnDisableGUI()	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_SHOW)
+	GUICtrlSetState($g_hBtnResume, $GUI_ENABLE)
+	SetLog("Save config and disable bot controls manually", $COLOR_SUCCESS)
+	AndroidShieldForceDown(False)
+	SaveConfig()
+	readConfig()
+	applyConfig()
+	DisableGuiControls()
+EndFunc
 
 Func btnAttackNowDB()
 	If $g_bRunState Then
