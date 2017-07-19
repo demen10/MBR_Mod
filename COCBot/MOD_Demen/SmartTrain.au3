@@ -54,23 +54,24 @@ Func SmartTrain()
 	; Custom Train
 	If Not IsArray($aeTrainMethod) Or Not IsArray($aeBrewMethod) Then
 		Setlog("Some kinds of error. Quit training", $COLOR_ERROR)
-	ElseIf $g_bQuickTrainEnable = False Then ; Custom Train
-		If _Sleep(500) Then Return
-		If $bCheckWrongTroops Or $bCheckWrongSpells Then RemoveWrongTroops($bCheckWrongTroops, $bCheckWrongSpells, False)
-		If _Sleep(1000) Then Return
-
-		Local $aeTB_Method = $aeTrainMethod
-		_ArrayConcatenate($aeTB_Method, $aeBrewMethod)
-
-		MakeCustomTrain("all", $aeTB_Method)
-	ElseIf $aeTrainMethod[1] <> $g_eNoTrain Or $aeBrewMethod[1] <> $g_eNoTrain Then ; Quick Train
-		OpenTrainTabNumber($QuickTrainTAB, "SmartTrain()")
-		If _Sleep(500) Then Return
-		Local $iMultiClick = 1
-		If $g_bChkMultiClick Then $iMultiClick = $g_iMultiClick
-		TrainArmyNumber($g_bQuickTrainArmy, $iMultiClick)
 	Else
-		Setlog("Full queue, skip Quick Train")
+		If $g_bQuickTrainEnable = False Then ; Custom Train
+			If _Sleep(500) Then Return
+			If $bCheckWrongTroops Or $bCheckWrongSpells Then RemoveWrongTroops($bCheckWrongTroops, $bCheckWrongSpells, False)
+			If _Sleep(1000) Then Return
+			Local $aeTB_Method = $aeTrainMethod
+			_ArrayConcatenate($aeTB_Method, $aeBrewMethod)
+			MakeCustomTrain("all", $aeTB_Method)
+		ElseIf $aeTrainMethod[1] <> $g_eNoTrain Or $aeBrewMethod[1] <> $g_eNoTrain Then ; Quick Train
+			OpenTrainTabNumber($QuickTrainTAB, "SmartTrain()")
+			If _Sleep(500) Then Return
+			Local $iMultiClick = 1
+			If $g_bChkMultiClick Then $iMultiClick = $g_iMultiClick
+			TrainArmyNumber($g_bQuickTrainArmy, $iMultiClick)
+		Else
+			Setlog("  Full queue, skip Quick Train")
+		EndIf
+		Setlog("Smart Train accomplished")
 	EndIf
 
 	ClickP($aAway, 2, 0, "#0000") ;Click Away
@@ -85,10 +86,7 @@ Func MakeCustomTrain($sText, $aeMethod)
 
 	For $i = 0 To UBound($aeMethod) - 1
 		If $aeMethod[$i] <> $g_eNoTrain Then ExitLoop
-		If $i = 3 Then ; no train
-			Setlog("Full camp & queue, skip troop training")
-			Return True
-		EndIf
+		If $i = 3 Then Return True; no train
 	Next
 
 	Local $aArmy, $bTrainQueue = False
