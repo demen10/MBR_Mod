@@ -95,7 +95,7 @@ Func MakeCustomTrain($sText, $aeMethod)
 
 	If $sText <> "spell" Then
 		OpenTrainTabNumber($TrainTroopsTAB, "MakeCustomTrain()")
-		If ISArmyWindow(True, $TrainTroopsTAB) = False Then OpenTrainTabNumber($TrainTroopsTAB, "MakeCustomTrain()")
+		If ISArmyWindow(False, $TrainTroopsTAB) = False Then OpenTrainTabNumber($TrainTroopsTAB, "MakeCustomTrain()")
 		If $g_bRunState = False Then Return
 		For $i = 0 To 1
 			If $i = 1 Then $bTrainQueue = True
@@ -106,7 +106,7 @@ Func MakeCustomTrain($sText, $aeMethod)
 
 	If $sText <> "troop" Then
 		OpenTrainTabNumber($BrewSpellsTAB, "MakeCustomTrain()")
-		If ISArmyWindow(True, $BrewSpellsTAB) = False Then OpenTrainTabNumber($BrewSpellsTAB, "MakeCustomTrain()")
+		If ISArmyWindow(False, $BrewSpellsTAB) = False Then OpenTrainTabNumber($BrewSpellsTAB, "MakeCustomTrain()")
 		If $g_bRunState = False Then Return
 		Local $x = 0
 		If $sText = "all" Then $x = 2
@@ -138,7 +138,7 @@ Func TrainNow($sText, $aArmy)
 
 
 			If CheckValuesCost($aArmy[$i][0], $aArmy[$i][1]) Then
-				SetLog($sAction & $aArmy[$i][1] & "x " & $sTS_Name, $COLOR_GREEN)
+				SetLog("    " & $sAction & $aArmy[$i][1] & "x " & $sTS_Name, $COLOR_GREEN)
 				TrainIt($iTS_Index, $aArmy[$i][1], $g_iTrainClickDelay)
 			Else
 				SetLog("No resources for " & $sAction & $aArmy[$i][1] & "x " & $sTS_Name, $COLOR_ORANGE)
@@ -187,7 +187,7 @@ Func DefineWhatToTrain($sText = "troop", $TrainMethod = $g_eFull, $bTrainQueue =
 					$rWTT[UBound($rWTT) - 1][1] = $aiArmyComp[$iIndex]
 					Local $iTS_Index = TroopIndexLookup($rWTT[UBound($rWTT) - 1][0])
 					Local $sTS_Name = NameOfTroop($iTS_Index, $rWTT[UBound($rWTT) - 1][1] > 1 ? 1 : 0)
-					setlog(UBound($rWTT) & ". " & $sTS_Name & " x " & $rWTT[UBound($rWTT) - 1][1])
+;~ 					setlog("    " & UBound($rWTT) & ". " & $sTS_Name & " x " & $rWTT[UBound($rWTT) - 1][1])
 					ReDim $rWTT[UBound($rWTT) + 1][2]
 				EndIf
 			Next
@@ -227,7 +227,7 @@ Func DefineWhatToTrain($sText = "troop", $TrainMethod = $g_eFull, $bTrainQueue =
 					$rWTT[UBound($rWTT) - 1][1] = Abs($aiArmyComp[$iIndex] - $aCurrent[$iIndex])
 					Local $iTS_Index = TroopIndexLookup($rWTT[UBound($rWTT) - 1][0])
 					Local $sTS_Name = NameOfTroop($iTS_Index, $rWTT[UBound($rWTT) - 1][1] > 1 ? 1 : 0)
-					setlog(UBound($rWTT) & ". " & $sTS_Name & " x " & $rWTT[UBound($rWTT) - 1][1])
+;~ 					setlog("    " & UBound($rWTT) & ". " & $sTS_Name & " x " & $rWTT[UBound($rWTT) - 1][1])
 					ReDim $rWTT[UBound($rWTT) + 1][2]
 				EndIf
 			Next

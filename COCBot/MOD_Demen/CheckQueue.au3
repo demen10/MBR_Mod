@@ -31,13 +31,6 @@ Func CheckQueue($sText = "troop")
 
 	Setlog("  » Checking queue " & $sText)
 
-If $sText = "spell" Then
-	OpenArmyOverview()
-	OpenTrainTabNumber($BrewSpellsTAB, "CheckTrainingTab()")
-	If _Sleep(1000) Then Return
-	If ISArmyWindow(True, $BrewSpellsTAB) = False Then Return
-EndIf
-
 	; Delete slot 11 anyway
 	If _ColorCheck(_GetPixelColor($CheckTroop[0] - 11 * 70, $CheckTroop[1], True), Hex($CheckTroop[2], 6), $CheckTroop[3]) = False Then ; Pink bkground found
 		Setlog("  » So many troops queued, removing queues at the last slot")

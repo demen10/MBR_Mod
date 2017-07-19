@@ -26,22 +26,22 @@ Func CheckTrainingTab($sText = "troop")
 
 	OpenTrainTabNumber($Tab, "CheckTrainingTab()")
 	If _Sleep(1000) Then Return
-	If ISArmyWindow(True, $Tab) = False Then Return
+	If ISArmyWindow(False, $Tab) = False Then Return
 
 	Local $ArmyCamp = GetOCRCurrent(43, 160)
 
-	Setlog(" - Current queue/capacity: " & $ArmyCamp[0] & "/" & $ArmyCamp[1])
+	Setlog(" »» Checking " & $sText & " tab: " & $ArmyCamp[0] & "/" & $ArmyCamp[1] * 2)
 
 	Switch $ArmyCamp[0]
 		Case 0 ;	0/240 troop	| 0/11 spell
-			SetLog(" »» No " & $sText)
+			SetLog("  » No " & $sText)
 			If $g_bQuickTrainEnable = False Then
 				$aeTrainMethod[0] = $g_eFull
 				$aeTrainMethod[1] = $g_eFull ; full army + full queue
 			EndIf
 
 		Case 1 To $ArmyCamp[1] - $iTopUp - 1 ; 1-234/240 troops | 1-9/11 spells
-			SetLog(" »» Not full " & $sText & " camp")
+			SetLog("  » Not full " & $sText & " camp")
 			If ClearTrainingTroops() Then SetLog("  » All training " & $sText & " cleared!")
 			$aeTrainMethod[0] = $g_eRemained
 			$aeTrainMethod[1] = $g_eFull ; remained army + full queue
@@ -50,20 +50,20 @@ Func CheckTrainingTab($sText = "troop")
 			If $ArmyCamp[0] - $ArmyCamp[1] < 0 Then
 				TopUpCamp($sText, $ArmyCamp[1] - $ArmyCamp[0])
 			Else
-				SetLog(" »» Zero queue " & $sText)
+				SetLog("  » Zero queue " & $sText)
 			EndIf
 			$aeTrainMethod[1] = $g_eFull ; no army + full queue
 
 		Case $ArmyCamp[1] + 1 To $ArmyCamp[1] * 2 - $iTopUp - 1 ; 241-474/240 troops | 11-20/11 spells
+			SetLog("  » Queueing some " & $sText & "s")
 			If $sText = "spell" And $g_bForceBrewSpells Then
 				If Not $g_bQuickTrainEnable Then
-					Setlog(" »» Force brew spell is active, keep brewing anyway")
+					Setlog("  » Force brew spell is active, keep brewing anyway")
 					ForceBrewSpells($ArmyCamp[1] * 2 - $ArmyCamp[0]) ; force brew spells anyway
 				Else
 					$aeTrainMethod[1] = $g_eRemained
 				EndIf
 			Else
-				SetLog(" »» Queueing some " & $sText & "s")
 				If Not $g_bQuickTrainEnable Then
 					$aeTrainMethod = CheckQueue($sText) ; remained army + full queue / full queue / remained queue
 				Else
@@ -77,7 +77,7 @@ Func CheckTrainingTab($sText = "troop")
 			If $ArmyCamp[0] - $ArmyCamp[1] * 2 < 0 Then
 				TopUpCamp($sText, $ArmyCamp[1] * 2 - $ArmyCamp[0])
 			Else
-				SetLog(" »» Full queue")
+				SetLog("  » Full queue")
 			EndIf
 			Local $bSkipTraining = $g_bFullArmy
 			If $sText = "spell" Then $bSkipTraining = $g_bFullArmySpells Or $g_bForceBrewSpells
@@ -125,13 +125,13 @@ EndFunc   ;==>ClearTrainingTroops
 Func TopUpCamp($sText = "troop", $ArchToMake = 0)
 	If $ArchToMake <= 0 Then Return False
 	If $sText = "troop" Then
-		SetLog(" »» Fill some archers")
+		SetLog("  » Fill some archers")
 		If ISArmyWindow(False, $TrainTroopsTAB) Then TrainIt($eArch, $ArchToMake, 500)
-		SetLog("  » Trained " & $ArchToMake & " archer(s)!")
+		SetLog("    Trained " & $ArchToMake & " archer(s)!")
 	ElseIf $sText = "spell" Then
-		SetLog(" »» Fill 1 EQ spell")
+		SetLog("  » Fill 1 EQ spell")
 		If ISArmyWindow(False, $BrewSpellsTAB) Then TrainIt($eESpell, 1, 500)
-		SetLog("  » Trained " & $ArchToMake & " archer(s)!")
+		SetLog("    Trained " & $ArchToMake & " archer(s)!")
 	EndIf
 	Return True
 EndFunc   ;==>TopUpCamp
@@ -150,7 +150,7 @@ Func ForceBrewSpells($iRemainQueue)
 					$iBrewedCount += 1
 					$iRemainQueue -= $g_aiSpellSpace[$i]
 				Else
-					SetLog("  » No resources to brew more " & $g_asSpellNames[$i], $COLOR_ORANGE)
+					SetLog("    No resources to brew more " & $g_asSpellNames[$i], $COLOR_ORANGE)
 					ExitLoop
 				EndIf
 				If $iBrewedCount >= $g_aiArmyCompSpells[$i] Then ExitLoop

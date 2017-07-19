@@ -17,7 +17,7 @@ Func CheckPreciseTroop()
 	Local $sTextTroop = "Troops are so far so good."
 	Local $sTextSpell = "Spells are so far so good."
 
-	Setlog(" »» Checking precision of troops and spells")
+	Setlog(" »» Checking Army Window for troops & spells precision")
 
 	Local $bReturnArmyTab = False
 	Local $toRemove = CheckWrongTroops(True, Not ($g_bForceBrewSpells), False) ; If $g_bForceBrewSpells = True Then CheckWrongTroops(True, FALSE, False); $g_abRCheckWrongTroops[1] always FALSE
@@ -58,7 +58,7 @@ Func CheckWrongTroops($Troop = True, $Spell = False, $CheckExistentArmy = True)
 	$g_abRCheckWrongTroops[1] = False
 	Local $toRemove[1][2] = [["Arch", 0]] ; Wrong Troops & Spells to be removed
 
-	If ISArmyWindow(True, $ArmyTAB) = False Then OpenTrainTabNumber($ArmyTAB, "CheckWrongTroops()")
+	If ISArmyWindow(False, $ArmyTAB) = False Then OpenTrainTabNumber($ArmyTAB, "CheckWrongTroops()")
 	If _Sleep(500) Then Return
 
 	If $Troop = True Then
@@ -87,21 +87,21 @@ Func CheckWrongTroops($Troop = True, $Spell = False, $CheckExistentArmy = True)
 	If UBound($toRemove) = 1 And $toRemove[0][0] = "Arch" And $toRemove[0][1] = 0 Then Return ; If was default Wrong Troops
 
 	If UBound($toRemove) > 0 Then ; If needed to remove troops
-		SetLog("Troops To Remove: ", $COLOR_GREEN)
+		SetLog("  » Troops To Remove: ", $COLOR_GREEN)
 		; Loop through Troops needed to get removed Just to write some Logs
 		Local $CounterToRemove = 0
 		For $i = 0 To (UBound($toRemove) - 1)
 			If IsSpellToBrew($toRemove[$i][0]) Then ExitLoop
 			$CounterToRemove += 1
-			If $toRemove[$i][1] > 0 Then SetLog("  " & $g_asTroopNames[TroopIndexLookup($toRemove[$i][0])] & ": " & $toRemove[$i][1] & "x", $COLOR_GREEN)
+			If $toRemove[$i][1] > 0 Then SetLog("    " & $g_asTroopNames[TroopIndexLookup($toRemove[$i][0])] & ": " & $toRemove[$i][1] & "x", $COLOR_GREEN)
 		Next
 		If $CounterToRemove > 0 And IsSpellToBrew($toRemove[1][0]) = False Then $g_abRCheckWrongTroops[0] = True
 
 		If TotalSpellsToBrewInGUI() > 0 Then
 			If $CounterToRemove <= UBound($toRemove) - 1 Then
-				SetLog("Spells To Remove: ", $COLOR_GREEN)
+				SetLog("  » Spells To Remove: ", $COLOR_GREEN)
 				For $i = $CounterToRemove To (UBound($toRemove) - 1)
-					If $toRemove[$i][1] > 0 Then SetLog("  " & $g_asSpellNames[TroopIndexLookup($toRemove[$i][0]) - $eLSpell] & ": " & $toRemove[$i][1] & "x", $COLOR_GREEN)
+					If $toRemove[$i][1] > 0 Then SetLog("    " & $g_asSpellNames[TroopIndexLookup($toRemove[$i][0]) - $eLSpell] & ": " & $toRemove[$i][1] & "x", $COLOR_GREEN)
 				Next
 				$g_abRCheckWrongTroops[1] = True
 			EndIf
@@ -173,7 +173,7 @@ Func RemoveWrongTroops($Troop, $Spell, $toRemove)
 
 		Click(Random(445, 585, 1), Random(400, 455, 1)) ; Click on 'Okay' button to Save changes... Last button
 
-		SetLog("  All Extra troops removed")
+		SetLog("    All wrong troops removed")
 		If _Sleep(200) Then Return
 	EndIf
 
