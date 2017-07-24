@@ -51,7 +51,7 @@ Func SmartTrain()
 		EndIf
 	EndIf
 
-	; Custom Train
+	; Train
 	If Not IsArray($aeTrainMethod) Or Not IsArray($aeBrewMethod) Then
 		Setlog("Some kinds of error. Quit training", $COLOR_ERROR)
 	Else

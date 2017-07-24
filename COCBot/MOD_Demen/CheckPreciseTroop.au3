@@ -17,7 +17,7 @@ Func CheckPreciseTroop()
 	Local $sTextTroop = "Troops are so far so good."
 	Local $sTextSpell = "Spells are so far so good."
 
-	Setlog(" »» Checking Army Window for troops & spells precision")
+	Setlog("»» Checking Army Window for troops & spells precision")
 
 	Local $bReturnArmyTab = False
 	Local $toRemove = CheckWrongTroops(True, Not ($g_bForceBrewSpells), False) ; If $g_bForceBrewSpells = True Then CheckWrongTroops(True, FALSE, False); $g_abRCheckWrongTroops[1] always FALSE

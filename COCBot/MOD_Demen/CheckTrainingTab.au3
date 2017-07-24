@@ -30,7 +30,7 @@ Func CheckTrainingTab($sText = "troop")
 
 	Local $ArmyCamp = GetOCRCurrent(43, 160)
 
-	Setlog(" »» Checking " & $sText & " tab: " & $ArmyCamp[0] & "/" & $ArmyCamp[1] * 2)
+	Setlog("»» Checking " & $sText & " tab: " & $ArmyCamp[0] & "/" & $ArmyCamp[1] * 2)
 
 	Switch $ArmyCamp[0]
 		Case 0 ;	0/240 troop	| 0/11 spell
@@ -155,7 +155,7 @@ Func ForceBrewSpells($iRemainQueue)
 				EndIf
 				If $iBrewedCount >= $g_aiArmyCompSpells[$i] Then ExitLoop
 			WEnd
-			If $iBrewedCount > 0 Then Setlog("  » Brewed " & $g_asSpellNames[$i] & " x" & $iBrewedCount)
+			If $iBrewedCount > 0 Then Setlog("    Brewed " & $g_asSpellNames[$i] & " x" & $iBrewedCount, $COLOR_GREEN)
 		EndIf
 	Next
 EndFunc   ;==>ForceBrewSpells

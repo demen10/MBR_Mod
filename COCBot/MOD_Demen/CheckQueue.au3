@@ -71,7 +71,7 @@ Func CheckQueue($sText = "troop")
 	If $sText = "troop" Then
 		For $j = 0 To $eTroopCount - 1
 			If $g_aiQueueTroops[$j] > 0 Then
-				Setlog("   - " & NameOfTroop($j, $g_aiQueueTroops[$j] > 1 ? 1 : 0) & " x" & $g_aiQueueTroops[$j], $COLOR_SUCCESS)
+				Setlog("    - " & NameOfTroop($j, $g_aiQueueTroops[$j] > 1 ? 1 : 0) & " x" & $g_aiQueueTroops[$j])
 				$iTotalQueue += $g_aiQueueTroops[$j] * $g_aiTroopSpace[$j]
 			EndIf
 		Next
@@ -79,7 +79,7 @@ Func CheckQueue($sText = "troop")
 	ElseIf $sText = "spell" Then
 		For $j = 0 To $eSpellCount - 1
 			If $g_aiQueueSpells[$j] > 0 Then
-				Setlog("   - " & NameOfTroop($j + $eLSpell, $g_aiQueueSpells[$j] > 1 ? 1 : 0) & " x" & $g_aiQueueSpells[$j], $COLOR_SUCCESS)
+				Setlog("    - " & NameOfTroop($j + $eLSpell, $g_aiQueueSpells[$j] > 1 ? 1 : 0) & " x" & $g_aiQueueSpells[$j])
 				$iTotalQueue += $g_aiQueueSpells[$j] * $g_aiSpellSpace[$j]
 			EndIf
 		Next
