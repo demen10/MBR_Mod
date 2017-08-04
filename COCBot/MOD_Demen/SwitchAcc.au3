@@ -275,7 +275,7 @@ Func CheckSwitchAcc() ; Switch CoC Account with or without sleep combo - DEMEN
 
 	$bReachAttackLimit = ($aAttackedCountSwitch[$nCurProfile - 1] <= $aAttackedCountAcc[$nCurProfile - 1] - 2)
 
-	If $aProfileType[$nCurProfile - 1] = $eActive And _ArrayMax($g_aiTimeTrain) <= 0 And Not ($bReachAttackLimit) Then
+    If $aProfileType[$nCurProfile - 1] = $eActive And _ArrayMax($g_aiTimeTrain) <= 0 And Not ($bReachAttackLimit) And Not $g_bWaitForCCTroopSpell Then
 		Setlog("Army is ready, skip switching account")
 		If _Sleep(500) Then Return
 
@@ -534,10 +534,12 @@ Func SwitchFail_runBot()
 EndFunc   ;==>SwitchFail_runBot
 
 Func DisableGUI_AfterLoadNewProfile()
+	$g_bGUIControlDisabled = True
 	For $i = $g_hFirstControlToHide To $g_hLastControlToHide
 		If IsAlwaysEnabledControl($i) Then ContinueLoop
 		If $g_bNotifyPBEnable And $i = $g_hBtnNotifyDeleteMessages Then ContinueLoop ; exclude the DeleteAllMesages button when PushBullet is enabled
 		If BitAND(GUICtrlGetState($i), $GUI_ENABLE) Then GUICtrlSetState($i, $GUI_DISABLE)
 	Next
 	ControlEnable("","",$g_hCmbGUILanguage)
+	$g_bGUIControlDisabled = False
 EndFunc   ;==>DisableGUI_AfterLoadNewProfile

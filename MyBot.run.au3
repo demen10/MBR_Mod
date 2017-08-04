@@ -32,7 +32,7 @@
 Opt("MustDeclareVars", 1)
 
 Global $g_sBotVersion = "v7.2.2" ;~ Don't add more here, but below. Version can't be longer than vX.y.z because it is also use on Checkversion()
-Global $g_sModversion = "Demen_v4.5.0" ; <== Just Change This to Version Number
+Global $g_sModversion = "Demen_v4.5.1" ; <== Just Change This to Version Number
 Global $g_sBotTitle = "" ;~ Don't assign any title here, use Func UpdateBotTitle()
 Global $g_hFrmBot = 0 ; The main GUI window
 
@@ -910,7 +910,7 @@ Func Idle() ;Sequence that runs until Full Army
 
 		If $g_iCommandStop = -1 Then ; Check if closing bot/emulator while training and not in halt mode
 			If $ichkSwitchAcc = 1 Then ; SwitchAcc Demen
-				If $g_bWaitForCCTroopSpell Then
+                If $g_bWaitForCCTroopSpell And $ichkSmartSwitch = 1 Then
 					Setlog("Still waiting for CC troops/ spells, switching to another Account")
 					ForceSwitchAcc($eDonate)
 				Else
