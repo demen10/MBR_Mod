@@ -29,6 +29,10 @@ Func SaveConfig_SmartTrain()
 	_Ini_Add("SmartTrain", "FillArcher", $iFillArcher)
 	_Ini_Add("SmartTrain", "FillEQ", $ichkFillEQ)
 
+	; ExtendedAttackBar
+	_Ini_Add("attack", "ExtendedAttackBarDB", $g_abChkExtendedAttackBar[$DB] ? 1 : 0)
+	_Ini_Add("attack", "ExtendedAttackBarLB", $g_abChkExtendedAttackBar[$LB] ? 1 : 0)
+
 EndFunc   ;==>SaveConfig_SmartTrain
 
 Func SaveConfig_SwitchAcc()

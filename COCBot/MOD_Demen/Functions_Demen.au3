@@ -30,3 +30,5 @@
 
 ; HeroLabStatus
 #include "UpdateLabStatus.au3"
+
+#include "ExtendedAttackBarCheck.au3"

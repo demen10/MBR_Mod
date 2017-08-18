@@ -174,4 +174,12 @@ Func CreateAttackSearchActiveBaseAttack()
    _GUICtrlComboBox_SetCurSel($g_hCmbTHSnipeBeforeLBScript,_GUICtrlComboBox_FindStringExact($g_hCmbTHSnipeBeforeLBScript, "Bam"))
 	   GUICtrlCreateGroup("", -99, -99, 1, 1)
 
+	; ExtendedAttackBar - Demen
+	Local $x = 10, $y = 352
+	GUICtrlCreateGroup("Extended attack troop bar",  $x - 5, $y - 20, 145, 40,$SS_CENTER)
+		$g_hChkExtendedAttackBarLB = GUICtrlCreateCheckbox("Use troops at slot 11+", $x, $y - 5, -1, -1)
+			_GUICtrlSetTip(-1, "Drag the attack troop bar for more troops, spells and CC spells")
+			GUICtrlSetState(-1, $GUI_DISABLE)
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	; ExtendedAttackBar - Demen
 EndFunc
