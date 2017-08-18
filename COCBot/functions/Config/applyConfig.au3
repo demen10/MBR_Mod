@@ -1137,7 +1137,6 @@ Func ApplyConfig_600_29_DB($TypeReadSave)
 			GUICtrlSetData($g_hTxtTHSnipeBeforeDBTiles, $g_iTHSnipeBeforeTiles[$DB])
 			LoadDBSnipeAttacks() ; recreate combo box values
 			_GUICtrlComboBox_SetCurSel($g_hCmbTHSnipeBeforeDBScript, _GUICtrlComboBox_FindStringExact($g_hCmbTHSnipeBeforeDBScript, $g_iTHSnipeBeforeScript[$DB]))
-			cmbStandardDropSidesDB()	; FourFinger Classic - Demen
 		Case "Save"
 			$g_aiAttackAlgorithm[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbDBAlgorithm)
 			$g_aiAttackTroopSelection[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbDBSelectTroop)
@@ -1183,6 +1182,7 @@ Func ApplyConfig_600_29_DB_Standard($TypeReadSave)
 			GUICtrlSetState($g_hChkAttackNearGoldMineDB, $g_abAttackStdSmartNearCollectors[$DB][0] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearElixirCollectorDB, $g_abAttackStdSmartNearCollectors[$DB][1] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearDarkElixirDrillDB, $g_abAttackStdSmartNearCollectors[$DB][2] ? $GUI_CHECKED : $GUI_UNCHECKED)
+			cmbStandardDropSidesDB()	; FourFinger Classic - Demen
 		Case "Save"
 			$g_aiAttackStdDropOrder[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropOrderDB)
 			$g_aiAttackStdDropSides[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropSidesDB)
@@ -1384,7 +1384,6 @@ Func ApplyConfig_600_29_LB($TypeReadSave)
 			GUICtrlSetData($g_hTxtTHSnipeBeforeLBTiles, $g_iTHSnipeBeforeTiles[$LB])
 			LoadABSnipeAttacks() ; recreate combo box values
 			_GUICtrlComboBox_SetCurSel($g_hCmbTHSnipeBeforeLBScript, _GUICtrlComboBox_FindStringExact($g_hCmbTHSnipeBeforeLBScript, $g_iTHSnipeBeforeScript[$LB]))
-			cmbStandardDropSidesAB()	; FourFinger Classic - Demen
 		Case "Save"
 			$g_aiAttackAlgorithm[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbABAlgorithm)
 			$g_aiAttackTroopSelection[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbABSelectTroop)
@@ -1429,6 +1428,7 @@ Func ApplyConfig_600_29_LB_Standard($TypeReadSave)
 			GUICtrlSetState($g_hChkAttackNearGoldMineAB, $g_abAttackStdSmartNearCollectors[$LB][0] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearElixirCollectorAB, $g_abAttackStdSmartNearCollectors[$LB][1] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearDarkElixirDrillAB, $g_abAttackStdSmartNearCollectors[$LB][2] ? $GUI_CHECKED : $GUI_UNCHECKED)
+			cmbStandardDropSidesAB()	; FourFinger Classic - Demen
 		Case "Save"
 			$g_aiAttackStdDropOrder[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropOrderAB)
 			$g_aiAttackStdDropSides[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropSidesAB)
