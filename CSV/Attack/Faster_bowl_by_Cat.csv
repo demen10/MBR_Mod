@@ -36,14 +36,14 @@ DROP  |N          |1          |1          |Queen      |0          |0          |2
 DROP  |N          |1          |1          |Warden     |0          |0          |66-133     |           |,
 DROP  |V-Y        |1-6        |4          |Heal       |0          |0          |16-33      |           |,
 DROP  |V-Y        |1-6        |8          |Heal       |0          |0          |16-33      |           |,
-WAIT  |2000-2500  |           |           |           |           |           |           |           |,
 DROP  |I          |2-3        |1          |RSpell     |0          |0          |33-66      |           |,
 DROP  |J          |3-4        |1          |RSpell     |0          |0          |1000-1600  |           |,was 2-3
+WAIT  |2000-2500  |           |           |           |           |           |           |           |,
 DROP  |K          |1          |2          |PSpell     |0          |0          |66-100     |           |,was 1 (make sure to use all 2 poison)
 DROP  |K          |1          |1          |RSpell     |0          |0          |66-100     |           |,
 WAIT  |2000-2500  |           |           |           |           |           |           |           |,wait 4" more to activate GW ability
 RECALC|           |           |           |           |           |           |           |           |,recalc to use CC spell
-DROP  |L          |4          |1          |RSpell     |0          |0          |66-100     |           |,drop CC rage
+DROP  |L          |3          |1          |RSpell     |0          |0          |66-100     |           |,drop CC rage
 DROP  |L          |4          |1          |HSpell     |0          |0          |66-100     |           |,drop CC heal (if any)
 WAIT  |4000-6000  |           |           |           |           |           |           |           |,
 DROP  |N-A        |1          |20         |Remain     |0          |0          |100-500    |           |
