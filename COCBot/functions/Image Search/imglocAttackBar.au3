@@ -37,7 +37,7 @@ Func AttackBarCheck($Remaining = False)
 		$CheckSlotwHero = False
 	EndIf
 
-	If $g_abChkExtendedAttackBar[$g_iMatchMode] And $g_bDraggedAttackBar Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag for the 2nd Recalc - ExtendedAttackBar - Demen
+	If $g_bDraggedAttackBar Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag for the 2nd Recalc - ExtendedAttackBar - Demen
 
 	; Reset to level one the Spells level
 	$g_iLSpellLevel = 1
@@ -196,16 +196,18 @@ Func AttackBarCheck($Remaining = False)
 	EndIf
 
 	; Drag & checking ExtendedAttackBar - Demen
-	If $g_abChkExtendedAttackBar[$g_iMatchMode] And $CheckSlot12 And IsArray($aResult) Then
-		If $g_iDebugSetlog = 1 Then Setlog("$strinToReturn 1st page = " & $strinToReturn)
-		Local $aTroop1stPage[UBound($aResult)]
-		For $i = 0 To UBound($aResult) - 1
-			$aTroop1stPage[$i] = $aResult[$i][0]
-		Next
-		DragAttackBar()
-		$strinToReturn &= ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
-		If Not $Remaining Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag
-	EndIf	; Drag & checking ExtendedAttackBar - Demen
+	If $g_iMatchMode <= $LB Then
+		If $g_abChkExtendedAttackBar[$g_iMatchMode] And $CheckSlot12 And IsArray($aResult) Then
+			If $g_iDebugSetlog = 1 Then Setlog("$strinToReturn 1st page = " & $strinToReturn)
+			Local $aTroop1stPage[UBound($aResult)]
+			For $i = 0 To UBound($aResult) - 1
+				$aTroop1stPage[$i] = $aResult[$i][0]
+			Next
+			DragAttackBar()
+			$strinToReturn &= ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
+			If Not $Remaining Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag
+		EndIf	; Drag & checking ExtendedAttackBar - Demen
+	EndIf
 
 	$strinToReturn = StringTrimLeft($strinToReturn, 1)
 

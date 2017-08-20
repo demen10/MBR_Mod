@@ -61,9 +61,11 @@ Func PrepareAttack($pMatchMode, $Remaining = False) ;Assigns troops
 	Local $aTemp[12][3]
 
 	; ExtendedAttackBar Demen
-	If $g_abChkExtendedAttackBar[$pMatchMode] Then
-		ReDim $aTemp[22][3]
-		ReDim $g_avAttackTroops[22][2]
+	If $g_iMatchMode <= $LB Then
+		If $g_abChkExtendedAttackBar[$pMatchMode] Then
+			ReDim $aTemp[22][3]
+			ReDim $g_avAttackTroops[22][2]
+		EndIf
 	EndIf
 	; ExtendedAttackBar Demen
 

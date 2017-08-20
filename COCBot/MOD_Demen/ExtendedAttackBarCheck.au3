@@ -151,12 +151,12 @@ Func DragAttackBar($iTotalSlot = 20, $bBack = False)
 	If $bBack = False Then
 		If $g_iDebugSetlog Then Setlog("Dragging attack troop bar to 2nd page. Distance = " & $iTotalSlot - 9 & " slots")
 		ClickDrag(25 + 73 * ($iTotalSlot - 9), 660, 25, 660, 1000)
-		If _Sleep(1500) Then Return
+		If _Sleep(1000 + $iTotalSlot * 25) Then Return
 		$bAlreadyDrag = True
 	Else
 		If $g_iDebugSetlog Then Setlog("Dragging attack troop bar back to 1st page. Distance = " & $iTotalSlot - 9 & " slots")
 		ClickDrag(25, 660, 25 + 73 * ($iTotalSlot - 9), 660, 1000)
-		If _Sleep(1000) Then Return
+		If _Sleep(800 + $iTotalSlot * 25) Then Return
 		$bAlreadyDrag = False
 	EndIf
 	$g_bDraggedAttackBar = $bAlreadyDrag
