@@ -36,6 +36,7 @@ Global $bReMatchAcc = False
 Global $aTimerStart[8], $aTimerEnd[8]
 Global $aRemainTrainTime[8], $aUpdateRemainTrainTime[8], $nMinRemainTrain
 Global $aLocateAccConfig[8], $aAccPosY[8]
+Global $g_iTrainTimeToSkip = 0
 
 ; SmartTrain - Demen
 Global $g_bQuickTrainArmy[3] = [True, False, False] ; QuickTrainCombo (Checkbox)

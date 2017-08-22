@@ -160,5 +160,6 @@ Func DragAttackBar($iTotalSlot = 20, $bBack = False)
 		$bAlreadyDrag = False
 	EndIf
 	$g_bDraggedAttackBar = $bAlreadyDrag
+	$g_iCSVLastTroopPositionDropTroopFromINI = -1 ; after drag attack bar, need to clear last troop selected
 	Return $bAlreadyDrag
 EndFunc   ;==>DragAttackBar
