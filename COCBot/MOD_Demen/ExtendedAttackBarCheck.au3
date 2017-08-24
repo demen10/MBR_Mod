@@ -63,8 +63,26 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 				If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
 				;;;;;;;; If exist Castle Spell ;;;;;;;
 				If UBound($aCoords) > 1 And StringInStr($aResult[$i][0], "Spell") <> 0 Then
-					$iCCSpell = 1
+					$iCCSpell += 1
 					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " detected twice!")
+
+					If UBound($aCoords) > 2 Then
+						$iCCSpell = 2
+						If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " detected 3rd time!")
+						Local $aCoordsSplit3 = StringSplit($aCoords[2], ",", $STR_NOCOUNT)
+						If UBound($aCoordsSplit3) = 2 Then
+							If $aCoordsSplit3[0] < $aCoordsSplit[0] Then
+								$aCoordArray[0][0] = $aCoordsSplit3[0] ; X coord.
+								$aCoordArray[0][1] = $aCoordsSplit3[1] ; Y coord.
+								If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1], $COLOR_RED)
+								$aCoordsSplit[0] = $aCoordsSplit3[0]
+							EndIf
+						Else
+							$aCoordArray[0][0] = -1
+							$aCoordArray[0][1] = -1
+						EndIf
+					EndIf
+
 					Local $aCoordsSplit2 = StringSplit($aCoords[1], ",", $STR_NOCOUNT)
 					If UBound($aCoordsSplit2) = 2 Then
 						; Store the coords into a two dimensional array
