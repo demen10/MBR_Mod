@@ -61,40 +61,36 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 					$aCoordArray[0][1] = -1
 				EndIf
 				If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
-				;;;;;;;; If exist Castle Spell ;;;;;;;
+				;;;;;;;; If exist Castle Spell ;;;;;;; - Fix case 2 CC Spells (Demen)
 				If UBound($aCoords) > 1 And StringInStr($aResult[$i][0], "Spell") <> 0 Then
-					$iCCSpell += 1
-					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " detected twice!")
+					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " x" & UBound($aCoords) & " multiple detected: " & $aValue)
 
-					If UBound($aCoords) > 2 Then
-						$iCCSpell = 2
-						If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " detected 3rd time!")
-						Local $aCoordsSplit3 = StringSplit($aCoords[2], ",", $STR_NOCOUNT)
-						If UBound($aCoordsSplit3) = 2 Then
-							If $aCoordsSplit3[0] < $aCoordsSplit[0] Then
-								$aCoordArray[0][0] = $aCoordsSplit3[0] ; X coord.
-								$aCoordArray[0][1] = $aCoordsSplit3[1] ; Y coord.
-								If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1], $COLOR_RED)
-								$aCoordsSplit[0] = $aCoordsSplit3[0]
-							EndIf
+					Local $aTempX[UBound($aCoords)], $aTempY[UBound($aCoords)]
+					For $j = 0 To UBound($aCoords) - 1
+						Local $aTempXY = StringSplit($aCoords[$j], ",", $STR_NOCOUNT)
+						If UBound($aTempXY) = 2 Then
+							$aTempX[$j] = Number($aTempXY[0])
+							$aTempY[$j] = Number($aTempXY[1])
 						Else
-							$aCoordArray[0][0] = -1
-							$aCoordArray[0][1] = -1
+							_ArrayDelete($aTempX, $j)
+							_ArrayDelete($aTempY, $j)
 						EndIf
-					EndIf
-
-					Local $aCoordsSplit2 = StringSplit($aCoords[1], ",", $STR_NOCOUNT)
-					If UBound($aCoordsSplit2) = 2 Then
-						; Store the coords into a two dimensional array
-						If $aCoordsSplit2[0] < $aCoordsSplit[0] Then
-							$aCoordArray[0][0] = $aCoordsSplit2[0] ; X coord.
-							$aCoordArray[0][1] = $aCoordsSplit2[1] ; Y coord.
-							If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1], $COLOR_RED)
-						EndIf
+					Next
+					If IsArray($aTempX) And IsArray($aTempY) Then
+						$aCoordArray[0][0] = _ArrayMin($aTempX) ; X coord.
+						$aCoordArray[0][1] = $aTempY[_ArrayMinIndex($aTempX)] ; Y coord.
 					Else
 						$aCoordArray[0][0] = -1
 						$aCoordArray[0][1] = -1
 					EndIf
+
+					_ArraySort($aTempX) ; Fix detect 2 Haste Spell for 1 slot - Demen
+					If UBound($aTempX) > 1 Then
+						For $j = 1 To UBound($aTempX) - 1
+							If Abs($aTempX[$j] - $aTempX[$j-1]) >= 30 Then $iCCSpell += 1
+						Next
+					EndIf
+
 				EndIf
 				; Store the coords array as a sub-array
 				$aResult[$i][1] = Number($aCoordArray[0][0])
@@ -149,11 +145,14 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 					$strinToReturn &= "|" & TroopIndexLookup($aResult[$i][0]) & "#" & $aResult[$i][4] & "#" & $aResult[$i][3]
 				EndIf
 			Next
+
+			If $iCCSpell > 2 Then $iCCSpell = 2
 			If Not $Remaining Then
 				$g_iTotalAttackSlot = $iSlotExtended + 10 + $iCCSpell
 			Else
 				$g_iTotalAttackSlot = _Max($g_iTotalAttackSlot, $iSlotExtended + 10)
 			EndIf
+			If $g_iDebugSetlog = 1 Then Setlog("$iSlotExtended / $iCCSpell / $g_iTotalAttackSlot: " & $iSlotExtended & "/" & $iCCSpell & "/" & $g_iTotalAttackSlot)
 
 		EndIf
 	EndIf

@@ -407,6 +407,18 @@ Func IsFullClanCastleSpells($bReturnOnly = False)
 
 	ElseIf Not $bCCSpellFull And (($g_abAttackTypeEnable[$DB] And $g_abSearchCastleSpellsWaitEnable[$DB]) Or ($g_abAttackTypeEnable[$LB] And $g_abSearchCastleSpellsWaitEnable[$LB])) Then
 
+        If $g_iCurrentCCSpell = 1 Then	; Force checking CC spell when not full - Demen
+            If $g_iDebugSetlogTrain Then Setlog("CC Spell not full. But there is 1 spell donated, check it anyway", $COLOR_DEBUG)
+            $sCurCCSpell1 = GetCurCCSpell(1)
+            $aShouldRemove = CompareCCSpellWithGUI($sCurCCSpell1, $sCurCCSpell2, $g_iTotalCCSpell)
+            If $g_iDebugSetlogTrain Then Setlog("Slot 1 to remove: " & $aShouldRemove[0], $COLOR_DEBUG)
+            If $aShouldRemove[0] > 0 Then
+                SetLog("Removing unwanted Clancastle Spell!", $COLOR_INFO)
+                RemoveCastleSpell($aShouldRemove)
+                If _Sleep(1000) Then Return
+            EndIf
+        EndIf
+
 		$g_bCanRequestCC = _ColorCheck(_GetPixelColor($aRequestTroopsAO[0], $aRequestTroopsAO[1], True), Hex($aRequestTroopsAO[2], 6), $aRequestTroopsAO[5])
 		If $g_bCanRequestCC Then
 			$rColCheckFullCCTroops = _ColorCheck(_GetPixelColor(24, 470, True), Hex(0x93C230, 6), 30)
@@ -567,7 +579,7 @@ Func CompareCCSpellWithGUI($CCSpell1, $CCSpell2, $CastleCapacity)
 						$aShouldRemove[0] = $CCSpell1[0][3]
 					EndIf
 
-					If $CastleCapacity = 2 and $g_aiSearchCastleSpellsWaitRegular[$Mode] > 5 Then
+                    If $CastleCapacity = 2 and $g_aiSearchCastleSpellsWaitRegular[$Mode] > 5 And $CCSpell2 <> "" Then ; Fix bot crash - Demen
 						If $sCCSpell2 <> $CCSpell2[0][0] And $sCCSpell2 <> "Any" Then
 							$aShouldRemove[1] = $CCSpell2[0][3]
 						EndIf
@@ -596,12 +608,12 @@ EndFunc   ;==>CompareCCSpellWithGUI
 Func GetCurCCSpell($iSpellSlot = 1)
 	If Not $g_bRunState Then Return
 	Local $directory = @ScriptDir & "\imgxml\ArmySpells"
-	Local $x1 = 508, $x2 = 587, $y1 = 500, $y2 = 570
+	Local $x1 = 508, $x2 = 615, $y1 = 500, $y2 = 570 ; Fix when spell stays on the middle sometimes (Demen)
 
 	If $iSpellSlot = 1 Then
 		;Nothing
 	ElseIf $iSpellSlot = 2 Then
-		$x1 = 587
+		$x1 = 600 ; Fix when spell stays on the middle sometimes (Demen)
 		$x2 = 660
 	Else
 		If $g_iDebugSetlog = 1 Then SetLog("GetCurCCSpell() called with the wrong argument!", $COLOR_ERROR)

@@ -85,33 +85,24 @@ Func AttackBarCheck($Remaining = False)
 					$aCoordArray[0][1] = -1
 				EndIf
 				If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
-				;;;;;;;; If exist Castle Spell ;;;;;;;
+				;;;;;;;; If exist Castle Spell ;;;;;;; - Fix 2 cc spells (Demen)
 				If UBound($aCoords) > 1 And StringInStr($aResult[$i][0], "Spell") <> 0 Then
-					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " detected twice!")
+					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " x" & UBound($aCoords) & " multiple detected: " & $aValue)
 
-					If UBound($aCoords) > 2 Then
-						Local $aCoordsSplit3 = StringSplit($aCoords[2], ",", $STR_NOCOUNT)
-						If UBound($aCoordsSplit3) = 2 Then
-							If $aCoordsSplit3[0] < $aCoordsSplit[0] Then
-								$aCoordArray[0][0] = $aCoordsSplit3[0] ; X coord.
-								$aCoordArray[0][1] = $aCoordsSplit3[1] ; Y coord.
-								If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
-								$aCoordsSplit[0] = $aCoordsSplit3[0]
-							EndIf
+					Local $aTempX[UBound($aCoords)], $aTempY[UBound($aCoords)]
+					For $j = 0 To UBound($aCoords) - 1
+						Local $aTempXY = StringSplit($aCoords[$j], ",", $STR_NOCOUNT)
+						If UBound($aTempXY) = 2 Then
+							$aTempX[$j] = Number($aTempXY[0])
+							$aTempY[$j] = Number($aTempXY[1])
 						Else
-							$aCoordArray[0][0] = -1
-							$aCoordArray[0][1] = -1
+							_ArrayDelete($aTempX, $j)
+							_ArrayDelete($aTempY, $j)
 						EndIf
-					EndIf
-
-					Local $aCoordsSplit2 = StringSplit($aCoords[1], ",", $STR_NOCOUNT)
-					If UBound($aCoordsSplit2) = 2 Then
-						; Store the coords into a two dimensional array
-						If $aCoordsSplit2[0] < $aCoordsSplit[0] Then
-							$aCoordArray[0][0] = $aCoordsSplit2[0] ; X coord.
-							$aCoordArray[0][1] = $aCoordsSplit2[1] ; Y coord.
-							If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
-						EndIf
+					Next
+					If IsArray($aTempX) And IsArray($aTempY) Then
+						$aCoordArray[0][0] = _ArrayMin($aTempX) ; X coord.
+						$aCoordArray[0][1] = $aTempY[_ArrayMinIndex($aTempX)] ; Y coord.
 					Else
 						$aCoordArray[0][0] = -1
 						$aCoordArray[0][1] = -1
@@ -180,7 +171,7 @@ Func AttackBarCheck($Remaining = False)
 						$aResult[$i][3] = -1
 						$aResult[$i][4] = -1
 					EndIf
-					If $aResult[$i][4] <= 10 Then ; ExtendedAttackBarCheck - Demen
+					If $aResult[$i][4] <= 10 Or Not $g_abChkExtendedAttackBar[$g_iMatchMode] Then ; ExtendedAttackBarCheck - Demen
 						$strinToReturn &= "|" & TroopIndexLookup($aResult[$i][0]) & "#" & $aResult[$i][4] & "#" & $aResult[$i][3]
 					EndIf
 				EndIf
