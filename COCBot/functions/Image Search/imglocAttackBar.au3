@@ -206,9 +206,10 @@ Func AttackBarCheck($Remaining = False)
 	If $g_iMatchMode <= $LB Then
 		If $g_abChkExtendedAttackBar[$g_iMatchMode] And $CheckSlot12 And IsArray($aResult) Then
 			If $g_iDebugSetlog = 1 Then Setlog("$strinToReturn 1st page = " & $strinToReturn)
-			Local $aTroop1stPage[UBound($aResult)]
+			Local $aTroop1stPage[UBound($aResult)][2] ; Troop Name & Slot
 			For $i = 0 To UBound($aResult) - 1
-				$aTroop1stPage[$i] = $aResult[$i][0]
+				$aTroop1stPage[$i][0] = $aResult[$i][0]
+				$aTroop1stPage[$i][1] = $aResult[$i][4]
 			Next
 			DragAttackBar()
 			$strinToReturn &= ExtendedAttackBarCheck($aTroop1stPage, $Remaining)

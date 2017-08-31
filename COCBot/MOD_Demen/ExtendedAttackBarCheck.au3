@@ -15,6 +15,8 @@
 
 Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 
+	If Not IsArray($aTroop1stPage) Then Return
+
 	Local $x = 0, $y = 659, $x1 = 853, $y1 = 698
 	Static $CheckSlotwHero2 = False
 	Local $iCCSpell = 0
@@ -106,6 +108,7 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 			Next
 
 			Local $iSlotExtended = 0
+
 			For $i = 0 To UBound($aResult) - 1
 				Local $Slottemp
 				If $aResult[$i][1] > 0 Then
@@ -113,11 +116,10 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 					If $g_iDebugSetlog = 1 Then SetLog("Detection : " & $aResult[$i][0] & "|x" & $aResult[$i][1] & "|y" & $aResult[$i][2], $COLOR_DEBUG) ;Debug
 
 					; Check if troop is already in 1st page
-					If IsArray($aTroop1stPage) Then
-						If _ArraySearch($aTroop1stPage, $aResult[$i][0]) <> -1 Then
-							If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " is already found in 1st page at Slot: " & _ArraySearch($aTroop1stPage, $aResult[$i][0]))
-							ContinueLoop
-						EndIf
+					Local $iDublicateSlot = _ArraySearch($aTroop1stPage, $aResult[$i][0])
+					If $iDublicateSlot <> -1 Then
+						If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " is already found in 1st page at Slot: " & $aTroop1stPage[$iDublicateSlot][1])
+						ContinueLoop
 					EndIf
 
 					$iSlotExtended += 1
@@ -145,13 +147,12 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 					$strinToReturn &= "|" & TroopIndexLookup($aResult[$i][0]) & "#" & $aResult[$i][4] & "#" & $aResult[$i][3]
 				EndIf
 			Next
-
-			If $iCCSpell > 2 Then $iCCSpell = 2
 			If Not $Remaining Then
-				$g_iTotalAttackSlot = $iSlotExtended + 10 + $iCCSpell
-			Else
-				$g_iTotalAttackSlot = _Max($g_iTotalAttackSlot, $iSlotExtended + 10)
+				Local $iTotalSlot1stPage = _ArrayMax($aTroop1stPage, 0, -1, -1, 1)
+				If $g_iDebugSetlog = 1 Then SetLog("$iTotalSlot1stPage : " & $iTotalSlot1stPage, $COLOR_DEBUG) ;Debug
+				$g_iTotalAttackSlot = $iSlotExtended + $iTotalSlot1stPage + $iCCSpell
 			EndIf
+
 			If $g_iDebugSetlog = 1 Then Setlog("$iSlotExtended / $iCCSpell / $g_iTotalAttackSlot: " & $iSlotExtended & "/" & $iCCSpell & "/" & $g_iTotalAttackSlot)
 
 		EndIf
