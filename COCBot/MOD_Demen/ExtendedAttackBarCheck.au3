@@ -116,7 +116,7 @@ Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 					If $g_iDebugSetlog = 1 Then SetLog("Detection : " & $aResult[$i][0] & "|x" & $aResult[$i][1] & "|y" & $aResult[$i][2], $COLOR_DEBUG) ;Debug
 
 					; Check if troop is already in 1st page
-					Local $iDublicateSlot = _ArraySearch($aTroop1stPage, $aResult[$i][0])
+					Local $iDublicateSlot = _ArraySearch($aTroop1stPage, $aResult[$i][0], 0, 0, 0, 0, 1, 0)
 					If $iDublicateSlot <> -1 Then
 						If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " is already found in 1st page at Slot: " & $aTroop1stPage[$iDublicateSlot][1])
 						ContinueLoop
