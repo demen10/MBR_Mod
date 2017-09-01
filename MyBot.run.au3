@@ -31,7 +31,7 @@
 ; Enforce variable declarations
 Opt("MustDeclareVars", 1)
 
-Global $g_sBotVersion = "v7.2.3" ;~ Don't add more here, but below. Version can't be longer than vX.y.z because it is also use on Checkversion()
+Global $g_sBotVersion = "v7.2.4" ;~ Don't add more here, but below. Version can't be longer than vX.y.z because it is also use on Checkversion()
 Global $g_sModversion = "Demen_v4.5.7" ; <== Just Change This to Version Number
 Global $g_sBotTitle = "" ;~ Don't assign any title here, use Func UpdateBotTitle()
 Global $g_hFrmBot = 0 ; The main GUI window
