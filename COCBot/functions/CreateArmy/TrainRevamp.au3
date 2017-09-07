@@ -1853,7 +1853,7 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 			;Setlog("$aResult: " & $aResult[$i][0] & "|" & $aResult[$i][1] & "|" & $aResult[$i][2] & "|" & $aResult[$i][3])
 		Next
 	EndIf
-	If $sArmyType = "CCSpells" OR "CCTroops" Then	; CheckCC Troops - Demen
+	If $sArmyType = "CCSpells" OR $sArmyType = "CCTroops" Then	; CheckCC Troops - Demen
 		For $i = 0 To UBound($aResult) - 1
 			$aResult[$i][3] = Number(getBarracksNewTroopQuantity(Slot($aResult[$i][1], "troop"), 498)) ; coc-newarmy
 		Next
