@@ -215,6 +215,7 @@ Func CheckIfArmyIsReady()
 	Local $bFullArmyCCSpells = False, $bFullArmyCCTroops = False
 	Local $iTotalSpellsToBrew = 0
 	Local $bFullArmyHero = False
+	$g_bWaitForCCTroopSpell = False ; reset for force switch when waiting cc - Demen
 
 	If Not OpenArmyWindow() Then Return
 	If _Sleep(250) Then Return
