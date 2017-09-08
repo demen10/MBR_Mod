@@ -649,6 +649,10 @@ Func runBot() ;Bot that runs everything in order
 			UpdateHeroStatus() ; Demen
 			UpdateLabStatus() ; Demen
 			CheckExistentArmy("CCTroops", True)
+			For $i  = 0 To $eTroopCount - 1
+				Setlog($g_asTroopNames[$i] & " = " & $g_aiCCTroopsExpected[$i])
+			Next
+
 			If $g_bOutOfGold = True And (Number($g_aiCurrentLoot[$eLootGold]) >= Number($g_iTxtRestartGold)) Then ; check if enough gold to begin searching again
 				$g_bOutOfGold = False ; reset out of gold flag
 				Setlog("Switching back to normal after no gold to search ...", $COLOR_SUCCESS)

@@ -60,3 +60,5 @@ Global $g_iTotalAttackSlot = 10, $g_bDraggedAttackBar = False ; flag if AttackBa
 
 ; CheckCC Troops
 Global $g_aiCCTroops[$eTroopCount] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Global $g_aiCCTroopsExpected[$eTroopCount] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Global $g_bChkCCTroops, $g_aiCmbCCTroopsExpect[3], $g_aiQtyCCTroopsExpect[3]

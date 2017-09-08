@@ -33,6 +33,20 @@ Func ReadConfig_SmartTrain()
 	IniReadS($g_abChkExtendedAttackBar[$DB], $g_sProfileConfigPath, "attack", "ExtendedAttackBarDB", False, "Bool")
 	IniReadS($g_abChkExtendedAttackBar[$LB], $g_sProfileConfigPath, "attack", "ExtendedAttackBarLB", False, "Bool")
 
+	; CheckCCTroops
+	IniReadS($g_bChkCCTroops, "CheckCC", "Enable", False, "Bool")
+	For $i = 0 To $eTroopCount - 1
+		$g_aiCCTroopsExpected[$i] = 0
+	Next
+	For $i = 0 To 2
+		IniReadS($g_aiCmbCCTroopsExpect[$i], "CheckCC", "Slot" & $i, -1, "int")
+		IniReadS($g_aiQtyCCTroopsExpect[$i], "CheckCC", "Qty" & $i, 0, "int")
+		If $g_aiCmbCCTroopsExpect[$i] > -1 And $g_aiCmbCCTroopsExpect[$i] < $eTroopCount Then
+			Local $j = $g_aiCmbCCTroopsExpect[$i]
+			$g_aiCCTroopsExpected[$j] += $g_aiQtyCCTroopsExpect[$i]
+		EndIf
+	Next
+
 EndFunc   ;==>ReadConfig_SmartTrain
 
 Func ReadConfig_SwitchAcc()
