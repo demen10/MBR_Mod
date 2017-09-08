@@ -39,7 +39,7 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			; CheckCCTroops
 			GUICtrlSetState($g_hGrpCheckTroopsCC, $g_bChkCCTroops ? $GUI_CHECKED : $GUI_UNCHECKED)
 			For $i = 0 To 2
-				_GUICtrlComboBox_SetCurSel($g_ahCmbCheckTroops, $g_aiCmbCCTroopsExpect($i))
+				_GUICtrlComboBox_SetCurSel($g_ahCmbCheckTroops, $g_aiCmbCCTroopsExpect[$i])
 			Next
 
 		Case "Save"
