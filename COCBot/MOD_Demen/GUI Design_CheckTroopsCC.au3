@@ -1,57 +1,34 @@
-#cs ----------------------------------------------------------------------------
+; #FUNCTION# ====================================================================================================================
+; Name ..........: GUI Design _ CheckTroopsCC
+; Description ...: This file contains the Sequence that runs all MBR Bot
+; Author ........: NguyenAnhHD, DEMEN
+; Modified ......:
+; Remarks .......: This file is part of MyBot, previously known as ClashGameBot. Copyright 2015-2016
+;                  MyBot is distributed under the terms of the GNU GPL
+; Related .......:
+; Link ..........: https://github.com/MyBotRun/MyBot/wiki
+; Example .......: No
+; ===============================================================================================================================
 
- AutoIt Version: 3.3.14.2
- Author:         myName
+Global $g_hChkTroopsCC = 0
+Global $g_ahPicCheckTroops[3] = [0, 0, 0], $g_ahPicCheckSpells[2] = [0, 0]
+Global $g_ahCmbCheckTroops[3] = [0, 0, 0], $g_ahCmbCheckSpells[2] = [0, 0]
+Global $g_ahTxtCheckTroops[3] = [0, 0, 0], $g_ahTxtCheckSpells[2] = [0, 0]
 
- Script Function:
-	Template AutoIt script.
+Local $sTroopText = _ArrayToString($g_asTroopNames)
+$sTroopText &= "|Any"
 
-#ce ----------------------------------------------------------------------------
-
-; Script Start - Add your code below here
-
-Global $g_hGrpCheckTroopsCC = 0
-Global $g_ahPicCheckTroops[3] = [0,0,0], $g_ahPicCheckSpells[2] = [0,0]
-Global $g_ahCmbCheckTroops[3] = [0,0,0], $g_ahCmbCheckSpells[2] = [0,0]
-Global $g_ahTxtCheckTroops[3] = [0,0,0], $g_ahTxtCheckSpells[2] = [0,0]
-
-Local $sTxtNothing = "Nothing"
-Local $sTxtBarbarians = "Barbarians"
-Local $sTxtArchers = "Archers"
-Local $sTxtGiants = "Giants"
-Local $sTxtGoblins = "Goblins"
-Local $sTxtWallBreakers = "Wall Breakers"
-Local $sTxtBalloons = "Balloons"
-Local $sTxtWizards = "Wizards"
-Local $sTxtHealers = "Healers"
-Local $sTxtDragons = "Dragons"
-Local $sTxtPekkas = "Pekkas"
-Local $sTxtMinions = "Minions"
-Local $sTxtHogRiders = "Hog Riders"
-Local $sTxtValkyries = "Valkyries"
-Local $sTxtGolems = "Golems"
-Local $sTxtWitches = "Witches"
-Local $sTxtLavaHounds = "Lava Hounds"
-Local $sTxtBowlers = "Bowlers"
-Local $sTxtBabyDragons = "Baby Dragons"
-Local $sTxtMiners = "Miners"
-
-Local $sTxtLightningSpells = "Lightning"
-Local $sTxtHealSpells = "Heal"
-Local $sTxtRageSpells = "Rage"
-Local $sTxtJumpSpells = "Jump"
-Local $sTxtFreezeSpells = "Freeze"
-Local $sTxtPoisonSpells = "Poison"
-Local $sTxtEarthquakeSpells = "EarthQuake"
-Local $sTxtHasteSpells = "Haste"
-Local $sTxtSkeletonSpells = "Skeleton"
+Local $asDonSpell = $g_asSpellNames
+_ArrayDelete($asDonSpell, 5) ; removing "Clone" as it does not fit for CC slots.
+Local $sSpellText = _ArrayToString($asDonSpell)
+$sSpellText &= "|Any"
 
 Global $g_aiTroopsIcons[20] = [$eIcnDonBarbarian, $eIcnDonArcher, $eIcnDonGiant, $eIcnDonGoblin, $eIcnDonWallBreaker, $eIcnDonBalloon, $eIcnDonWizard, $eIcnDonHealer, _
-						 $eIcnDonDragon, $eIcnDonPekka, $eIcnDonBabyDragon, $eIcnDonMiner, $eIcnDonMinion, $eIcnDonHogRider, $eIcnDonValkyrie, $eIcnDonGolem, _
-						 $eIcnDonWitch, $eIcnDonLavaHound, $eIcnDonBowler, $eIcnDonBlank]
+		$eIcnDonDragon, $eIcnDonPekka, $eIcnDonBabyDragon, $eIcnDonMiner, $eIcnDonMinion, $eIcnDonHogRider, $eIcnDonValkyrie, $eIcnDonGolem, _
+		$eIcnDonWitch, $eIcnDonLavaHound, $eIcnDonBowler, $eIcnDonBlank]
 
 Global $g_aiSpellsIcons[10] = [$eIcnLightSpell, $eIcnHealSpell, $eIcnRageSpell, $eIcnJumpSpell, $eIcnFreezeSpell, _
-						 $eIcnDonPoisonSpell, $eIcnDonEarthQuakeSpell, $eIcnDonHasteSpell, $eIcnDonSkeletonSpell, $eIcnDonBlank]
+		$eIcnDonPoisonSpell, $eIcnDonEarthQuakeSpell, $eIcnDonHasteSpell, $eIcnDonSkeletonSpell, $eIcnDonBlank]
 
 Func cmbCheckTroopsCC()
 	Local $Combo1 = _GUICtrlComboBox_GetCurSel($g_ahCmbCheckTroops[0])
@@ -70,66 +47,44 @@ Func cmbCheckSpellsCC()
 EndFunc   ;==>cmbCheckSpellsCC
 
 Func cmbCheckCC()
-	If GUICtrlRead($g_hGrpCheckTroopsCC) = $GUI_CHECKED Then
-		For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckSpells[1]
-			GUICtrlSetState($i, $GUI_SHOW)
+	If GUICtrlRead($g_hChkTroopsCC) = $GUI_CHECKED Then
+		For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckTroops[2]
 			GUICtrlSetState($i, $GUI_ENABLE)
 		Next
 	Else
-		For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckSpells[1]
+		For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckTroops[2]
 			GUICtrlSetState($i, $GUI_DISABLE)
-			GUICtrlSetState($i, $GUI_HIDE)
 		Next
 	EndIf
-EndFunc
+EndFunc   ;==>cmbCheckCC
 
 Func CheckTroopsCC()
 	Local $x = 100, $y = 80
-		$g_hGrpCheckTroopsCC = GUICtrlCreateCheckbox("Check Troops CC", $x, $y, -1, -1)
-			_GUICtrlSetTip(-1, "......")
-			GUICtrlSetOnEvent(-1, "cmbCheckCC")
-			$y += 25
-			$x -= 50
-			$g_ahPicCheckTroops[0] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonWizard, $x + 5, $y, 24, 24)
-			$g_ahCmbCheckTroops[0] = GUICtrlCreateCombo("", $x + 35, $y, 90, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-				GUICtrlSetData(-1, 	$sTxtBarbarians & "|" & $sTxtArchers & "|" & $sTxtGiants & "|" & $sTxtGoblins & "|" & $sTxtWallBreakers _
-									& "|" & $sTxtBalloons & "|" & $sTxtWizards & "|" & $sTxtHealers & "|" & $sTxtDragons & "|" & $sTxtPekkas _
-									& "|" & $sTxtBabyDragons & "|" & $sTxtMiners & "|" & $sTxtMinions & "|" & $sTxtHogRiders & "|" & $sTxtValkyries _
-									& "|" & $sTxtGolems & "|" & $sTxtWitches & "|" & $sTxtLavaHounds & "|" & $sTxtBowlers & "|" & $sTxtNothing, $sTxtWizards)
-				GUICtrlSetOnEvent(-1, "cmbCheckTroopsCC")
-			$g_ahTxtCheckTroops[0] = GUICtrlCreateInput("2", $x + 135, $y, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-				GUICtrlSetLimit(-1, 1)
-
-			$g_ahPicCheckTroops[1] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonArcher, $x + 5, $y + 25, 24, 24)
-			$g_ahCmbCheckTroops[1] = GUICtrlCreateCombo("", $x + 35, $y + 25, 90, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-				GUICtrlSetData(-1, $sTxtBarbarians & "|" & $sTxtArchers & "|" & $sTxtGiants & "|" & $sTxtGoblins & "|" & $sTxtWallBreakers & "|" & $sTxtBalloons & "|" & $sTxtWizards & "|" & $sTxtHealers & "|" & $sTxtDragons & "|" & $sTxtPekkas & "|" & $sTxtBabyDragons & "|" & $sTxtMiners & "|" & $sTxtMinions & "|" & $sTxtHogRiders & "|" & $sTxtValkyries & "|" & $sTxtGolems & "|" & $sTxtWitches & "|" & $sTxtLavaHounds & "|" & $sTxtBowlers & "|" & $sTxtNothing, $sTxtArchers)
-				GUICtrlSetOnEvent(-1, "cmbCheckTroopsCC")
-			$g_ahTxtCheckTroops[1] = GUICtrlCreateInput("3", $x + 135, $y + 25, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-				GUICtrlSetLimit(-1, 1)
-
-			$g_ahPicCheckTroops[2] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonBarbarian, $x + 5, $y + 50, 24, 24)
-			$g_ahCmbCheckTroops[2] = GUICtrlCreateCombo("", $x + 35, $y + 50, 90, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-				GUICtrlSetData(-1, $sTxtBarbarians & "|" & $sTxtArchers & "|" & $sTxtGiants & "|" & $sTxtGoblins & "|" & $sTxtWallBreakers & "|" & $sTxtBalloons & "|" & $sTxtWizards & "|" & $sTxtHealers & "|" & $sTxtDragons & "|" & $sTxtPekkas & "|" & $sTxtBabyDragons & "|" & $sTxtMiners & "|" & $sTxtMinions & "|" & $sTxtHogRiders & "|" & $sTxtValkyries & "|" & $sTxtGolems & "|" & $sTxtWitches & "|" & $sTxtLavaHounds & "|" & $sTxtBowlers & "|" & $sTxtNothing, $sTxtBarbarians)
-				GUICtrlSetOnEvent(-1, "cmbCheckTroopsCC")
-			$g_ahTxtCheckTroops[2] = GUICtrlCreateInput("1", $x + 135, $y + 50, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-				GUICtrlSetLimit(-1, 1)
-
-			$g_ahPicCheckSpells[0] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnLightSpell, $x + 180, $y, 24, 24)
-			$g_ahCmbCheckSpells[0] = GUICtrlCreateCombo("", $x + 210, $y, 80, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-				GUICtrlSetData(-1, $sTxtLightningSpells & "|" & $sTxtHealSpells & "|" & $sTxtRageSpells & "|" & $sTxtJumpSpells & "|" & $sTxtFreezeSpells & "|" & $sTxtPoisonSpells & "|" & $sTxtEarthquakeSpells & "|" & $sTxtHasteSpells & "|" & $sTxtSkeletonSpells & "|" & $sTxtNothing, $sTxtLightningSpells)
-				GUICtrlSetOnEvent(-1, "cmbCheckSpellsCC")
-			$g_ahTxtCheckSpells[0] = GUICtrlCreateInput("2", $x + 300, $y, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-				GUICtrlSetLimit(-1, 1)
-
-			$g_ahPicCheckSpells[1] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonHasteSpell, $x + 180, $y + 25, 24, 24)
-			$g_ahCmbCheckSpells[1] = GUICtrlCreateCombo("", $x + 210, $y + 25, 80, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-				GUICtrlSetData(-1, $sTxtLightningSpells & "|" & $sTxtHealSpells & "|" & $sTxtRageSpells & "|" & $sTxtJumpSpells & "|" & $sTxtFreezeSpells & "|" & $sTxtPoisonSpells & "|" & $sTxtEarthquakeSpells & "|" & $sTxtHasteSpells & "|" & $sTxtSkeletonSpells & "|" & $sTxtNothing, $sTxtHasteSpells)
-				GUICtrlSetOnEvent(-1, "cmbCheckSpellsCC")
-			$g_ahTxtCheckSpells[1] = GUICtrlCreateInput("3", $x + 300, $y + 25, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-				GUICtrlSetLimit(-1, 1)
-
-	For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckSpells[1]
-		GUICtrlSetState($i, $GUI_HIDE)
+	$g_hChkTroopsCC = GUICtrlCreateCheckbox("Check Troops CC", $x, $y, -1, -1)
+	_GUICtrlSetTip(-1, "......")
+	GUICtrlSetOnEvent(-1, "cmbCheckCC")
+	$y += 25
+	$x -= 50
+	For $i = 0 To 2
+		$g_ahPicCheckTroops[$i] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonBlank, $x + 5, $y + $i * 25, 24, 24)
+		$g_ahCmbCheckTroops[$i] = GUICtrlCreateCombo("", $x + 35, $y + $i * 25, 90, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+		GUICtrlSetData(-1, $sTroopText, "Any")
+		GUICtrlSetOnEvent(-1, "cmbCheckTroopsCC")
+		$g_ahTxtCheckTroops[$i] = GUICtrlCreateInput("0", $x + 135, $y + $i * 25, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+		GUICtrlSetLimit(-1, 1)
+#cs
+		If $i < 2 Then
+			$g_ahPicCheckSpells[$i] = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnDonBlank, $x + 180, $y + $i * 25, 24, 24)
+			$g_ahCmbCheckSpells[$i] = GUICtrlCreateCombo("", $x + 210, $y + $i * 25, 80, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+			GUICtrlSetData(-1, $sSpellText, "Any")
+			GUICtrlSetOnEvent(-1, "cmbCheckSpellsCC")
+			$g_ahTxtCheckSpells[$i] = GUICtrlCreateInput("0", $x + 300, $y + $i * 25, 30, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+			GUICtrlSetLimit(-1, 1)
+		EndIf
+#CE
+	Next
+	For $i = $g_ahPicCheckTroops[0] To $g_ahTxtCheckTroops[2]
+		GUICtrlSetState($i, $GUI_DISABLE)
 	Next
 
-EndFunc
+EndFunc   ;==>CheckTroopsCC

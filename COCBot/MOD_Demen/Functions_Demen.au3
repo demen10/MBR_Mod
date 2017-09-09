@@ -32,3 +32,5 @@
 #include "UpdateLabStatus.au3"
 
 #include "ExtendedAttackBarCheck.au3"
+
+#include "CheckCC.au3"

@@ -1614,13 +1614,6 @@ Func CheckExistentArmy($sArmyType = "", $bSetLog = True)
 		Local $x = 610, $y = 366, $x1 = 830, $y1 = 400
 	EndIf
 
-	; CheckCC Troops - Demen
-	If $sArmyType = "CCTroops" Then
-		ResetVariables("CCTroops")
-		Local $sImageDir = @ScriptDir & "\imgxml\ArmyTroops" ; "armytroops-bundle"
-		Local $x = 23, $y = 517, $x1 = 440, $y1 = 557
-	EndIf
-
 	Local $aSearchResult = SearchArmy($sImageDir, $x, $y, $x1, $y1, $sArmyType)
 
 	If UBound($aSearchResult) > 0 Then
@@ -1665,17 +1658,6 @@ Func CheckExistentArmy($sArmyType = "", $bSetLog = True)
 
 						$g_aiCurrentTroops[$iTroopIndex] += $aSearchResult[$i][3]
 						CanBeUsedToDropTrophies($iTroopIndex, $g_aiCurrentTroops[$iTroopIndex])
-
-					; CheckCC Troops - Demen
-					ElseIf $sArmyType = "CCTroops" Then
-						Local $iTroopIndex = TroopIndexLookup($aSearchResult[$i][0], "CheckExistentArmy#6")
-
-						If $bSetLog Then
-							Local $sTroopName = ($bIsPlural ? $g_asTroopNamesPlural[$iTroopIndex] : $g_asTroopNames[$iTroopIndex])
-							Setlog(" - " & $aSearchResult[$i][3] & " " & $sTroopName & " available in Clan Castle", $COLOR_GREEN)
-						EndIf
-
-						$g_aiCCTroops[$iTroopIndex] += $aSearchResult[$i][3]
 
 					Else
 						If $aSearchResult[$i][3] = 0 Then
@@ -1853,7 +1835,7 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 			;Setlog("$aResult: " & $aResult[$i][0] & "|" & $aResult[$i][1] & "|" & $aResult[$i][2] & "|" & $aResult[$i][3])
 		Next
 	EndIf
-	If $sArmyType = "CCSpells" OR $sArmyType = "CCTroops" Then	; CheckCC Troops - Demen
+	If $sArmyType = "CCSpells" Then
 		For $i = 0 To UBound($aResult) - 1
 			$aResult[$i][3] = Number(getBarracksNewTroopQuantity(Slot($aResult[$i][1], "troop"), 498)) ; coc-newarmy
 		Next
@@ -1992,7 +1974,6 @@ Func DeleteQueued($sArmyTypeQueued, $iOffsetQueued = 802)
 EndFunc   ;==>DeleteQueued
 
 Func Slot($x = 0, $sArmyType = "")
-	If $sArmyType = "CCTroops" Then $sArmyType = "troop"	; CheckCC Troops - Demen
 	If $g_bRunState = False Then Return
 	Switch $x
 		Case $x < 94
