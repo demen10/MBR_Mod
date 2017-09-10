@@ -10,7 +10,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 
-Func CheckCC()
+Func CheckCC($close = True)
 	Local $CheckTroop[2] = [0xCFCFC8, 15] ; the gray background
 	Local $directory = @ScriptDir & "\imgxml\ArmyTroops"
 	Local $aToRemove[6]
@@ -104,6 +104,6 @@ Func CheckCC()
 		SetLog("Unexpected CC Troops removed")
 		If _Sleep(200) Then Return
 	EndIf
-	ClickP($aAway, 2, 0)
+	If $close Then ClickP($aAway, 2, 0)
 
 EndFunc   ;==>CheckCC
