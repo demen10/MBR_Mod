@@ -47,7 +47,6 @@ Func addInfoToDebugImage(ByRef $hGraphic, ByRef $hPen, $fileName, $x, $y)
 EndFunc   ;==>addInfoToDebugImage
 
 Func captureDebugImage($aResult, $subDirectory)
-	If TestCapture() Then Return ; no debug images required when testing with button special things...
 	Local $coords
 
 	If IsArray($aResult) Then
