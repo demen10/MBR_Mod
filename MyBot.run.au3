@@ -1116,6 +1116,7 @@ Func _RunFunction($action)
 		Case "BoostWarden"
 			BoostWarden()
 		Case "RequestCC"
+			CheckCC() ; Demen
 			RequestCC()
 			If _Sleep($DELAYRUNBOT1) = False Then checkMainScreen(False)
 		Case "Laboratory"

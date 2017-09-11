@@ -17,3 +17,4 @@
 ; SwitchAcc_Demen_Style
 #include "GUI Design SwitchAcc.au3"
 #include "GUI Design ProfileStats.au3"
+#include "GUI Design_CheckTroopsCC.au3"

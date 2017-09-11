@@ -36,6 +36,15 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			GUICtrlSetState($g_hChkExtendedAttackBarDB, $g_abChkExtendedAttackBar[$DB] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkExtendedAttackBarLB, $g_abChkExtendedAttackBar[$LB] ? $GUI_CHECKED : $GUI_UNCHECKED)
 
+			; CheckCCTroops
+			GUICtrlSetState($g_hChkTroopsCC, $g_bChkCC ? $GUI_CHECKED : $GUI_UNCHECKED)
+			cmbCheckCC()
+			For $i = 0 To 2
+				_GUICtrlComboBox_SetCurSel($g_ahCmbCheckTroops[$i], $g_aiCmbCCTroopsExpect[$i])
+				GUICtrlSetData($g_ahTxtCheckTroops[$i], $g_aiQtyCCTroopsExpect[$i])
+			Next
+			cmbCheckTroopsCC()
+
 		Case "Save"
 			; 	QuickTrainCombo (Checkbox)
 			$g_bQuickTrainEnable = (GUICtrlRead($g_hChkUseQuickTrain) = $GUI_CHECKED)
@@ -54,6 +63,13 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			; ExtendedAttackBar
 			$g_abChkExtendedAttackBar[$DB] = GUICtrlRead($g_hChkExtendedAttackBarDB) = $GUI_CHECKED ? True : False
 			$g_abChkExtendedAttackBar[$LB] = GUICtrlRead($g_hChkExtendedAttackBarLB) = $GUI_CHECKED ? True : False
+
+			; CheckCCTroops
+			$g_bChkCC = GUICtrlRead($g_hChkTroopsCC) = $GUI_CHECKED ? True : False
+			For $i = 0 To 2
+				$g_aiCmbCCTroopsExpect[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCheckTroops[$i])
+				$g_aiQtyCCTroopsExpect[$i] = GUICtrlRead($g_ahTxtCheckTroops[$i])
+			Next
 
 	EndSwitch
 EndFunc   ;==>ApplyConfig_SmartTrain

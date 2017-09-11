@@ -33,6 +33,13 @@ Func SaveConfig_SmartTrain()
 	_Ini_Add("attack", "ExtendedAttackBarDB", $g_abChkExtendedAttackBar[$DB] ? 1 : 0)
 	_Ini_Add("attack", "ExtendedAttackBarLB", $g_abChkExtendedAttackBar[$LB] ? 1 : 0)
 
+	; CheckCCTroops
+	_Ini_Add("CheckCC", "Enable", $g_bChkCC ? 1 : 0)
+	For $i = 0 To 2
+		_Ini_Add("CheckCC", "Slot" & $i, $g_aiCmbCCTroopsExpect[$i])
+		_Ini_Add("CheckCC", "Qty" & $i, $g_aiQtyCCTroopsExpect[$i])
+	Next
+
 EndFunc   ;==>SaveConfig_SmartTrain
 
 Func SaveConfig_SwitchAcc()
