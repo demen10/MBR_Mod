@@ -38,7 +38,7 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 
 			; CheckCCTroops
 			GUICtrlSetState($g_hChkTroopsCC, $g_bChkCC ? $GUI_CHECKED : $GUI_UNCHECKED)
-			cmbCheckCC()
+			_GUICtrlComboBox_SetCurSel($g_hCmbCCTroopCapacity, $g_iCmbCastleCap)
 			For $i = 0 To 2
 				_GUICtrlComboBox_SetCurSel($g_ahCmbCheckTroops[$i], $g_aiCmbCCTroopsExpect[$i])
 				GUICtrlSetData($g_ahTxtCheckTroops[$i], $g_aiQtyCCTroopsExpect[$i])
@@ -66,6 +66,7 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 
 			; CheckCCTroops
 			$g_bChkCC = GUICtrlRead($g_hChkTroopsCC) = $GUI_CHECKED ? True : False
+			$g_iCmbCastleCap = _GUICtrlComboBox_GetCurSel($g_hCmbCCTroopCapacity)
 			For $i = 0 To 2
 				$g_aiCmbCCTroopsExpect[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCheckTroops[$i])
 				$g_aiQtyCCTroopsExpect[$i] = GUICtrlRead($g_ahTxtCheckTroops[$i])

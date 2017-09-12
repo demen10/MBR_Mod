@@ -35,6 +35,7 @@ Func ReadConfig_SmartTrain()
 
 	; CheckCCTroops
 	IniReadS($g_bChkCC, $g_sProfileConfigPath, "CheckCC", "Enable", False, "Bool")
+	IniReadS($g_iCmbCastleCap, $g_sProfileConfigPath, "CheckCC", "CmbCastleCap", 5, "Int")
 	For $i = 0 To $eTroopCount - 1
 		$g_aiCCTroopsExpected[$i] = 0
 	Next
