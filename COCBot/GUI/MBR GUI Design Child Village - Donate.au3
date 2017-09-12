@@ -108,8 +108,8 @@ Func CreateRequestSubTab()
 			GUICtrlSetState(-1, $GUI_DISABLE)
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("MBR GUI Design Child Village - Donate-CC", "TxtRequestCC_Info_01", "This text is used on your request for troops in the Clan chat."))
 
-		CheckTroopsCC()
-		$y += 100
+		CreateGUICheckCC() ; Demen
+		$y += 200 ; Demen
 
 		$x += 29 + 30
 		$y += 60
