@@ -46,7 +46,7 @@ Func ReadConfig_SmartTrain()
 		If $g_aiCmbCCTroopsExpect[$i] > -1 And $g_aiCmbCCTroopsExpect[$i] < $eTroopCount Then
 			Local $j = $g_aiCmbCCTroopsExpect[$i]
 			$g_aiCCTroopsExpected[$j] += $g_aiQtyCCTroopsExpect[$i]
-			$g_bChkCCTroops = True
+			If $g_bChkCC Then $g_bChkCCTroops = True
 		EndIf
 	Next
 
