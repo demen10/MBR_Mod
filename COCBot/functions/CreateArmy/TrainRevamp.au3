@@ -1894,6 +1894,9 @@ Func ResetVariables($sArmyType = "")
 			If Not $g_bRunState Then Return
 			$g_aiCCTroops[$i] = 0
 			If _Sleep($DELAYTRAIN6) Then Return ; '20' just to Pause action
+			If $i >= $eSpellCount Then ContinueLoop
+			$g_aiCCSpells[$i] = 0
+			If _Sleep($DELAYTRAIN6) Then Return ; '20' just to Pause action
 		Next
 	EndIf
 

@@ -35,10 +35,11 @@ Func SaveConfig_SmartTrain()
 
 	; CheckCCTroops
 	_Ini_Add("CheckCC", "Enable", $g_bChkCC ? 1 : 0)
-	_Ini_Add("CheckCC", "CmbCastleCap", $g_iCmbCastleCap)
-	For $i = 0 To 2
-		_Ini_Add("CheckCC", "Slot" & $i, $g_aiCmbCCTroopsExpect[$i])
-		_Ini_Add("CheckCC", "Qty" & $i, $g_aiQtyCCTroopsExpect[$i])
+	_Ini_Add("CheckCC", "Troop Capacity", $g_iCmbCastleCapacityT)
+	_Ini_Add("CheckCC", "Spell Capacity", $g_iCmbCastleCapacityS)
+	For $i = 0 To 4
+		_Ini_Add("CheckCC", "ExpectSlot" & $i, $g_aiCmbCCSlot[$i])
+		_Ini_Add("CheckCC", "ExpectQty" & $i, $g_aiTxtCCSlot[$i])
 	Next
 
 EndFunc   ;==>SaveConfig_SmartTrain

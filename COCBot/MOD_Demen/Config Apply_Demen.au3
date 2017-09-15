@@ -38,12 +38,13 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 
 			; CheckCCTroops
 			GUICtrlSetState($g_hChkTroopsCC, $g_bChkCC ? $GUI_CHECKED : $GUI_UNCHECKED)
-			_GUICtrlComboBox_SetCurSel($g_hCmbCCTroopCapacity, $g_iCmbCastleCap)
-			For $i = 0 To 2
-				_GUICtrlComboBox_SetCurSel($g_ahCmbCheckTroops[$i], $g_aiCmbCCTroopsExpect[$i])
-				GUICtrlSetData($g_ahTxtCheckTroops[$i], $g_aiQtyCCTroopsExpect[$i])
+			_GUICtrlComboBox_SetCurSel($g_hCmbCastleCapacityT, $g_iCmbCastleCapacityT)
+			_GUICtrlComboBox_SetCurSel($g_hCmbCastleCapacityS, $g_iCmbCastleCapacityS)
+			For $i = 0 To 4
+				_GUICtrlComboBox_SetCurSel($g_ahCmbCCSlot[$i], $g_aiCmbCCSlot[$i])
+				GUICtrlSetData($g_ahTxtCCSlot[$i], $g_aiTxtCCSlot[$i])
 			Next
-			cmbCheckTroopsCC()
+			GUIControlCheckCC()
 
 		Case "Save"
 			; 	QuickTrainCombo (Checkbox)
@@ -66,10 +67,11 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 
 			; CheckCCTroops
 			$g_bChkCC = GUICtrlRead($g_hChkTroopsCC) = $GUI_CHECKED ? True : False
-			$g_iCmbCastleCap = _GUICtrlComboBox_GetCurSel($g_hCmbCCTroopCapacity)
-			For $i = 0 To 2
-				$g_aiCmbCCTroopsExpect[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCheckTroops[$i])
-				$g_aiQtyCCTroopsExpect[$i] = GUICtrlRead($g_ahTxtCheckTroops[$i])
+			$g_iCmbCastleCapacityT = _GUICtrlComboBox_GetCurSel($g_hCmbCastleCapacityT)
+			$g_iCmbCastleCapacityS = _GUICtrlComboBox_GetCurSel($g_hCmbCastleCapacityS)
+			For $i = 0 To 4
+				$g_aiCmbCCSlot[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCCSlot[$i])
+				$g_aiTxtCCSlot[$i] = GUICtrlRead($g_ahTxtCCSlot[$i])
 			Next
 
 	EndSwitch

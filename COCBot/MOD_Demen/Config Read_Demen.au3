@@ -35,17 +35,29 @@ Func ReadConfig_SmartTrain()
 
 	; CheckCCTroops
 	IniReadS($g_bChkCC, $g_sProfileConfigPath, "CheckCC", "Enable", False, "Bool")
-	IniReadS($g_iCmbCastleCap, $g_sProfileConfigPath, "CheckCC", "CmbCastleCap", 5, "Int")
+	IniReadS($g_iCmbCastleCapacityT, $g_sProfileConfigPath, "CheckCC", "Troop Capacity", 5, "Int")
+	IniReadS($g_iCmbCastleCapacityS, $g_sProfileConfigPath, "CheckCC", "Spell Capacity", 1, "Int")
+
 	For $i = 0 To $eTroopCount - 1
 		$g_aiCCTroopsExpected[$i] = 0
+		If $i >= $eSpellCount Then ContinueLoop
+		$g_aiCCSpellsExpected[$i] = 0
 	Next
 	$g_bChkCCTroops = False
-	For $i = 0 To 2
-		IniReadS($g_aiCmbCCTroopsExpect[$i], $g_sProfileConfigPath, "CheckCC", "Slot" & $i, 19, "int")
-		IniReadS($g_aiQtyCCTroopsExpect[$i], $g_sProfileConfigPath, "CheckCC", "Qty" & $i, 0, "int")
-		If $g_aiCmbCCTroopsExpect[$i] > -1 And $g_aiCmbCCTroopsExpect[$i] < $eTroopCount Then
-			Local $j = $g_aiCmbCCTroopsExpect[$i]
-			$g_aiCCTroopsExpected[$j] += $g_aiQtyCCTroopsExpect[$i]
+
+	For $i = 0 To 4
+		Local $default = 19
+		If $i > 2 Then $default = 9
+		IniReadS($g_aiCmbCCSlot[$i], $g_sProfileConfigPath, "CheckCC", "ExpectSlot" & $i, $default, "int")
+		IniReadS($g_aiTxtCCSlot[$i], $g_sProfileConfigPath, "CheckCC", "ExpectQty" & $i, 0, "int")
+		If $g_aiCmbCCSlot[$i] > -1 And $g_aiCmbCCSlot[$i] < $default Then
+			Local $j = $g_aiCmbCCSlot[$i]
+			If $i <= 2 Then
+				$g_aiCCTroopsExpected[$j] += $g_aiTxtCCSlot[$i]
+			Else
+				If $j > $eSpellFreeze Then $j += 1 ; exclude Clone Spell
+				$g_aiCCSpellsExpected[$j] += $g_aiTxtCCSlot[$i]
+			EndIf
 			If $g_bChkCC Then $g_bChkCCTroops = True
 		EndIf
 	Next
