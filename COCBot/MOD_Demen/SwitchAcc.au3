@@ -19,7 +19,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 
 	$g_iNextAccount = -1
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & "accounts")
-	SetSwitchAccLog("Initiate SwitchAcc:" & $g_iTotalAcc + 1 & "acc")
+	SetSwitchAccLog("Initiating:" & $g_iTotalAcc + 1 & " acc")
 
 	For $i = 0 To $g_iTotalAcc
 		; listing all accounts
@@ -30,7 +30,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 			If $g_abDonateOnly[$i] = True Then $sBotType = "Donate"
 		EndIf
 		Setlog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
-		SetSwitchAccLog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
+		SetSwitchAccLog("  - Acc. " & $i + 1 & ": " & $sBotType)
 
 		; reset all timers
 		$g_aiTimerStart[$i] = 0
