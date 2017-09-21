@@ -29,6 +29,14 @@ Func setupProfileComboBox()
 	GUICtrlSetData($g_hCmbProfile, "", "")
 	; Set the new data of available profiles
 	GUICtrlSetData($g_hCmbProfile, $profileString, "<No Profiles>")
+
+	; SwitchAcc GUI Demen_SA_#9001
+	For $i = 0 To 7
+		GUICtrlSetData($g_ahCmbProfile[$i], "")
+		GUICtrlSetData($g_ahCmbProfile[$i], $profileString)
+		_GUICtrlComboBox_SetCurSel($g_ahCmbProfile[$i], 0)
+	Next
+
 EndFunc   ;==>setupProfileComboBox
 
 Func renameProfile()

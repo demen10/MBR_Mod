@@ -22,7 +22,7 @@ Func checkObstacles($bBuilderBase = False) ;Checks if something is in the way fo
 		Return True
 	EndIf
 
-    If _ColorCheck(_GetPixelColor(383, 405), Hex(0xF0BE70, 6), 20) Then	; SwitchAcc - DEMEN
+    If _ColorCheck(_GetPixelColor(383, 405), Hex(0xF0BE70, 6), 20) Then	; SwitchAcc - Demen_SA_#9001
 		SetLog("Found SwitchAcc Dialog")
 		PureClick(383, 405, 1, 0, "Click Cancel")
 	EndIf

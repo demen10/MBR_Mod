@@ -99,6 +99,8 @@ Func InitializeBot()
 
 	SetLogCentered(" BOT LOG ") ; Initial text for log
 
+	SetSwitchAccLog(_PadStringCenter(" SwitchAcc Log ", 25, "="), "", $COLOR_BLACK, "Lucida Console", 8, False) ; Demen_SA_#9001
+
 	; Debug Output of launch parameter
 	SetDebugLog("@AutoItExe: " & @AutoItExe)
 	SetDebugLog("@ScriptFullPath: " & @ScriptFullPath)
@@ -530,7 +532,7 @@ Func FinalInitialization(Const $sAI)
 	; InitializeVariables();initialize variables used in extrawindows
 	CheckVersion() ; check latest version on mybot.run site
 
-	If $ichkSwitchAcc = 1 Then btnUpdateProfile()	; update profiles & StatsProfile - SwitchAcc Demen
+	UpdateMultiStats() ; SwitchAcc - Demen_SA_#9001
 
 	; Remember time in Milliseconds bot launched
 	$g_iBotLaunchTime = __TimerDiff($g_hBotLaunchTime)
@@ -600,11 +602,11 @@ EndFunc   ;==>MainLoop
 
 Func runBot() ;Bot that runs everything in order
 
-	If $ichkSwitchAcc = 1 And $bReMatchAcc = True Then ; SwitchAcc Demen
-		$nCurProfile = _GUICtrlComboBox_GetCurSel($g_hCmbProfile) + 1
-		Setlog("Rematching Profile [" & $nCurProfile & "] - " & $ProfileList[$nCurProfile] & " (CoC Acc. " & $aMatchProfileAcc[$nCurProfile - 1] & ")")
-		SwitchCoCAcc()
-		$bReMatchAcc = False
+	; SwitchAcc Demen_SA_#9001
+	InitiateSwitchAcc()
+	If $g_bChkSwitchAcc And $g_bReMatchAcc Then
+		Setlog("Rematching Account [" & $g_iNextAccount + 1 & "] with Profile [" & GUICtrlRead($g_ahCmbProfile[$g_iNextAccount]) & "]")
+		SwitchCoCAcc($g_iNextAccount)
 	EndIf
 
 	Local $iWaitTime
@@ -723,17 +725,9 @@ Func runBot() ;Bot that runs everything in order
 				UpgradeWall()
 				If _Sleep($DELAYRUNBOT3) Then Return
 				If $g_bRestart = True Then ContinueLoop
-				If $ichkSwitchAcc = 1 And $aProfileType[$nCurProfile - 1] = $eDonate Then	; SwitchAcc Demen
-					If $eForceSwitch = $eDonate Then
-						Local $sSource = ""
-						If $iProfileBeforeForceSwitch > 0 Then $sSource = "SearchLimit"
-						ForceSwitchAcc($eForceSwitch, $sSource)
-					ElseIf $ichkForceStayDonate = 1 And MinRemainTrainAcc(False) > 1 Then
-						ForceSwitchAcc($eDonate, "StayDonate")	; stay on donate accounts until troops are ready in 1 minute
-					Else
-						checkSwitchAcc() ;  Switching to active account after donation
-					EndIf
-				EndIf																		; SwitchAcc Demen
+
+				If $g_bChkSwitchAcc And $g_abDonateOnly[$g_iCurAccount] Then checkSwitchAcc(); SwitchAcc Demen_SA_#9001
+
 				Idle()
 				;$g_bFullArmy1 = $g_bFullArmy
 				If _Sleep($DELAYRUNBOT3) Then Return
@@ -910,16 +904,8 @@ Func Idle() ;Sequence that runs until Full Army
 		If ($g_iCommandStop = 3 Or $g_iCommandStop = 0) And $g_bTrainEnabled = False Then ExitLoop ; If training is not enabled, run only 1 idle loop
 
 		If $g_iCommandStop = -1 Then ; Check if closing bot/emulator while training and not in halt mode
-			If $ichkSwitchAcc = 1 Then ; SwitchAcc Demen
-                If $g_bWaitForCCTroopSpell And $ichkSmartSwitch = 1 Then
-					Setlog("Still waiting for CC troops/ spells, switching to another Account")
-					ForceSwitchAcc($eDonate)
-				Else
-					checkSwitchAcc()
-				EndIf
-			Else
-				SmartWait4Train()
-			EndIf
+			If $g_bChkSwitchAcc Then checkSwitchAcc() ; SwitchAcc Demen_SA_#9001
+			SmartWait4Train()
 
 			If $g_bRestart = True Then ExitLoop ; if smart wait activated, exit to runbot in case user adjusted GUI or left emulator/bot in bad state
 		EndIf
@@ -933,17 +919,8 @@ Func AttackMain() ;Main control for attack functions
 	If IsSearchAttackEnabled() Then
 		If (IsSearchModeActive($DB) And checkCollectors(True, False)) Or IsSearchModeActive($LB) Or IsSearchModeActive($TS) Then
 
-			If $ichkSwitchAcc = 1 And $aAttackedCountSwitch[$nCurProfile-1] <= ($aAttackedCountAcc[$nCurProfile-1] - 2) Then
-				If UBound($aDonateProfile) > 0 Then
-					Setlog("This account has attacked twice in a row, switching to Donate Account")
-					ForceSwitchAcc($eDonate)
-				ElseIf MinRemainTrainAcc(False, $nCurProfile) <= 0 Then
-					Setlog("This account has attacked twice in a row, switching to Active Account")
-					ForceSwitchAcc($eActive)
-				Else
-					Setlog("This account has attacked twice in a row, but no other account is ready")
-				EndIf
-			EndIf ; SwitchAcc Demen
+			; SwitchAcc Demen_SA_#9001
+			If $g_bChkSwitchAcc And ($g_aiAttackedCountSwitch[$g_iCurAccount] <= $g_aiAttackedCountAcc[$g_iCurAccount] - 2) Then checkSwitchAcc()
 
 			If $g_bUseCCBalanced = True Then ;launch profilereport() only if option balance D/R it's activated
 				ProfileReport()
@@ -981,11 +958,9 @@ Func AttackMain() ;Main control for attack functions
 			$g_bIsSearchLimit = False
 			$g_bIsClientSyncError = False
 			$g_bQuickAttack = False
-			If $ichkSwitchAcc = 1 Then ; SwitchAcc Demen
-				checkSwitchAcc()
-			Else
-				SmartWait4Train()
-			EndIf
+			; SwitchAcc Demen_SA_#9001
+			If $g_bChkSwitchAcc Then checkSwitchAcc()
+			SmartWait4Train()
 		EndIf
 	Else
 		SetLog("Attacking Not Planned, Skipped..", $COLOR_WARNING)
@@ -1015,10 +990,6 @@ Func QuickAttack()
 	Local $quicklythsnipe = 0
 
 	getArmyCapacity(True, True)
-
-	If $ichkSwitchAcc = 1 Then	; No quick attack after ForceSwitch - SwitchAcc Demen
-		If $aProfileType[$nCurProfile - 1] <> $eActive Or $eForceSwitch <> $eNull Then Return False
-	EndIf
 
 	If ($g_aiAttackAlgorithm[$DB] = 2 And IsSearchModeActive($DB)) Or (IsSearchModeActive($TS)) Then
 		VillageReport()

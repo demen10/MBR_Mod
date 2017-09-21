@@ -220,9 +220,8 @@ Func SaveRegularConfig()
 	; <><><><> Bot / Stats <><><><>
 	; <<< nothing here >>>
 
-	; Demen Mod
-	SaveConfig_SwitchAcc()
-	SaveConfig_SmartTrain()
+	SaveConfig_SwitchAcc() ; Demen_SA_#9001
+	SaveConfig_Mod()
 
 	;SetDebugLog("saveConfig: Wrote " & $g_iIniLineCount & " ini lines.")
 	_Ini_Save($g_sProfileConfigPath)

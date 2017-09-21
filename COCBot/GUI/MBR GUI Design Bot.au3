@@ -23,33 +23,38 @@ Global $g_hGUI_BOT = 0
 #include "MBR GUI Design Child Bot - Stats.au3"
 
 Global $g_hGUI_BOT_TAB = 0, $g_hGUI_BOT_TAB_ITEM1 = 0, $g_hGUI_BOT_TAB_ITEM2 = 0, $g_hGUI_BOT_TAB_ITEM3 = 0, $g_hGUI_BOT_TAB_ITEM4 = 0, $g_hGUI_BOT_TAB_ITEM5 = 0
-Global $g_hGUI_BOT_TAB_ITEM6 = 0	; ProfileStats For SwitchAcc - Demen
+Global $g_hGUI_BOT_TAB_ITEM6 = 0 ; ProfileStats For SwitchAcc - Demen_SA_#9001
+Global $g_hGUI_LOG_SA ; Set SwitchAcc Log - Demen_SA_#9001
 
 Func CreateBotTab()
-   $g_hGUI_BOT = _GUICreate("", $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, $_GUI_CHILD_LEFT, $_GUI_CHILD_TOP, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hFrmBotEx)
-   ;GUISetBkColor($COLOR_WHITE, $g_hGUI_BOT)
+	$g_hGUI_BOT = _GUICreate("", $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, $_GUI_CHILD_LEFT, $_GUI_CHILD_TOP, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hFrmBotEx)
+	;GUISetBkColor($COLOR_WHITE, $g_hGUI_BOT)
 
-   $g_hGUI_STATS = _GUICreate("", $g_iSizeWGrpTab2, $g_iSizeHGrpTab2, 5, 25, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
+   $g_hGUI_LOG_SA = _GUICreate("", 200, 330, 240, 95, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT)
 
-   GUISwitch($g_hGUI_BOT)
-   $g_hGUI_BOT_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
-   $g_hGUI_BOT_TAB_ITEM1 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_01", "Options"))
-   CreateBotOptions()
-   $g_hGUI_BOT_TAB_ITEM2 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_02", "Android"))
-   CreateBotAndroid()
-   $g_hGUI_BOT_TAB_ITEM3 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_03", "Debug"))
-   CreateBotDebug()
-   $g_hGUI_BOT_TAB_ITEM4 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_04", "Profiles"))
-   CreateBotProfiles()		; Demen
-   CreateBotSwitchAcc()
-   $g_hGUI_BOT_TAB_ITEM5 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_05", "Stats"))
-   $g_hGUI_BOT_TAB_ITEM6 = GUICtrlCreateTabItem("Profile Stats")	; ProfileStats - SwitchAcc - Demen
-   ; This dummy is used in btnStart and btnStop to disable/enable all labels, text, buttons etc. on all tabs.
-   $g_hLastControlToHide = GUICtrlCreateDummy()
-   ReDim $g_aiControlPrevState[$g_hLastControlToHide + 1]
+	$g_hGUI_STATS = _GUICreate("", $g_iSizeWGrpTab2, $g_iSizeHGrpTab2, 5, 25, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
 
-   CreateProfileStats()		; ProfileStats - SwitchAcc - Demen
+	GUISwitch($g_hGUI_BOT)
+	$g_hGUI_BOT_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
+	$g_hGUI_BOT_TAB_ITEM1 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_01", "Options"))
+	CreateBotOptions()
+	$g_hGUI_BOT_TAB_ITEM2 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_02", "Android"))
+	CreateBotAndroid()
+	$g_hGUI_BOT_TAB_ITEM3 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_03", "Debug"))
+	CreateBotDebug()
+	$g_hGUI_BOT_TAB_ITEM4 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_04", "Profiles"))
+	CreateBotProfiles()
+	CreateBotSwitchAcc() ; SwitchAcc GUI Design - Demen_SA_#9001
+	$g_hGUI_BOT_TAB_ITEM5 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_05", "Stats"))
+	$g_hGUI_BOT_TAB_ITEM6 = GUICtrlCreateTabItem("Multi Stats") ; ProfileStats - SwitchAcc - Demen
 
-   CreateBotStats()
-   GUICtrlCreateTabItem("")
-EndFunc
+	; This dummy is used in btnStart and btnStop to disable/enable all labels, text, buttons etc. on all tabs.
+	$g_hLastControlToHide = GUICtrlCreateDummy()
+	ReDim $g_aiControlPrevState[$g_hLastControlToHide + 1]
+
+	CreateBotSwitchAccLog()  ; Set SwitchAcc Log - Demen_SA_#9001
+	CreateMultiStats() ; ProfileStats - SwitchAcc - Demen_SA_#9001
+
+	CreateBotStats()
+	GUICtrlCreateTabItem("")
+EndFunc   ;==>CreateBotTab

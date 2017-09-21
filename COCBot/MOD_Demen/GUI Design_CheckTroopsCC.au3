@@ -9,6 +9,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
 Global $g_hLblCastleCapacity = 0, $g_hCmbCastleCapacityT = 0, $g_hCmbCastleCapacityS = 0, $g_hChkTroopsCC = 0, $g_hLblWarningTextCheckCC = 0
 Global $g_ahPicCCSlot[5] = [0, 0, 0, 0, 0], $g_ahCmbCCSlot[5] = [0, 0, 0, 0, 0], $g_ahTxtCCSlot[5] = [0, 0, 0, 0, 0]

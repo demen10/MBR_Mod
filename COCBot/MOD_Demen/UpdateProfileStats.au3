@@ -13,55 +13,56 @@
 ; Example .......:
 ; ===============================================================================================================================
 
+; Demen_SA_#9001
 Func UpdateStatsForSwitchAcc()
 
 	For $i = 0 To 7
 		;village report
-		GUICtrlSetData($lblResultGoldNowAcc[$i], _NumberFormat($aGoldCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultElixirNowAcc[$i], _NumberFormat($aElixirCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultDeNowAcc[$i], _NumberFormat($aDarkCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultTrophyNowAcc[$i], _NumberFormat($aTrophyCurrentAcc[$i], True))
+		GUICtrlSetData($lblResultGoldNowAcc[$i], _NumberFormat($g_aiGoldCurrentAcc[$i], True))
+		GUICtrlSetData($lblResultElixirNowAcc[$i], _NumberFormat($g_aiElixirCurrentAcc[$i], True))
+		GUICtrlSetData($lblResultDeNowAcc[$i], _NumberFormat($g_aiDarkCurrentAcc[$i], True))
+		GUICtrlSetData($lblResultTrophyNowAcc[$i], _NumberFormat($g_aiTrophyCurrentAcc[$i], True))
 
-		If $aGemAmountAcc[$i] < 10000 Then
-			GUICtrlSetData($lblResultGemNowAcc[$i], _NumberFormat($aGemAmountAcc[$i], True))
+		If $g_aiGemAmountAcc[$i] < 10000 Then
+			GUICtrlSetData($lblResultGemNowAcc[$i], _NumberFormat($g_aiGemAmountAcc[$i], True))
 		Else
-			GUICtrlSetData($lblResultGemNowAcc[$i], Round($aGemAmountAcc[$i]/1000,1) & " K")
+			GUICtrlSetData($lblResultGemNowAcc[$i], Round($g_aiGemAmountAcc[$i]/1000,1) & " K")
 		EndIf
 
-		GUICtrlSetData($lblResultBuilderNowAcc[$i], $aFreeBuilderCountAcc[$i] & "/" & $aTotalBuilderCountAcc[$i])
+		GUICtrlSetData($lblResultBuilderNowAcc[$i], $g_aiFreeBuilderCountAcc[$i] & "/" & $g_aiTotalBuilderCountAcc[$i])
 
 		; gain stats
-		GUICtrlSetData($lblHourlyStatsGoldAcc[$i], _NumberFormat(Round($aGoldTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
-		GUICtrlSetData($lblHourlyStatsElixirAcc[$i], _NumberFormat(Round($aElixirTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
-		GUICtrlSetData($lblHourlyStatsDarkAcc[$i], _NumberFormat(Round($aDarkTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
-		GUICtrlSetData($lblHourlyStatsTrophyAcc[$i], _NumberFormat(Round($aTrophyLootAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
-		If $aAttackedCountAcc[$i] < 10000 Then
-			GUICtrlSetData($lblResultAttacked[$i], $aAttackedCountAcc[$i])
+		GUICtrlSetData($lblHourlyStatsGoldAcc[$i], _NumberFormat(Round($g_aiGoldTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
+		GUICtrlSetData($lblHourlyStatsElixirAcc[$i], _NumberFormat(Round($g_aiElixirTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
+		GUICtrlSetData($lblHourlyStatsDarkAcc[$i], _NumberFormat(Round($g_aiDarkTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+		GUICtrlSetData($lblHourlyStatsTrophyAcc[$i], _NumberFormat(Round($g_aiTrophyLootAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+		If $g_aiAttackedCountAcc[$i] < 10000 Then
+			GUICtrlSetData($lblResultAttacked[$i], $g_aiAttackedCountAcc[$i])
 		Else
-			GUICtrlSetData($lblResultAttacked[$i], Round($aAttackedCountAcc[$i]/1000,1) & " K")
+			GUICtrlSetData($lblResultAttacked[$i], Round($g_aiAttackedCountAcc[$i]/1000,1) & " K")
 		EndIf
 	Next
 
-	GUICtrlSetData($g_hLblResultSkippedHourNow, $aSkippedVillageCountAcc[$nCurProfile - 1]) ;	Counting skipped village at Bottom GUI
-	GUICtrlSetData($g_hLblResultAttackedHourNow, $aAttackedCountAcc[$nCurProfile - 1]) ;	Counting attacked village at Bottom GUI
+	GUICtrlSetData($g_hLblResultSkippedHourNow, $g_aiSkippedVillageCountAcc[$g_iCurAccount]) ;	Counting skipped village at Bottom GUI
+	GUICtrlSetData($g_hLblResultAttackedHourNow, $g_aiAttackedCountAcc[$g_iCurAccount]) ;	Counting attacked village at Bottom GUI
 
 	If $g_iFirstAttack = 2 Then
-		GUICtrlSetData($g_hLblResultGoldHourNow, _NumberFormat(Round($aGoldTotalAcc[$nCurProfile - 1] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h") ;GUI BOTTOM
-		GUICtrlSetData($g_hLblResultElixirHourNow, _NumberFormat(Round($aElixirTotalAcc[$nCurProfile - 1] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h") ;GUI BOTTOM
-		GUICtrlSetData($g_hLblResultDEHourNow, _NumberFormat(Round($aDarkTotalAcc[$nCurProfile - 1] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h") ;GUI BOTTOM
+		GUICtrlSetData($g_hLblResultGoldHourNow, _NumberFormat(Round($g_aiGoldTotalAcc[$g_iCurAccount] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h") ;GUI BOTTOM
+		GUICtrlSetData($g_hLblResultElixirHourNow, _NumberFormat(Round($g_aiElixirTotalAcc[$g_iCurAccount] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h") ;GUI BOTTOM
+		GUICtrlSetData($g_hLblResultDEHourNow, _NumberFormat(Round($g_aiDarkTotalAcc[$g_iCurAccount] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h") ;GUI BOTTOM
 	EndIf ; ============= Update Gain Stats at Bottom GUI
 
 EndFunc   ;==>UpdateStatsForSwitchAcc
 
 Func ResetStatsForSwitchAcc()
 
-	For $i = 0 To $nTotalProfile - 1 ; SwitchAcc Mod - Demen
-		$aGoldTotalAcc[$i] = 0
-		$aElixirTotalAcc[$i] = 0
-		$aDarkTotalAcc[$i] = 0
-		$aTrophyLootAcc[$i] = 0
-		$aAttackedCountAcc[$i] = 0
-		$aSkippedVillageCountAcc[$i] = 0
+	For $i = 0 To $g_iTotalAcc
+		$g_aiGoldTotalAcc[$i] = 0
+		$g_aiElixirTotalAcc[$i] = 0
+		$g_aiDarkTotalAcc[$i] = 0
+		$g_aiTrophyLootAcc[$i] = 0
+		$g_aiAttackedCountAcc[$i] = 0
+		$g_aiSkippedVillageCountAcc[$i] = 0
 		For $j = 0 To 2
 			GUICtrlSetState($g_ahLblHeroStatus[$j][$i], $GUI_HIDE)
 		Next
@@ -71,7 +72,7 @@ Func ResetStatsForSwitchAcc()
 
 EndFunc   ;==>ResetStatsForSwitchAcc
 
-Func UpdateHeroStatus() ;	Show on Profile Stats - Demen
+Func UpdateHeroStatus() ;	Show on Profile Stats - Demen_HL_#9005
 
 	Local $hHero = 0
     Local $sHeroStatus
@@ -80,8 +81,7 @@ Func UpdateHeroStatus() ;	Show on Profile Stats - Demen
 
     For $i = 0 to 2
         $sHeroStatus = ArmyHeroStatus($i)
-;		Setlog("---Checking status of " & NameOfTroop($i+$eKing) & ": " & $sHeroStatus)
-		If $ichkSwitchAcc = 1 Then $hHero = $g_ahLblHeroStatus[$i][$nCurProfile - 1]
+		If $g_bChkSwitchAcc Then $hHero = $g_ahLblHeroStatus[$i][$g_iCurAccount]
 
 		Select
 			Case $sHeroStatus = "heal" ; Yellow

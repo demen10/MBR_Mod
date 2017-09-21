@@ -13,24 +13,26 @@
 ; Example .......: No
 ; ===============================================================================================================================
 
-; Config Demen mod
+; Config Demen mod - Demen_GE_#9000
 #include "Config Save_Demen.au3"
 #include "Config Read_Demen.au3"
 #include "Config Apply_Demen.au3"
 
-; SwitchAcc
+; SwitchAcc - Demen_SA_#9001
 #include "SwitchAcc.au3"
 #include "UpdateProfileStats.au3"
 
-; SmartTrain
+; SmartTrain - Demen_ST_#9002
 #include "SmartTrain.au3"
 #include "CheckQueue.au3"
 #include "CheckTrainingTab.au3"
 #include "CheckPreciseTroop.au3"
 
-; HeroLabStatus
-#include "UpdateLabStatus.au3"
-
+; ExtendedAttackBar - Demen_S11_#9003
 #include "ExtendedAttackBarCheck.au3"
 
+; CheckCC - Demen_CC_#9004
 #include "CheckCC.au3"
+
+; HeroLabStatus - Demen_HL_#9005
+#include "UpdateLabStatus.au3"

@@ -125,9 +125,8 @@ Func applyConfig($bRedrawAtExit = True, $TypeReadSave = "Read") ;Applies the dat
 	; <<< nothing here >>>
 
 	; <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-	; Demen Mod
-	ApplyConfig_SwitchAcc($TypeReadSave)
-	ApplyConfig_SmartTrain($TypeReadSave)
+	ApplyConfig_SwitchAcc($TypeReadSave) ; Demen_SA_#9001
+	ApplyConfig_Mod($TypeReadSave) ; Demen Mod for other features
 
 	ApplyConfig_Debug($TypeReadSave)
 

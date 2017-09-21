@@ -446,6 +446,7 @@ Func GUIControl_WM_COMMAND($hWind, $iMsg, $wParam, $lParam)
 		Case $g_hLblDonate
 			; Donate URL is not in text nor tooltip
 			ShellExecute("https://mybot.run/forums/index.php?/donate/make-donation/")
+			Setlog("Demen Debug: support developer")
 		Case $g_hBtnStop
 			btnStop()
 		Case $g_hBtnPause
@@ -1369,19 +1370,18 @@ Func SetTime($bForceUpdate = False)
 		GUICtrlSetData($g_hLblResultRuntimeNow, StringFormat("%02i:%02i:%02i", $hour, $min, $sec))
 	EndIf
 
-; Showing troops time in ProfileStats - SwitchAcc - Demen
+; Showing troops time in ProfileStats - SwitchAcc - Demen_SA_#9001
 	Local Static $DisplayLoop = 0
 	If $DisplayLoop >= 10 Then ; Conserve Clock Cycles on Updating times
 		$DisplayLoop = 0
-		;Update Multi Stat Page _ SwitchAcc_Demen_Style
-		If $ichkSwitchAcc = 1 Then
+		If $g_bChkSwitchAcc Then
 			If GUICtrlRead($g_hGUI_BOT_TAB, 1) = $g_hGUI_BOT_TAB_ITEM6 Then
-				For $i = 0 To $nTotalProfile - 1 ; Update time for all Accounts
-					If $aProfileType[$i] = 1 And _
-							$i <> $nCurProfile - 1 And _
-							$aTimerStart[$i] <> 0 Then
-						Local $TrainTimerEnd = TimerDiff($aTimerStart[$i]) / 60 / 1000 ; in minutes
-						Local $UpdateTrainTime = $aRemainTrainTime[$i] - $TrainTimerEnd ; in minutes
+				For $i = 0 To $g_iTotalAcc;  Update time for all Accounts
+					; Troop Time (include spell and hero if needed)
+					If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] And _
+							$i <> $g_iCurAccount And _
+							$g_aiTimerStart[$i] <> 0 Then
+						Local $UpdateTrainTime = $g_aiRemainTrainTime[$i] - TimerDiff($g_aiTimerStart[$i]) / 60 / 1000 ; in minutes
 						Local $sReadyTime = ""
 						If Abs($UpdateTrainTime) >= 60 Then
 						   $sReadyTime &= Int($UpdateTrainTime/60) & "h " & Abs(Round(Mod($UpdateTrainTime,60),0)) & "m"
@@ -1399,10 +1399,10 @@ Func SetTime($bForceUpdate = False)
 						GUICtrlSetData($g_lblTroopsTime[$i], $sReadyTime)
 					EndIf
 
-					If $i <> $nCurProfile - 1 And $g_aLabTimerStart[$i] <> 0 Then	; update lab time of all accounts on multi stats
+					; Lab time
+					If $i <> $g_iCurAccount And $g_aLabTimerStart[$i] <> 0 Then
 						Local $sLabtime = ""
-						Local $TimerEnd = TimerDiff($g_aLabTimerStart[$i]) / 60 / 1000 ; in minutes
-						Local $UpdateLabTime = $g_aLabTimeAcc[$i] - $TimerEnd ; in minutes
+						Local $UpdateLabTime = $g_aLabTimeAcc[$i] - TimerDiff($g_aLabTimerStart[$i]) / 60 / 1000 ; in minutes
 						If $UpdateLabTime <= 0 Then
 							GUICtrlSetColor($g_ahLblLab[$i], $COLOR_GREEN)
 							GUICtrlSetColor($g_ahLblLabTime[$i], $COLOR_GREEN)
@@ -1421,7 +1421,7 @@ Func SetTime($bForceUpdate = False)
 		EndIf
 	EndIf
 	$DisplayLoop += 1
-; Showing troops time in ProfileStats - SwitchAcc - Demen
+; Showing troops time in ProfileStats - SwitchAcc - Demen_SA_#9001
 
 EndFunc   ;==>SetTime
 
@@ -1674,21 +1674,28 @@ Func tabBot()
 		Select
 			Case $tabidx = 0 ; Options tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
+				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlShow("","",$g_hCmbGUILanguage)
 			Case $tabidx = 1 ; Debug tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
+				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 2 ; Profiles tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
+				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 3 ; Android tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
+				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 4 ; Stats tab
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_STATS)
+				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlHide("","",$g_hCmbGUILanguage)
-			Case $tabidx = 5 ; ProfileStats tab - SwitchAcc Demen
+			Case $tabidx = 5 ; ProfileStats tab - SwitchAcc Demen_SA_#9001
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
+				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA)
+				If $g_bRunState = False Then UpdateMultiStats()
 				ControlHide("","",$g_hCmbGUILanguage)
 		EndSelect
 EndFunc   ;==>tabBot

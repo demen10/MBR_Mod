@@ -251,8 +251,8 @@ Func ReadRegularConfig()
 	; <<< nothing here >>>
 
 	; Demen Mod
-	ReadConfig_SwitchAcc()
-	ReadConfig_SmartTrain()
+	ReadConfig_SwitchAcc() ; Demen_SA_#9001
+	ReadConfig_Mod() ; Demen Mod
 
 EndFunc   ;==>ReadRegularConfig
 
