@@ -24,10 +24,10 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 		Local $sBotType = "Idle"
 		If $g_abAccountNo[$i] = True Then
 			$sBotType = "Active"
-			If $g_iNextAccount <> -1 Then $g_iNextAccount = $i
+			If $g_iNextAccount = -1 Then $g_iNextAccount = $i
 			If $g_abDonateOnly[$i] = True Then $sBotType = "Donate"
 		EndIf
-		Setlog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & $sBotType)
+		Setlog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
 
 		; reset all timers
 		$g_aiTimerStart[$i] = 0
