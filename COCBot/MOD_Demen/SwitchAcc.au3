@@ -19,7 +19,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 
 	$g_iNextAccount = -1
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & "accounts")
-	SetSwitchAccLog("Initiating:" & $g_iTotalAcc + 1 & " acc")
+	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc")
 
 	For $i = 0 To $g_iTotalAcc
 		; listing all accounts
@@ -51,16 +51,13 @@ Func CheckSwitchAcc()
 	Local $aDonateAccount = _ArrayFindAll($g_abDonateOnly, True)
 	Local $bReachAttackLimit = ($g_aiAttackedCountSwitch[$g_iCurAccount] <= $g_aiAttackedCountAcc[$g_iCurAccount] - 2)
 	Local $bForceSwitch = False
-	Local $nMinRemainTrain
-
-	If $bReachAttackLimit Then Setlog("This account has attacked twice in a row, switching to another account")
-	If $g_bWaitForCCTroopSpell Then Setlog("Still waiting for CC troops/ spells, switching to another Account")
-
-	Local $bForceSwitch = ($bReachAttackLimit Or $g_bWaitForCCTroopSpell)
+	Local $nMinRemainTrain, $iWaitTime
 
 	SetLog("Start SwitchAcc")
-
-	If Not $bForceSwitch Then
+	If $g_bWaitForCCTroopSpell Then
+		Setlog("Still waiting for CC troops/ spells, switching to another Account")
+		$bForceSwitch = True
+	Else
 		getArmyTroopTime(True, False) ; update $g_aiTimeTrain[0]
 
 		$g_aiTimeTrain[1] = 0
@@ -70,9 +67,14 @@ Func CheckSwitchAcc()
 		If IsWaitforHeroesActive() Then CheckWaitHero() ; update $g_aiTimeTrain[2]
 
 		ClickP($aAway, 1, 0, "#0000") ;Click Away
+
+		$iWaitTime = _ArrayMax($g_aiTimeTrain)
+		If $bReachAttackLimit And $iWaitTime <= 0 Then
+			Setlog("This account has attacked twice in a row, switching to another account")
+			$bForceSwitch = True
+		EndIf
 	EndIf
 
-	Local $iWaitTime = _ArrayMax($g_aiTimeTrain)
 	Local $sLogSkip = ""
 	If Not $g_abDonateOnly[$g_iCurAccount] And $iWaitTime <= $g_iTrainTimeToSkip And Not $bForceSwitch Then
 		If $iWaitTime > 0 Then $sLogSkip = " in " & Round($iWaitTime, 2) & "m"
@@ -157,7 +159,7 @@ Func SwitchCOCAcc($NextAccount)
 	For $i = 0 To 15 ; Checking Account List continuously in 15sec
 		If _ColorCheck(_GetPixelColor(600, 310, True), "FFFFFF", 20) Then ;	Grey
 			PureClick(383, $YCoord) ;	Click Account
-			Setlog("   2. Click account [" & $NextAccount & "]")
+			Setlog("   2. Click account [" & $NextAccount + 1 & "]")
 			If _Sleep(500) Then Return
 			ExitLoop
 		ElseIf _ColorCheck(_GetPixelColor(408, 408, True), "F07077", 20) And $i = 6 Then ; 	Red, double click did not work, try click Disconnect 1 more time
@@ -311,7 +313,7 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 	Next
 
 	$iMinRemainTrain = _ArrayMax($g_aiRemainTrainTime)
-	For $i = 0 To $g_iTotalAcc - 1
+	For $i = 0 To $g_iTotalAcc
 		If $bExcludeCurrent And $i = $g_iCurAccount Then ContinueLoop
 		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$g_iCurAccount] Then ;	Only check Active profiles
 			If $g_aiRemainTrainTime[$i] <= $iMinRemainTrain Then
