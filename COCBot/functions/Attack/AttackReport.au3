@@ -240,6 +240,7 @@ Func AttackReport()
 		EndIf
 		$g_aiTrophyLootAcc[$g_iCurAccount] += $g_iStatsLastAttack[$eLootTrophy]
 		$g_aiAttackedCountAcc[$g_iCurAccount] += 1
+		SetSwitchAccLog("Acc. " & $g_iCurAccount + 1 & ", Attk: " & $g_aiAttackedCountAcc[$g_iCurAccount])
 	EndIf
 
 	UpdateStats()

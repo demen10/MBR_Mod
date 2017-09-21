@@ -19,6 +19,8 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 
 	$g_iNextAccount = -1
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & "accounts")
+	SetSwitchAccLog("Initiate SwitchAcc:" & $g_iTotalAcc + 1 & "acc")
+
 	For $i = 0 To $g_iTotalAcc
 		; listing all accounts
 		Local $sBotType = "Idle"
@@ -28,6 +30,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 			If $g_abDonateOnly[$i] = True Then $sBotType = "Donate"
 		EndIf
 		Setlog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
+		SetSwitchAccLog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
 
 		; reset all timers
 		$g_aiTimerStart[$i] = 0
@@ -45,7 +48,7 @@ EndFunc   ;==>InitiateSwitchAcc
 
 Func CheckSwitchAcc()
 
-	Local $aDonateProfile = _ArrayFindAll($g_abDonateOnly, True)
+	Local $aDonateAccount = _ArrayFindAll($g_abDonateOnly, True)
 	Local $bReachAttackLimit = ($g_aiAttackedCountSwitch[$g_iCurAccount] <= $g_aiAttackedCountAcc[$g_iCurAccount] - 2)
 	Local $bForceSwitch = False
 	Local $nMinRemainTrain
@@ -74,6 +77,7 @@ Func CheckSwitchAcc()
 	If Not $g_abDonateOnly[$g_iCurAccount] And $iWaitTime <= $g_iTrainTimeToSkip And Not $bForceSwitch Then
 		If $iWaitTime > 0 Then $sLogSkip = " in " & Round($iWaitTime, 2) & "m"
 		Setlog("Army is ready" & $sLogSkip & ", skip switching account")
+		SetSwitchAccLog("Stay at " & $g_iCurAccount + 1 & ", Attk: " & $g_aiAttackedCountAcc[$g_iCurAccount])
 		If _Sleep(500) Then Return
 	Else
 		$nMinRemainTrain = CheckTroopTimeAllAccount($bForceSwitch)
@@ -83,8 +87,8 @@ Func CheckSwitchAcc()
 				If $g_iDebugSetlog Then Setlog("Switch to or Stay at Active Account: " & $g_iNextAccount + 1, $COLOR_DEBUG)
 				$g_iDonateSwitchCounter = 0
 			Else
-				If $g_iDonateSwitchCounter < UBound($aDonateProfile) Then ; Donate
-					$g_iNextAccount = $aDonateProfile[$g_iDonateSwitchCounter]
+				If $g_iDonateSwitchCounter < UBound($aDonateAccount) Then ; Donate
+					$g_iNextAccount = $aDonateAccount[$g_iDonateSwitchCounter]
 					$g_iDonateSwitchCounter += 1
 					If $g_iDebugSetlog Then Setlog("Switch to Donate Account " & $g_iNextAccount + 1 & ". $g_iDonateSwitchCounter = " & $g_iDonateSwitchCounter, $COLOR_DEBUG)
 				Else ; Active or Random
@@ -92,7 +96,7 @@ Func CheckSwitchAcc()
 					If $g_iCurAccount = $g_iNextAccount And $nMinRemainTrain > 3 Then ; Random
 						Local $aActiveAccount = _ArrayFindAll($g_abAccountNo, True)
 						Local $iRandomElement = Random(0, UBound($aActiveAccount) - 1, 1)
-						$g_iNextAccount = $aActiveAccount($iRandomElement)
+						$g_iNextAccount = $aActiveAccount[$iRandomElement]
 						Setlog("Still " & Round($nMinRemainTrain, 2) & " min until army is ready. Switch to a random account: " & $g_iNextAccount + 1)
 					EndIf
 				EndIf
@@ -100,7 +104,7 @@ Func CheckSwitchAcc()
 		Else ; Normal switch (continuous)
 			$g_iNextAccount = $g_iCurAccount + 1
 			If $g_iNextAccount > $g_iTotalAcc Then $g_iNextAccount = 0
-			While $g_abAccountNo($g_iNextAccount) = False
+			While $g_abAccountNo[$g_iNextAccount] = False
 				$g_iNextAccount += 1
 				If $g_iNextAccount > $g_iTotalAcc Then $g_iNextAccount = 0 ; avoid idle Account
 			WEnd
@@ -115,6 +119,7 @@ Func CheckSwitchAcc()
 			SwitchCOCAcc($g_iNextAccount)
 		Else
 			Setlog("Staying in this profile")
+			SetSwitchAccLog("Stay at " & $g_iCurAccount + 1)
 		EndIf
 	EndIf
 
@@ -212,7 +217,7 @@ Func SwitchCOCAcc($NextAccount)
 		$g_abNotNeedAllTime[0] = 1
 		$g_abNotNeedAllTime[1] = 1
 		$g_aiAttackedCountSwitch[$g_iCurAccount] = $g_aiAttackedCountAcc[$g_iCurAccount]
-		SetSwitchAccLog("Switching " & $g_iCurAccount & " to " & $NextAccount)
+		SetSwitchAccLog("Switching " & $g_iCurAccount + 1 & " to " & $NextAccount + 1)
 		$g_iCurAccount = $NextAccount
 		If _GUICtrlComboBox_GetCurSel($g_hCmbProfile) <> $g_aiProfileNo[$g_iNextAccount] Then
 			_GUICtrlComboBox_SetCurSel($g_hCmbProfile, $g_aiProfileNo[$g_iNextAccount])
@@ -224,7 +229,7 @@ Func SwitchCOCAcc($NextAccount)
 		$iRetry += 1
 		$g_bReMatchAcc = True
 		Setlog("Switching account failed!", $COLOR_RED)
-		SetSwitchAccLog("Failed: " & $g_iCurAccount & " to " & $NextAccount)
+		SetSwitchAccLog("Failed: " & $g_iCurAccount + 1 & " to " & $NextAccount + 1)
 		If $iRetry <= 3 Then
 			PureClickP($aAway, 3, 500)
 			checkMainScreen()
@@ -343,8 +348,11 @@ Func CreateSwitchLogFile()
 EndFunc   ;==>CreateSwitchLogFile
 
 Func SetSwitchAccLog($String1, $String2 = "", $Color = $COLOR_BLACK, $Font = "Verdana", $FontSize = 7.5, $time = True)
-	$time = 0
-	If $time = True Then $time = Time()
+	If $time = True Then
+		$time = Time()
+	Else
+		$time = 0
+	EndIf
 
 	If $g_hSwitchLogFile = 0 Then CreateSwitchLogFile()
 	_FileWriteLog($g_hSwitchLogFile, $String1 & $String2)
