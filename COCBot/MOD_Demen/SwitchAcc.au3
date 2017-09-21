@@ -126,7 +126,7 @@ Func SwitchCOCAcc($NextAccount)
 
 	Static $iRetry = 0
 	Local $bResult
-	Local $YCoord = Int(373.5 - $g_iTotalAcc * 36.5 + 73 * ($NextAccount - 1))
+	Local $YCoord = Int(373.5 - $g_iTotalAcc * 36.5 + 73 * $NextAccount)
 
 	Setlog("Switching to Account [" & $NextAccount + 1 & "]")
 
