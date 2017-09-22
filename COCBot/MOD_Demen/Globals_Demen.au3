@@ -14,7 +14,7 @@
 ; ===============================================================================================================================
 
 ; SwitchAcc - Demen_SA_#9001
-Global $g_bChkSwitchAcc, $g_bChkSmartSwitch, $g_bReMatchAcc
+Global $g_bInitiateSwitchAcc = True, $g_bChkSwitchAcc, $g_bChkSmartSwitch, $g_bReMatchAcc = False
 Global $g_iTotalAcc, $g_iNextAccount, $g_iCurAccount
 Global $g_iTrainTimeToSkip = 0
 Global $g_abAccountNo[8], $g_aiProfileNo[8], $g_abDonateOnly[8]

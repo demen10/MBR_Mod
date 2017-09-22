@@ -1372,15 +1372,13 @@ Func SetTime($bForceUpdate = False)
 
 ; Showing troops time in ProfileStats - SwitchAcc - Demen_SA_#9001
 	Local Static $DisplayLoop = 0
-	If $DisplayLoop >= 10 Then ; Conserve Clock Cycles on Updating times
+	If $DisplayLoop >= 3 Then ; Conserve Clock Cycles on Updating times
 		$DisplayLoop = 0
 		If $g_bChkSwitchAcc Then
 			If GUICtrlRead($g_hGUI_BOT_TAB, 1) = $g_hGUI_BOT_TAB_ITEM6 Then
 				For $i = 0 To $g_iTotalAcc;  Update time for all Accounts
 					; Troop Time (include spell and hero if needed)
-					If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] And _
-							$i <> $g_iCurAccount And _
-							$g_aiTimerStart[$i] <> 0 Then
+					If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] And $g_aiTimerStart[$i] <> 0 Then
 						Local $UpdateTrainTime = $g_aiRemainTrainTime[$i] - TimerDiff($g_aiTimerStart[$i]) / 60 / 1000 ; in minutes
 						Local $sReadyTime = ""
 						If Abs($UpdateTrainTime) >= 60 Then
@@ -1389,7 +1387,10 @@ Func SetTime($bForceUpdate = False)
 						   $sReadyTime &= Int($UpdateTrainTime) & "m " & Abs(Round(Mod($UpdateTrainTime,1) * 60, 0)) & "s"
 						EndIf
 
-						If $UpdateTrainTime < 0 Then
+						If $i = $g_iCurAccount Then
+							GUICtrlSetBkColor($g_lblTroopsTime[$i], $COLOR_GREEN)
+							GUICtrlSetColor($g_lblTroopsTime[$i], $COLOR_WHITE)
+						ElseIf $UpdateTrainTime < 0 Then
 							GUICtrlSetBkColor($g_lblTroopsTime[$i], $COLOR_RED)
 							GUICtrlSetColor($g_lblTroopsTime[$i], $COLOR_WHITE)
 						Else

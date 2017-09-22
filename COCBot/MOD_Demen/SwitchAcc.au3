@@ -13,12 +13,10 @@
 
 Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC Acc with current profile, Reset all Timers relating to Switch Acc Mode.
 
-	Static $bInitiateSwitchAcc = True
-
-	If Not $g_bChkSwitchAcc Or Not $bInitiateSwitchAcc Then Return
+	If Not $g_bChkSwitchAcc Or Not $g_bInitiateSwitchAcc Then Return
 
 	$g_iNextAccount = -1
-	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & "accounts")
+	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & " accounts")
 	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc")
 
 	For $i = 0 To $g_iTotalAcc
@@ -41,7 +39,6 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 
 	Setlog("Let's start with Account [" & $g_iNextAccount + 1 & "]")
 
-	$bInitiateSwitchAcc = False
 	SwitchCOCAcc($g_iNextAccount)
 
 EndFunc   ;==>InitiateSwitchAcc
@@ -79,7 +76,7 @@ Func CheckSwitchAcc()
 	If Not $g_abDonateOnly[$g_iCurAccount] And $iWaitTime <= $g_iTrainTimeToSkip And Not $bForceSwitch Then
 		If $iWaitTime > 0 Then $sLogSkip = " in " & Round($iWaitTime, 2) & "m"
 		Setlog("Army is ready" & $sLogSkip & ", skip switching account")
-		SetSwitchAccLog("Stay at " & $g_iCurAccount + 1 & ", Attk: " & $g_aiAttackedCountAcc[$g_iCurAccount])
+		SetSwitchAccLog("Stay at [" & $g_iCurAccount + 1 & "], Attk: " & $g_aiAttackedCountAcc[$g_iCurAccount])
 		If _Sleep(500) Then Return
 	Else
 		$nMinRemainTrain = CheckTroopTimeAllAccount($bForceSwitch)
@@ -120,8 +117,8 @@ Func CheckSwitchAcc()
 			If IsMainPage() = False Then checkMainScreen()
 			SwitchCOCAcc($g_iNextAccount)
 		Else
-			Setlog("Staying in this profile")
-			SetSwitchAccLog("Stay at " & $g_iCurAccount + 1)
+			Setlog("Staying in this account")
+			SetSwitchAccLog("Stay at [" & $g_iCurAccount + 1 & "]")
 		EndIf
 	EndIf
 
@@ -132,10 +129,20 @@ Func SwitchCOCAcc($NextAccount)
 	If $NextAccount < 0 And $NextAccount > $g_iTotalAcc Then $NextAccount = _ArraySearch(True, $g_abAccountNo)
 
 	Static $iRetry = 0
+	Static $StartOnlineTime = 0
 	Local $bResult
 	Local $YCoord = Int(373.5 - $g_iTotalAcc * 36.5 + 73 * $NextAccount)
 
 	Setlog("Switching to Account [" & $NextAccount + 1 & "]")
+
+	If 	$g_bInitiateSwitchAcc = True Then
+		$StartOnlineTime = 0
+		$g_bInitiateSwitchAcc = False
+	EndIf
+
+	If $StartOnlineTime <> 0 And Not $g_bReMatchAcc Then _
+		SetSwitchAccLog("Acc [" & $g_iCurAccount + 1 & "], online: " & Round(TimerDiff($StartOnlineTime) / 1000 / 60, 2) & "m")
+	SetSwitchAccLog("Switching to Acc [" & $NextAccount + 1 & "]")
 
 	PureClick(820, 585, 1, 0, "Click Setting")
 	If _Sleep(500) Then Return
@@ -219,19 +226,18 @@ Func SwitchCOCAcc($NextAccount)
 		$g_abNotNeedAllTime[0] = 1
 		$g_abNotNeedAllTime[1] = 1
 		$g_aiAttackedCountSwitch[$g_iCurAccount] = $g_aiAttackedCountAcc[$g_iCurAccount]
-		SetSwitchAccLog("Switching " & $g_iCurAccount + 1 & " to " & $NextAccount + 1)
 		$g_iCurAccount = $NextAccount
 		If _GUICtrlComboBox_GetCurSel($g_hCmbProfile) <> $g_aiProfileNo[$g_iNextAccount] Then
 			_GUICtrlComboBox_SetCurSel($g_hCmbProfile, $g_aiProfileNo[$g_iNextAccount])
 			cmbProfile()
 			DisableGUI_AfterLoadNewProfile()
 		EndIf
-		runBot()
+		If $StartOnlineTime = 0 Then $StartOnlineTime = TimerInit()
 	Else
 		$iRetry += 1
 		$g_bReMatchAcc = True
 		Setlog("Switching account failed!", $COLOR_RED)
-		SetSwitchAccLog("Failed: " & $g_iCurAccount + 1 & " to " & $NextAccount + 1)
+		SetSwitchAccLog("Switch failed!")
 		If $iRetry <= 3 Then
 			PureClickP($aAway, 3, 500)
 			checkMainScreen()
@@ -239,8 +245,8 @@ Func SwitchCOCAcc($NextAccount)
 			$iRetry = 0
 			UniversalCloseWaitOpenCoC()
 		EndIf
-		runBot()
 	EndIf
+	runBot()
 
 EndFunc   ;==>SwitchCOCAcc
 
@@ -295,17 +301,18 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 
 	For $i = 0 To $g_iTotalAcc
 		If $bExcludeCurrent And $i = $g_iCurAccount Then ContinueLoop
-		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$g_iCurAccount] Then ;	Only check Active profiles
+		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] Then ;	Only check Active profiles
 			If $g_aiTimerStart[$i] <> 0 Then
 				$g_aiRemainTrainTime[$i] -= Round(TimerDiff($g_aiTimerStart[$i]) / 1000 / 60, 2) ;   updated remain train time of Active accounts
+				$g_aiTimerStart[$i] = TimerInit() ; reset timer
 				If $g_aiRemainTrainTime[$i] >= 0 Then
-					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & ") will have full army in:" & $g_aiRemainTrainTime[$i] & " minutes")
+					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " will have full army in:" & $g_aiRemainTrainTime[$i] & " minutes")
 				Else
-					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & ") was ready:" & - $g_aiRemainTrainTime[$i] & " minutes ago")
+					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " was ready:" & - $g_aiRemainTrainTime[$i] & " minutes ago")
 				EndIf
-				SetSwitchAccLog(" - Acc [" & $i + 1 & "]: " & $g_aiRemainTrainTime[$i])
+				SetSwitchAccLog(" - Acc [" & $i + 1 & "]: " & $g_aiRemainTrainTime[$i] & "m")
 			Else ; for accounts first Run
-				Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & ") has not been read its remain train time")
+				Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " has not been read its remain train time")
 				$g_aiRemainTrainTime[$i] = -999
 				SetSwitchAccLog(" - Acc [" & $i + 1 & "]: Unknown")
 			EndIf
@@ -315,7 +322,7 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 	$iMinRemainTrain = _ArrayMax($g_aiRemainTrainTime)
 	For $i = 0 To $g_iTotalAcc
 		If $bExcludeCurrent And $i = $g_iCurAccount Then ContinueLoop
-		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$g_iCurAccount] Then ;	Only check Active profiles
+		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] Then ;	Only check Active profiles
 			If $g_aiRemainTrainTime[$i] <= $iMinRemainTrain Then
 				$iMinRemainTrain = $g_aiRemainTrainTime[$i]
 				$g_iNextAccount = $i
