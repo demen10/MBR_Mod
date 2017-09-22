@@ -45,6 +45,9 @@ EndFunc   ;==>InitiateSwitchAcc
 
 Func CheckSwitchAcc()
 
+	Local $aActiveAccount = _ArrayFindAll($g_abAccountNo, True)
+	If UBound($aActiveAccount) <= 1 Then Return
+
 	Local $aDonateAccount = _ArrayFindAll($g_abDonateOnly, True)
 	Local $bReachAttackLimit = ($g_aiAttackedCountSwitch[$g_iCurAccount] <= $g_aiAttackedCountAcc[$g_iCurAccount] - 2)
 	Local $bForceSwitch = False
@@ -93,7 +96,6 @@ Func CheckSwitchAcc()
 				Else ; Active or Random
 					$g_iDonateSwitchCounter = 0
 					If $g_iCurAccount = $g_iNextAccount And $nMinRemainTrain > 3 Then ; Random
-						Local $aActiveAccount = _ArrayFindAll($g_abAccountNo, True)
 						Local $iRandomElement = Random(0, UBound($aActiveAccount) - 1, 1)
 						$g_iNextAccount = $aActiveAccount[$iRandomElement]
 						Setlog("Still " & Round($nMinRemainTrain, 2) & " min until army is ready. Switch to a random account: " & $g_iNextAccount + 1)

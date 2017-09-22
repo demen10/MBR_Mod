@@ -29,38 +29,37 @@ Func CreateBotSwitchAcc()
 	Local $sTxtTip = ""
 	Local $x = 20, $y = 110
 
-	GUICtrlCreateGroup("Switch Account", $x - 10, $y - 20, 225, 335)
+	GUICtrlCreateGroup("Switch Account", $x - 10, $y - 20, 433, 337)
 
-		$g_hChkSwitchAcc = GUICtrlCreateCheckbox("Enable SwitchAccount", $x, $y, -1, -1)
+		$g_hChkSwitchAcc = GUICtrlCreateCheckbox("Enable Switch Account", $x, $y, -1, -1)
 		GUICtrlSetOnEvent(-1, "chkSwitchAcc")
 
-		$g_hChkSmartSwitch = GUICtrlCreateCheckbox("Smart switch", $x + 135, $y, 75, -1)
-		GUICtrlSetTip(-1, "Switch to account with the shortest remain training time")
-		GUICtrlSetState(-1, $GUI_UNCHECKED)
-;~ 		GUICtrlSetOnEvent(-1, "chkSmartSwitch")
-
-		$y += 26
-		GUICtrlCreateLabel("Skip switch if train time < ", $x + 15, $y, -1, -1)
-		$g_hCmbTrainTimeToSkip = GUICtrlCreateCombo("", $x + 135, $y - 4, 60, -1, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-		GUICtrlSetData(-1, "0 min|1 min|2 mins|3 mins|4 mins|5 mins|6 mins|7 mins|8 mins|9 mins", "1 min")
+		$g_hCmbTotalAccount = GUICtrlCreateCombo("", $x + 340, $y - 1, 77, -1, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+		GUICtrlSetData(-1, "2 accounts|3 accounts|4 accounts|5 accounts|6 accounts|7 accounts|8 accounts", "2 accounts")
+		GUICtrlSetOnEvent(-1, "cmbTotalAcc")
+		GUICtrlCreateLabel("Total CoC Account:", $x + 220, $y + 3, -1, -1)
 
 		$y += 25
-		GUICtrlCreateLabel("Total CoC Account:", $x + 15, $y, -1, -1)
-		$g_hCmbTotalAccount = GUICtrlCreateCombo("", $x + 135, $y - 4, 60, -1, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-		GUICtrlSetData(-1, "2 Acc|3 Acc|4 Acc|5 Acc|6 Acc|7 Acc|8 Acc", "2 Acc")
-		GUICtrlSetOnEvent(-1, "cmbTotalAcc")
+		$g_hChkSmartSwitch = GUICtrlCreateCheckbox("Smart switch", $x, $y, -1, -1)
+		GUICtrlSetTip(-1, "Switch to account with the shortest remain training time")
+		GUICtrlSetState(-1, $GUI_UNCHECKED)
 
-		$y += 30
-		GUICtrlCreateLabel("Account", $x - 10, $y, 60, -1, $SS_CENTER)
-		GUICtrlCreateLabel("Profile name", $x + 70, $y, 70, -1, $SS_CENTER)
-		GUICtrlCreateLabel("Donate only", $x + 150, $y, 60, -1, $SS_CENTER)
+		GUICtrlCreateLabel("Skip switch if train time < ", $x + 220, $y + 3, -1, -1)
+		$g_hCmbTrainTimeToSkip = GUICtrlCreateCombo("", $x + 340, $y - 1, 77, -1, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+		GUICtrlSetData(-1, "0 minute|1 minute|2 minutes|3 minutes|4 minutes|5 minutes|6 minutes|7 minutes|8 minutes|9 minutes", "1 minute")
 
-		$y += 20
-		GUICtrlCreateGraphic($x, $y, 205, 1, $SS_GRAYRECT)
+		$y += 32
+		GUICtrlCreateLabel("Account", $x - 5, $y, 60, -1, $SS_CENTER)
+		GUICtrlCreateLabel("Profile name", $x + 82, $y, 70, -1, $SS_CENTER)
+		GUICtrlCreateLabel("Donate only", $x + 170, $y, 60, -1, $SS_CENTER)
+		GUICtrlCreateLabel("SwitchAcc log", $x + 280, $y, -1, -1, $SS_CENTER)
+
+		$y += 18
+		GUICtrlCreateGraphic($x, $y, 417, 1, $SS_GRAYRECT)
 
 		$y += 8
 		For $i = 0 To 7
-			$g_ahChkAccount[$i] = GUICtrlCreateCheckbox("Acc. " & $i + 1 & ".", $x, $y + ($i) * 25, -1, -1)
+			$g_ahChkAccount[$i] = GUICtrlCreateCheckbox("Acc " & $i + 1 & ".", $x, $y + ($i) * 25, -1, -1)
 			GUICtrlSetOnEvent(-1, "chkAccount" & $i)
 			$g_ahCmbProfile[$i] = GUICtrlCreateCombo("", $x + 65, $y + ($i) * 25, 110, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 			GUICtrlSetData(-1, _GUICtrlComboBox_GetList($g_hCmbProfile))
@@ -76,7 +75,7 @@ Func CreateBotSwitchAccLog()
 
 	Local $activeHWnD1 = WinGetHandle("") ; RichEdit Controls tamper with active window
 
-	$g_hTxtSALog = _GUICtrlRichEdit_Create($g_hGUI_LOG_SA, "", $x, $y, 203, 330, BitOR($ES_MULTILINE, $ES_READONLY, $WS_VSCROLL, $WS_HSCROLL, $ES_UPPERCASE, $ES_AUTOHSCROLL, $ES_AUTOVSCROLL, $ES_NUMBER, 0x200), $WS_EX_STATICEDGE)
+	$g_hTxtSALog = _GUICtrlRichEdit_Create($g_hGUI_LOG_SA, "", $x, $y, 203, 230, BitOR($ES_MULTILINE, $ES_READONLY, $WS_VSCROLL, $WS_HSCROLL, $ES_UPPERCASE, $ES_AUTOHSCROLL, $ES_AUTOVSCROLL, $ES_NUMBER, 0x200), $WS_EX_STATICEDGE)
 
 	WinActivate($activeHWnD1) ; restore current active window
 EndFunc

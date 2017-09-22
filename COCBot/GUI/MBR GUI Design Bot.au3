@@ -30,7 +30,7 @@ Func CreateBotTab()
 	$g_hGUI_BOT = _GUICreate("", $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, $_GUI_CHILD_LEFT, $_GUI_CHILD_TOP, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hFrmBotEx)
 	;GUISetBkColor($COLOR_WHITE, $g_hGUI_BOT)
 
-   $g_hGUI_LOG_SA = _GUICreate("", 200, 330, 240, 95, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT)
+	$g_hGUI_LOG_SA = _GUICreate("", 200, 230, 238, 193, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT)
 
 	$g_hGUI_STATS = _GUICreate("", $g_iSizeWGrpTab2, $g_iSizeHGrpTab2, 5, 25, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
 
