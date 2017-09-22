@@ -14,7 +14,7 @@
 Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC Acc with current profile, Reset all Timers relating to Switch Acc Mode.
 
 	If Not $g_bChkSwitchAcc Or Not $g_bInitiateSwitchAcc Then Return
-
+	UpdateMultiStats()
 	$g_iNextAccount = -1
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & " accounts")
 	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc")
