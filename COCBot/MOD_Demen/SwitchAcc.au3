@@ -232,7 +232,7 @@ Func SwitchCOCAcc($NextAccount)
 			cmbProfile()
 			DisableGUI_AfterLoadNewProfile()
 		EndIf
-		If $StartOnlineTime = 0 Then $StartOnlineTime = TimerInit()
+		$StartOnlineTime = TimerInit()
 	Else
 		$iRetry += 1
 		$g_bReMatchAcc = True
