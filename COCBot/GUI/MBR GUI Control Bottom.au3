@@ -43,6 +43,7 @@ Func Initiate()
 		EndIf
 
 		$g_bFirstStart = True
+		$g_bInitiateSwitchAcc = True ; SwitchAcc - Demen_SA_#9001
 
 		If $g_bNotifyDeleteAllPushesOnStart = True Then _DeletePush()
 
