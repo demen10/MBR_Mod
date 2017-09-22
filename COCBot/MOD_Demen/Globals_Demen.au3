@@ -12,6 +12,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
 ; SwitchAcc - Demen_SA_#9001
 Global $g_bInitiateSwitchAcc = True, $g_bChkSwitchAcc, $g_bChkSmartSwitch, $g_bReMatchAcc = False
@@ -57,4 +58,6 @@ Global $g_bChkMultiClick, $g_iMultiClick = 1
 
 ; Classic FourFinger - Demen_FF_#9007
 ; Enable/Disable GUI - Demen_EG_#9008
+; Other mod's Code ref. Demen_OT_#9009
+; General common codes - Demen_GE_#9000
 

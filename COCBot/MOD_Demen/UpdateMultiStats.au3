@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: UpdateProfileStats
+; Name ..........: UpdateMultiStats
 ; Description ...: Additional functions for UpdateStats
 ; Syntax ........: UpdateStats()
 ; Parameters ....: None
@@ -12,34 +12,35 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......:
 ; ===============================================================================================================================
+#include-once
 
-; Demen_SA_#9001
+ ; SwitchAcc - Demen_SA_#9001
 Func UpdateStatsForSwitchAcc()
 
 	For $i = 0 To 7
 		;village report
-		GUICtrlSetData($lblResultGoldNowAcc[$i], _NumberFormat($g_aiGoldCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultElixirNowAcc[$i], _NumberFormat($g_aiElixirCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultDeNowAcc[$i], _NumberFormat($g_aiDarkCurrentAcc[$i], True))
-		GUICtrlSetData($lblResultTrophyNowAcc[$i], _NumberFormat($g_aiTrophyCurrentAcc[$i], True))
+		GUICtrlSetData($g_ahLblResultGoldNowAcc[$i], _NumberFormat($g_aiGoldCurrentAcc[$i], True))
+		GUICtrlSetData($g_ahLblResultElixirNowAcc[$i], _NumberFormat($g_aiElixirCurrentAcc[$i], True))
+		GUICtrlSetData($g_ahLblResultDENowAcc[$i], _NumberFormat($g_aiDarkCurrentAcc[$i], True))
+		GUICtrlSetData($g_ahLblResultTrophyNowAcc[$i], _NumberFormat($g_aiTrophyCurrentAcc[$i], True))
 
 		If $g_aiGemAmountAcc[$i] < 10000 Then
-			GUICtrlSetData($lblResultGemNowAcc[$i], _NumberFormat($g_aiGemAmountAcc[$i], True))
+			GUICtrlSetData($g_ahLblResultGemNowAcc[$i], _NumberFormat($g_aiGemAmountAcc[$i], True))
 		Else
-			GUICtrlSetData($lblResultGemNowAcc[$i], Round($g_aiGemAmountAcc[$i]/1000,1) & " K")
+			GUICtrlSetData($g_ahLblResultGemNowAcc[$i], Round($g_aiGemAmountAcc[$i]/1000,1) & " K")
 		EndIf
 
-		GUICtrlSetData($lblResultBuilderNowAcc[$i], $g_aiFreeBuilderCountAcc[$i] & "/" & $g_aiTotalBuilderCountAcc[$i])
+		GUICtrlSetData($g_ahLblResultBuilderNowAcc[$i], $g_aiFreeBuilderCountAcc[$i] & "/" & $g_aiTotalBuilderCountAcc[$i])
 
 		; gain stats
-		GUICtrlSetData($lblHourlyStatsGoldAcc[$i], _NumberFormat(Round($g_aiGoldTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
-		GUICtrlSetData($lblHourlyStatsElixirAcc[$i], _NumberFormat(Round($g_aiElixirTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
-		GUICtrlSetData($lblHourlyStatsDarkAcc[$i], _NumberFormat(Round($g_aiDarkTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
-		GUICtrlSetData($lblHourlyStatsTrophyAcc[$i], _NumberFormat(Round($g_aiTrophyLootAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+		GUICtrlSetData($g_ahLblHourlyStatsGoldAcc[$i], _NumberFormat(Round($g_aiGoldTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
+		GUICtrlSetData($g_ahLblHourlyStatsElixirAcc[$i], _NumberFormat(Round($g_aiElixirTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "K / h")
+		GUICtrlSetData($g_ahLblHourlyStatsDarkAcc[$i], _NumberFormat(Round($g_aiDarkTotalAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+		GUICtrlSetData($g_ahLblHourlyStatsTrophyAcc[$i], _NumberFormat(Round($g_aiTrophyLootAcc[$i] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
 		If $g_aiAttackedCountAcc[$i] < 10000 Then
-			GUICtrlSetData($lblResultAttacked[$i], $g_aiAttackedCountAcc[$i])
+			GUICtrlSetData($g_ahLblResultAttacked[$i], $g_aiAttackedCountAcc[$i])
 		Else
-			GUICtrlSetData($lblResultAttacked[$i], Round($g_aiAttackedCountAcc[$i]/1000,1) & " K")
+			GUICtrlSetData($g_ahLblResultAttacked[$i], Round($g_aiAttackedCountAcc[$i]/1000,1) & " K")
 		EndIf
 	Next
 
@@ -72,7 +73,7 @@ Func ResetStatsForSwitchAcc()
 
 EndFunc   ;==>ResetStatsForSwitchAcc
 
-Func UpdateHeroStatus() ;	Show on Profile Stats - Demen_HL_#9005
+Func UpdateHeroStatus() ;	HeroLabStatus - Demen_HL_#9005
 
 	Local $hHero = 0
     Local $sHeroStatus

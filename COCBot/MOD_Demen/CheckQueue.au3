@@ -9,6 +9,8 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+; SmartTrain - Demen_ST_#9002
+#include-once
 
 Func CheckQueue($sText = "troop")
 	Local $CheckTroop[4] = [810, 186, 0xCFCFC8, 15] ; the gray background

@@ -9,6 +9,8 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+; SmartTrain - Demen_ST_#9002
+#include-once
 
 Func CheckTrainingTab($sText = "troop")
 

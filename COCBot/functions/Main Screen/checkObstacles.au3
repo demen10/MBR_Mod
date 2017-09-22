@@ -109,8 +109,8 @@ Func _checkObstacles($bBuilderBase = False) ;Checks if something is in the way f
 			Case _CheckPixel($aIsInactive, $g_bNoCapturePixel) ; Inactive only
 				SetLog("Village was Inactive, Reloading CoC...", $COLOR_ERROR)
 				If $g_bForceSinglePBLogoff Then $g_bGForcePBTUpdate = True
-				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - DEMEN
-				Return True											; Click for connection lost - DEMEN
+				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
+				Return True											; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
 			Case _CheckPixel($aIsConnectLost, $g_bNoCapturePixel) ; Connection Lost
 				;  Add check for banned account :(
 				$Result = getOcrMaintenanceTime(171, 358 + $g_iMidOffsetY, "Check Obstacles OCR 'policy at super'=") ; OCR text for "policy at super"
@@ -126,12 +126,12 @@ Func _checkObstacles($bBuilderBase = False) ;Checks if something is in the way f
 					Return checkObstacles_StopBot($msg) ; stop bot
 				EndIf
 				SetLog("Connection lost, Reloading CoC...", $COLOR_ERROR)
-				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - DEMEN
-				Return True											; Click for connection lost - DEMEN
+				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
+				Return True											; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
 			Case _CheckPixel($aIsCheckOOS, $g_bNoCapturePixel) ; Check OoS
 				SetLog("Out of Sync Error, Reloading CoC...", $COLOR_ERROR)
-				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - DEMEN
-				Return True											; Click for connection lost - DEMEN
+				PureClickP($aReloadButton, 1, 0, "#0131")			; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
+				Return True											; Click for connection lost - (Other mod's Code ref. Demen_OT_#9009)
 			Case _CheckPixel($aIsMaintenance, $g_bNoCapturePixel) ; Check Maintenance
 				$Result = getOcrMaintenanceTime(171, 345 + $g_iMidOffsetY, "Check Obstacles OCR Maintenance Break=") ; OCR text to find wait time
 				Local $iMaintenanceWaitTime = 0

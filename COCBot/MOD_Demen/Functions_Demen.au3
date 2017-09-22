@@ -12,6 +12,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
 ; Config Demen mod - Demen_GE_#9000
 #include "Config Save_Demen.au3"
@@ -20,7 +21,7 @@
 
 ; SwitchAcc - Demen_SA_#9001
 #include "SwitchAcc.au3"
-#include "UpdateProfileStats.au3"
+#include "UpdateMultiStats.au3"
 
 ; SmartTrain - Demen_ST_#9002
 #include "SmartTrain.au3"

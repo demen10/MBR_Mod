@@ -1,6 +1,6 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: MBR GUI Design
-; Description ...: This file creates the "ProfileStats" Subtab under the "Stats" tab
+; Name ..........: GUI Design MultiStats (for SwitchAcc) - Demen_SA_#9001
+; Description ...:
 ; Syntax ........:
 ; Parameters ....: None
 ; Return values .: None
@@ -14,11 +14,10 @@
 ; ===============================================================================================================================
 #include-once
 
-; ProfileStats	- SwitchAcc_Demen
-Global $grpVillageAcc[8], $lblResultGoldNowAcc[8], $lblResultElixirNowAcc[8], $lblResultDENowAcc[8], $lblResultTrophyNowAcc[8], $lblResultBuilderNowAcc[8], $lblResultGemNowAcc[8] ; GUI village report
-Global $lblHourlyStatsGoldAcc[8], $lblHourlyStatsElixirAcc[8], $lblHourlyStatsDarkAcc[8], $lblHourlyStatsTrophyAcc[8] ; GUI Gain per Hour
-Global $lblResultAttacked[8]
-Global $g_ahLblHeroStatus[3][8], $g_lblTroopsTime[8]
+Global $g_ahGrpVillageAcc[8], $g_ahLblResultGoldNowAcc[8], $g_ahLblResultElixirNowAcc[8], $g_ahLblResultDENowAcc[8], $g_ahLblResultTrophyNowAcc[8], $g_ahLblResultBuilderNowAcc[8], $g_ahLblResultGemNowAcc[8] ; GUI village report
+Global $g_ahLblHourlyStatsGoldAcc[8], $g_ahLblHourlyStatsElixirAcc[8], $g_ahLblHourlyStatsDarkAcc[8], $g_ahLblHourlyStatsTrophyAcc[8] ; GUI Gain per Hour
+Global $g_ahLblResultAttacked[8]
+Global $g_ahLblHeroStatus[3][8], $g_ahLblTroopsTime[8]
 Global $g_ahLblLab[8], $g_ahLblLabTime[8]
 
 Func CreateMultiStats()
@@ -32,53 +31,53 @@ Func CreateMultiStats()
 		Local $i_X = Mod($i, 2), $i_Y = Int($i / 2)
 		Local $delY = 18, $delY2 = 100, $delX = 65, $delX1 = 147, $delX2 = 224
 
-		$grpVillageAcc[$i] = GUICtrlCreateGroup("Village name ", $x - 3 + $i_X * $delX2, $y + $i_Y * $delY2, 221, 95)
+		$g_ahGrpVillageAcc[$i] = GUICtrlCreateGroup("Village name ", $x - 3 + $i_X * $delX2, $y + $i_Y * $delY2, 221, 95)
 
 		GUICtrlCreateGraphic($x + 130 + $i_X * $delX2, $y + $i_Y * $delY2, 70, 17, $SS_WHITERECT)
-		$g_lblTroopsTime[$i] = GUICtrlCreateLabel("No Data", $x + 137 + $i_X * $delX2, $y + $i_Y * $delY2, 50, 16, $SS_CENTER)
+		$g_ahLblTroopsTime[$i] = GUICtrlCreateLabel("", $x + 137 + $i_X * $delX2, $y + $i_Y * $delY2, 50, 16, $SS_CENTER)
 		GUICtrlSetColor(-1, $COLOR_GRAY)
 		GUICtrlCreateIcon($g_sLibIconPath, $eIcnHourGlass, $x + 190 + $i_X * $delX2, $y + $i_Y * $delY2, 16, 14)
 
-; Village report (resources)
-		$lblResultGoldNowAcc[$i] = GUICtrlCreateLabel("", 		$x + $i_X * $delX2, 				$y + $delY + $i_Y * $delY2, 		60, 17, $SS_RIGHT)
-			GUICtrlCreateIcon($g_sLibIconPath, $eIcnGold, 		$x + $delX + $i_X * $delX2, 		$y + $delY + $i_Y * $delY2, 		16, 16)
-		$lblResultElixirNowAcc[$i] = GUICtrlCreateLabel("", 	$x + $i_X * $delX2, 				$y + $delY * 2 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
-			GUICtrlCreateIcon($g_sLibIconPath, $eIcnElixir, 	$x + $delX + $i_X * $delX2, 		$y + $delY * 2 + $i_Y * $delY2, 	16, 16)
-		$lblResultDENowAcc[$i] = GUICtrlCreateLabel("", 		$x + $i_X * $delX2, 				$y + $delY * 3 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
-			GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, 		$x + $delX + $i_X * $delX2, 		$y + $delY * 3 + $i_Y * $delY2, 	16, 16)
-		$lblResultTrophyNowAcc[$i] = GUICtrlCreateLabel("", 	$x + $i_X * $delX2, 				$y + $delY * 4 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
-			GUICtrlCreateIcon($g_sLibIconPath, $eIcnTrophy, 	$x + $delX + $i_X * $delX2, 		$y + $delY * 4 + $i_Y * $delY2, 	16, 16)
+		; Village report (resources)
+		$g_ahLblResultGoldNowAcc[$i] = GUICtrlCreateLabel("", $x + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnGold, $x + $delX + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 16, 16)
+		$g_ahLblResultElixirNowAcc[$i] = GUICtrlCreateLabel("", $x + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnElixir, $x + $delX + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 16, 16)
+		$g_ahLblResultDENowAcc[$i] = GUICtrlCreateLabel("", $x + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, $x + $delX + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 16, 16)
+		$g_ahLblResultTrophyNowAcc[$i] = GUICtrlCreateLabel("", $x + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnTrophy, $x + $delX + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 16, 16)
 
-; Village report (info)
-		GUICtrlCreateIcon($g_sLibIconPath, $eIcnBuilder, 		$x + $delX1 + $i_X * $delX2, 		$y + $delY + $i_Y * $delY2, 		16, 14)
-		$lblResultBuilderNowAcc[$i] = GUICtrlCreateLabel("", 	$x + $delX1 + 20 + $i_X * $delX2, 	$y + $delY + $i_Y * $delY2, 		30, 17, $SS_LEFT)
-		GUICtrlCreateIcon($g_sLibIconPath, $eIcnGem, 			$x + $delX1 + $i_X * $delX2, 		$y + $delY * 2 + $i_Y * $delY2, 	16, 14)
-		$lblResultGemNowAcc[$i] = GUICtrlCreateLabel("", 		$x + $delX1 + 20 + $i_X * $delX2, 	$y + $delY * 2 + $i_Y * $delY2, 	30, 17, $SS_LEFT)
-		GUICtrlCreateIcon($g_sLibIconPath, $eIcnBldgTarget, 	$x + $delX1 + $i_X * $delX2, 		$y + $delY * 3 + $i_Y * $delY2, 	16, 14)
-		$lblResultAttacked[$i] = GUICtrlCreateLabel("", 		$x + $delX1 + 20 + $i_X * $delX2, 	$y + $delY * 3 + $i_Y * $delY2, 	30, 17, $SS_LEFT)
+		; Village report (info)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnBuilder, $x + $delX1 + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 16, 14)
+		$g_ahLblResultBuilderNowAcc[$i] = GUICtrlCreateLabel("", $x + $delX1 + 20 + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 30, 17, $SS_LEFT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnGem, $x + $delX1 + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 16, 14)
+		$g_ahLblResultGemNowAcc[$i] = GUICtrlCreateLabel("", $x + $delX1 + 20 + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 30, 17, $SS_LEFT)
+		GUICtrlCreateIcon($g_sLibIconPath, $eIcnBldgTarget, $x + $delX1 + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 16, 14)
+		$g_ahLblResultAttacked[$i] = GUICtrlCreateLabel("", $x + $delX1 + 20 + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 30, 17, $SS_LEFT)
 
-		$g_ahLblLab[$i] = GUICtrlCreateLabel("Lab:", 			$x + $delX1 + $i_X * $delX2, 		$y + $delY * 4 + $i_Y * $delY2, 	22, 17, $SS_CENTER)
+		$g_ahLblLab[$i] = GUICtrlCreateLabel("Lab:", $x + $delX1 + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 22, 17, $SS_CENTER)
 		GUICtrlSetColor(-1, $COLOR_GRAY)
-		$g_ahLblLabTime[$i] = GUICtrlCreateLabel("", 			$x + $delX1 + 22 + $i_X * $delX2, 	$y + $delY * 4 + $i_Y * $delY2, 	45, 17, $SS_CENTER)
+		$g_ahLblLabTime[$i] = GUICtrlCreateLabel("", $x + $delX1 + 22 + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 45, 17, $SS_CENTER)
 
-; Hero Status
-		$g_ahLblHeroStatus[0][$i] = GUICtrlCreateLabel("K", 	$x + 200 + $i_X * $delX2, 	$y + $delY + $i_Y * $delY2, 	12, 14, $SS_CENTER)
+		; Hero Status
+		$g_ahLblHeroStatus[0][$i] = GUICtrlCreateLabel("K", $x + 200 + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 12, 14, $SS_CENTER)
 		GUICtrlSetColor(-1, $COLOR_GRAY)
-		$g_ahLblHeroStatus[1][$i] = GUICtrlCreateLabel("Q", 	$x + 200 + $i_X * $delX2, 	$y + $delY * 2 + $i_Y * $delY2, 12, 14, $SS_CENTER)
+		$g_ahLblHeroStatus[1][$i] = GUICtrlCreateLabel("Q", $x + 200 + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 12, 14, $SS_CENTER)
 		GUICtrlSetColor(-1, $COLOR_GRAY)
-		$g_ahLblHeroStatus[2][$i] = GUICtrlCreateLabel("W", 	$x + 200 + $i_X * $delX2, 	$y + $delY * 3 + $i_Y * $delY2, 12, 14, $SS_CENTER)
+		$g_ahLblHeroStatus[2][$i] = GUICtrlCreateLabel("W", $x + 200 + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 12, 14, $SS_CENTER)
 		GUICtrlSetColor(-1, $COLOR_GRAY)
 
-; Loot Stats
-		$lblHourlyStatsGoldAcc[$i] = GUICtrlCreateLabel(" k/h", 	$x + $delX + 12 + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 		60, 17, $SS_RIGHT)
-		$lblHourlyStatsElixirAcc[$i] = GUICtrlCreateLabel(" k/h", 	$x + $delX + 12 + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
-		$lblHourlyStatsDarkAcc[$i] = GUICtrlCreateLabel(" /h", 		$x + $delX + 12 + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
-		$lblHourlyStatsTrophyAcc[$i] = GUICtrlCreateLabel(" /h", 	$x + $delX + 12 + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 	60, 17, $SS_RIGHT)
+		; Loot Stats
+		$g_ahLblHourlyStatsGoldAcc[$i] = GUICtrlCreateLabel(" k/h", $x + $delX + 12 + $i_X * $delX2, $y + $delY + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		$g_ahLblHourlyStatsElixirAcc[$i] = GUICtrlCreateLabel(" k/h", $x + $delX + 12 + $i_X * $delX2, $y + $delY * 2 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		$g_ahLblHourlyStatsDarkAcc[$i] = GUICtrlCreateLabel(" /h", $x + $delX + 12 + $i_X * $delX2, $y + $delY * 3 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
+		$g_ahLblHourlyStatsTrophyAcc[$i] = GUICtrlCreateLabel(" /h", $x + $delX + 12 + $i_X * $delX2, $y + $delY * 4 + $i_Y * $delY2, 60, 17, $SS_RIGHT)
 
 		GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-		For $j = $grpVillageAcc[$i] To $lblHourlyStatsTrophyAcc[$i]
+		For $j = $g_ahGrpVillageAcc[$i] To $g_ahLblHourlyStatsTrophyAcc[$i]
 			GUICtrlSetState($j, $GUI_HIDE)
 		Next
 	Next
-EndFunc   ;==>CreateProfileStats
+EndFunc   ;==>CreateMultiStats

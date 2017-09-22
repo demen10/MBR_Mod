@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: SwitchAccount ; Demen_SA_#9001
+; Name ..........: SwitchAccount - Demen_SA_#9001
 ; Description ...: This file contains the Sequence that runs all MBR Bot
 ; Author ........: DEMEN (based on original idea of NDTHUAN)
 ; Modified ......:

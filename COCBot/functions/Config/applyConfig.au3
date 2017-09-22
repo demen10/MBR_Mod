@@ -98,7 +98,7 @@ Func applyConfig($bRedrawAtExit = True, $TypeReadSave = "Read") ;Applies the dat
 	ApplyConfig_600_35($TypeReadSave)
 	; <><><> Attack Plan / Train Army / Troops/Spells <><><>
 	; Quick train
-;~ 	ApplyConfig_600_52_1($TypeReadSave)	; QuickTrainCombo is included in SmartTrain Combo - Demen
+;~ 	ApplyConfig_600_52_1($TypeReadSave)	; QuickTrainCombo - Demen_QT_#9006
 	; troop/spell levels and counts
 	ApplyConfig_600_52_2($TypeReadSave)
 	; <><><> Attack Plan / Train Army / Train Order <><><>
@@ -125,8 +125,8 @@ Func applyConfig($bRedrawAtExit = True, $TypeReadSave = "Read") ;Applies the dat
 	; <<< nothing here >>>
 
 	; <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-	ApplyConfig_SwitchAcc($TypeReadSave) ; Demen_SA_#9001
-	ApplyConfig_Mod($TypeReadSave) ; Demen Mod for other features
+	; Demen Mod - Demen_GE_#9000
+	ApplyConfig_Mod($TypeReadSave)
 
 	ApplyConfig_Debug($TypeReadSave)
 
@@ -1185,7 +1185,7 @@ Func ApplyConfig_600_29_DB_Standard($TypeReadSave)
 			GUICtrlSetState($g_hChkAttackNearGoldMineDB, $g_abAttackStdSmartNearCollectors[$DB][0] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearElixirCollectorDB, $g_abAttackStdSmartNearCollectors[$DB][1] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearDarkElixirDrillDB, $g_abAttackStdSmartNearCollectors[$DB][2] ? $GUI_CHECKED : $GUI_UNCHECKED)
-			cmbStandardDropSidesDB()	; FourFinger Classic - Demen
+			cmbStandardDropSidesDB()	; FourFinger Classic - Demen_FF_#9007
 		Case "Save"
 			$g_aiAttackStdDropOrder[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropOrderDB)
 			$g_aiAttackStdDropSides[$DB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropSidesDB)
@@ -1431,7 +1431,7 @@ Func ApplyConfig_600_29_LB_Standard($TypeReadSave)
 			GUICtrlSetState($g_hChkAttackNearGoldMineAB, $g_abAttackStdSmartNearCollectors[$LB][0] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearElixirCollectorAB, $g_abAttackStdSmartNearCollectors[$LB][1] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkAttackNearDarkElixirDrillAB, $g_abAttackStdSmartNearCollectors[$LB][2] ? $GUI_CHECKED : $GUI_UNCHECKED)
-			cmbStandardDropSidesAB()	; FourFinger Classic - Demen
+			cmbStandardDropSidesAB()	; FourFinger Classic - Demen_FF_#9007
 		Case "Save"
 			$g_aiAttackStdDropOrder[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropOrderAB)
 			$g_aiAttackStdDropSides[$LB] = _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropSidesAB)
@@ -1771,7 +1771,7 @@ Func ApplyConfig_600_35($TypeReadSave)
 	EndSwitch
 EndFunc   ;==>ApplyConfig_600_35
 
-#CS		;  QuickTrainCombo is included in SmartTrain Combo - Demen
+#CS		;  QuickTrainCombo - Demen_QT_#9006
 Func ApplyConfig_600_52_1($TypeReadSave)
 	; <><><> Attack Plan / Train Army / Troops/Spells <><><>
 	; Quick train

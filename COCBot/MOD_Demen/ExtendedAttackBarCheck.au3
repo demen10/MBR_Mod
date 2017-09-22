@@ -12,6 +12,8 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+; ExtendedAttackBar - Demen_S11_#9003
+#include-once
 
 Func ExtendedAttackBarCheck($aTroop1stPage, $Remaining)
 

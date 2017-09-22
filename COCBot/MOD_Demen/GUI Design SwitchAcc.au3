@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: MBR GUI Design Child Bot - Profiles Switch Account
+; Name ..........: GUI Design SwitchAcc - Demen_SA_#9001
 ; Description ...:
 ; Syntax ........:
 ; Parameters ....: None
@@ -14,13 +14,7 @@
 ; ===============================================================================================================================
 #include-once
 
-; SwitchAcc_Demen
-Global $lblProfileNo[8], $lblProfileName[8], $cmbAccountNo[8], $cmbProfileType[8]
-Global $cmbTotalAccount = 0, $radNormalSwitch = 0, $radSmartSwitch = 0, $chkUseTrainingClose = 0, $radCloseCoC = 0, $radCloseAndroid = 0, $cmbLocateAcc = 0, $g_hCmbTrainTimeToSkip = 0
-Global $g_hChkForceSwitch = 0, $g_txtForceSwitch = 0, $g_lblForceSwitch = 0, $g_hChkForceStayDonate = 0
-
-; New
-Global $g_hChkSwitchAcc = 0, $g_hCmbTotalAccount = 0, $g_hChkSmartSwitch = 0
+Global $g_hChkSwitchAcc = 0, $g_hCmbTotalAccount = 0, $g_hChkSmartSwitch = 0, $g_hCmbTrainTimeToSkip = 0
 Global $g_ahChkAccount[8], $g_ahCmbProfile[8], $g_ahChkDonate[8]
 Global $g_hTxtSALog
 

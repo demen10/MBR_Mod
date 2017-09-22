@@ -1545,5 +1545,5 @@ $g_oBldgImages.add($eBldgMortar & "_" & "0", @ScriptDir & "\imgxml\Buildings\Mor
 $g_oBldgImages.add($eBldgAirDefense & "_" & "0", @ScriptDir & "\imgxml\Buildings\ADefense")
 
 ; EOF
-; Demen MOD
+; Demen MOD - Demen_GE_#9000
 #include "MOD_Demen\Globals_Demen.au3"

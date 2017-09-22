@@ -70,21 +70,21 @@ Func UpdateMultiStats($Config = True)
 	Local $iCmbTotalAcc = _GUICtrlComboBox_GetCurSel($g_hCmbTotalAccount) + 1 ; combobox data starts with 2
 	For $i = 0 To 7
 		If $bEnableSwitchAcc And $i <= $iCmbTotalAcc Then
-			For $j = $grpVillageAcc[$i] To $lblHourlyStatsTrophyAcc[$i]
+			For $j = $g_ahGrpVillageAcc[$i] To $g_ahLblHourlyStatsTrophyAcc[$i]
 				GUICtrlSetState($j, $GUI_SHOW)
 			Next
 			If GUICtrlRead($g_ahChkAccount[$i]) = $GUI_CHECKED Then
 				If GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Then
-					GUICtrlSetData($grpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Active)")
+					GUICtrlSetData($g_ahGrpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Active)")
 				Else
-					GUICtrlSetData($grpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Donate)")
+					GUICtrlSetData($g_ahGrpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Donate)")
 				EndIf
 
 			Else
-				GUICtrlSetData($grpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Idle)")
+				GUICtrlSetData($g_ahGrpVillageAcc[$i], GUICtrlRead($g_ahCmbProfile[$i]) & " (Idle)")
 			EndIf
 		Else
-			For $j = $grpVillageAcc[$i] To $lblHourlyStatsTrophyAcc[$i]
+			For $j = $g_ahGrpVillageAcc[$i] To $g_ahLblHourlyStatsTrophyAcc[$i]
 				GUICtrlSetState($j, $GUI_HIDE)
 			Next
 		EndIf
@@ -151,7 +151,7 @@ Func chkAccount7()
 	chkAccount(7)
 EndFunc   ;==>chkAccount7
 
-; Classic Four Finger (Demen) - Added by NguyenAnhHD
+; Classic FourFinger - Demen_FF_#9007
 Func cmbStandardDropSidesAB() ; avoid conflict between FourFinger and SmartAttack
 	If _GUICtrlComboBox_GetCurSel($g_hCmbStandardDropSidesAB) = 4 Then
 		GUICtrlSetState($g_hChkSmartAttackRedAreaAB, $GUI_UNCHECKED)

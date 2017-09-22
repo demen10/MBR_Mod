@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: SmartQuickTrain
+; Name ..........: SmartTrain - Demen_ST_#9002
 ; Description ...: This file contains the Sequence that runs all MBR Bot
 ; Author ........: DEMEN
 ; Modified ......:
@@ -9,6 +9,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
 Func SmartTrain()
 

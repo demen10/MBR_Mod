@@ -48,7 +48,7 @@ Global $g_hFrmBot_WNDPROC_ptr = 0
 #include "GUI\MBR GUI Control Android.au3"
 #include "MBR GUI Action.au3"
 
-; Demen Mod
+; Demen Mod - Demen_GE_#9000
 #include "MOD_Demen\GUI Control_Demen.au3"
 
 Func InitializeMainGUI()
@@ -446,7 +446,6 @@ Func GUIControl_WM_COMMAND($hWind, $iMsg, $wParam, $lParam)
 		Case $g_hLblDonate
 			; Donate URL is not in text nor tooltip
 			ShellExecute("https://mybot.run/forums/index.php?/donate/make-donation/")
-			Setlog("Demen Debug: support developer")
 		Case $g_hBtnStop
 			btnStop()
 		Case $g_hBtnPause
@@ -1370,7 +1369,7 @@ Func SetTime($bForceUpdate = False)
 		GUICtrlSetData($g_hLblResultRuntimeNow, StringFormat("%02i:%02i:%02i", $hour, $min, $sec))
 	EndIf
 
-; Showing troops time in ProfileStats - SwitchAcc - Demen_SA_#9001
+; Showing troops time in MultiStats - SwitchAcc - Demen_SA_#9001
 	Local Static $DisplayLoop = 0
 	If $DisplayLoop >= 3 Then ; Conserve Clock Cycles on Updating times
 		$DisplayLoop = 0
@@ -1388,16 +1387,16 @@ Func SetTime($bForceUpdate = False)
 						EndIf
 
 						If $i = $g_iCurAccount Then
-							GUICtrlSetBkColor($g_lblTroopsTime[$i], $COLOR_GREEN)
-							GUICtrlSetColor($g_lblTroopsTime[$i], $COLOR_WHITE)
+							GUICtrlSetBkColor($g_ahLblTroopsTime[$i], $COLOR_GREEN)
+							GUICtrlSetColor($g_ahLblTroopsTime[$i], $COLOR_WHITE)
 						ElseIf $UpdateTrainTime < 0 Then
-							GUICtrlSetBkColor($g_lblTroopsTime[$i], $COLOR_RED)
-							GUICtrlSetColor($g_lblTroopsTime[$i], $COLOR_WHITE)
+							GUICtrlSetBkColor($g_ahLblTroopsTime[$i], $COLOR_RED)
+							GUICtrlSetColor($g_ahLblTroopsTime[$i], $COLOR_WHITE)
 						Else
-							GUICtrlSetBkColor($g_lblTroopsTime[$i], $COLOR_YELLOW)
-							GUICtrlSetColor($g_lblTroopsTime[$i], $COLOR_BLACK)
+							GUICtrlSetBkColor($g_ahLblTroopsTime[$i], $COLOR_YELLOW)
+							GUICtrlSetColor($g_ahLblTroopsTime[$i], $COLOR_BLACK)
 						EndIf
-						GUICtrlSetData($g_lblTroopsTime[$i], $sReadyTime)
+						GUICtrlSetData($g_ahLblTroopsTime[$i], $sReadyTime)
 					EndIf
 
 					; Lab time
@@ -1422,7 +1421,7 @@ Func SetTime($bForceUpdate = False)
 		EndIf
 	EndIf
 	$DisplayLoop += 1
-; Showing troops time in ProfileStats - SwitchAcc - Demen_SA_#9001
+; Showing troops time in MultiStats - SwitchAcc - Demen_SA_#9001
 
 EndFunc   ;==>SetTime
 
@@ -1693,7 +1692,7 @@ Func tabBot()
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_STATS)
 				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA) ; Demen_SA_#9001
 				ControlHide("","",$g_hCmbGUILanguage)
-			Case $tabidx = 5 ; ProfileStats tab - SwitchAcc Demen_SA_#9001
+			Case $tabidx = 5 ; MultiStats tab - SwitchAcc Demen_SA_#9001
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
 				GUISetState(@SW_HIDE, $g_hGUI_LOG_SA)
 				If $g_bRunState = False Then UpdateMultiStats()

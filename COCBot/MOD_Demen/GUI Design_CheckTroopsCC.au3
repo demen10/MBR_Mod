@@ -9,6 +9,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+; CheckCC Troops - Demen_CC_#9004
 #include-once
 
 Global $g_hLblCastleCapacity = 0, $g_hCmbCastleCapacityT = 0, $g_hCmbCastleCapacityS = 0, $g_hChkTroopsCC = 0, $g_hLblWarningTextCheckCC = 0
@@ -31,7 +32,7 @@ Func GUIControlCheckCC()
 	For $i = 0 To 4
 		Local $CmbSel = _GUICtrlComboBox_GetCurSel($g_ahCmbCCSlot[$i])
 		If $i >= 3 Then $CmbSel += 20
-		If $CmbSel <> $aIcons[$i] Then _GUICtrlSetImage($g_ahPicCCSlot[$i], $g_sLibIconPath, $aIcons[$CmbSel])
+		If $CmbSel <> $aIcons[$CmbSel] Then _GUICtrlSetImage($g_ahPicCCSlot[$i], $g_sLibIconPath, $aIcons[$CmbSel])
 	Next
 
 	; checking expect/total for warning
