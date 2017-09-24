@@ -99,7 +99,7 @@ Func InitializeBot()
 
 	SetLogCentered(" BOT LOG ") ; Initial text for log
 
-	SetSwitchAccLog(_PadStringCenter(" SwitchAcc Log ", 25, "="), "", $COLOR_BLACK, "Lucida Console", 8, False) ; Demen_SA_#9001
+	SetSwitchAccLog(_PadStringCenter(" SwitchAcc Log ", 25, "="), $COLOR_BLACK, "Lucida Console", 8, False) ; Demen_SA_#9001
 
 	; Debug Output of launch parameter
 	SetDebugLog("@AutoItExe: " & @AutoItExe)

@@ -17,7 +17,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 	UpdateMultiStats()
 	$g_iNextAccount = -1
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & " accounts")
-	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc")
+	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc", $COLOR_SUCCESS)
 
 	For $i = 0 To $g_iTotalAcc
 		; listing all accounts
@@ -56,6 +56,7 @@ Func CheckSwitchAcc()
 	SetLog("Start SwitchAcc")
 	If $g_bWaitForCCTroopSpell Then
 		Setlog("Still waiting for CC troops/ spells, switching to another Account")
+		SetSwitchAccLog(" - Waiting for CC")
 		$bForceSwitch = True
 	Else
 		getArmyTroopTime(True, False) ; update $g_aiTimeTrain[0]
@@ -71,15 +72,17 @@ Func CheckSwitchAcc()
 		$iWaitTime = _ArrayMax($g_aiTimeTrain)
 		If $bReachAttackLimit And $iWaitTime <= 0 Then
 			Setlog("This account has attacked twice in a row, switching to another account")
+			SetSwitchAccLog(" - Reach attack limit: " & $g_aiAttackedCountAcc[$g_iCurAccount] - $g_aiAttackedCountSwitch[$g_iCurAccount])
 			$bForceSwitch = True
 		EndIf
 	EndIf
 
 	Local $sLogSkip = ""
 	If Not $g_abDonateOnly[$g_iCurAccount] And $iWaitTime <= $g_iTrainTimeToSkip And Not $bForceSwitch Then
-		If $iWaitTime > 0 Then $sLogSkip = " in " & Round($iWaitTime, 2) & "m"
+		If $iWaitTime > 0 Then $sLogSkip = " in " & Round($iWaitTime, 1) & "m"
 		Setlog("Army is ready" & $sLogSkip & ", skip switching account")
-		SetSwitchAccLog("Stay at [" & $g_iCurAccount + 1 & "], Attk: " & $g_aiAttackedCountAcc[$g_iCurAccount])
+		SetSwitchAccLog(" - Army is ready"  & $sLogSkip)
+		SetSwitchAccLog("Stay at [" & $g_iNextAccount + 1 & "]", $COLOR_SUCCESS)
 		If _Sleep(500) Then Return
 	Else
 		$nMinRemainTrain = CheckTroopTimeAllAccount($bForceSwitch)
@@ -93,12 +96,14 @@ Func CheckSwitchAcc()
 					$g_iNextAccount = $aDonateAccount[$g_iDonateSwitchCounter]
 					$g_iDonateSwitchCounter += 1
 					If $g_iDebugSetlog Then Setlog("Switch to Donate Account " & $g_iNextAccount + 1 & ". $g_iDonateSwitchCounter = " & $g_iDonateSwitchCounter, $COLOR_DEBUG)
+					SetSwitchAccLog(" - Donate Acc [" & $g_iNextAccount + 1 & "]")
 				Else ; Active or Random
 					$g_iDonateSwitchCounter = 0
 					If $g_iCurAccount = $g_iNextAccount And $nMinRemainTrain > 3 Then ; Random
 						Local $iRandomElement = Random(0, UBound($aActiveAccount) - 1, 1)
 						$g_iNextAccount = $aActiveAccount[$iRandomElement]
 						Setlog("Still " & Round($nMinRemainTrain, 2) & " min until army is ready. Switch to a random account: " & $g_iNextAccount + 1)
+						SetSwitchAccLog(" - Random Acc [" & $g_iNextAccount + 1 & "]")
 					EndIf
 				EndIf
 			EndIf
@@ -120,7 +125,7 @@ Func CheckSwitchAcc()
 			SwitchCOCAcc($g_iNextAccount)
 		Else
 			Setlog("Staying in this account")
-			SetSwitchAccLog("Stay at [" & $g_iCurAccount + 1 & "]")
+			SetSwitchAccLog("Stay at [" & $g_iNextAccount + 1 & "]", $COLOR_SUCCESS)
 		EndIf
 	EndIf
 
@@ -143,8 +148,7 @@ Func SwitchCOCAcc($NextAccount)
 	EndIf
 
 	If $StartOnlineTime <> 0 And Not $g_bReMatchAcc Then _
-		SetSwitchAccLog("Acc [" & $g_iCurAccount + 1 & "], online: " & Round(TimerDiff($StartOnlineTime) / 1000 / 60, 2) & "m")
-	SetSwitchAccLog("Switching to Acc [" & $NextAccount + 1 & "]")
+		SetSwitchAccLog(" - Acc " & $g_iCurAccount + 1 & ", online: " & Round(TimerDiff($StartOnlineTime) / 1000 / 60, 1) & "m")
 
 	PureClick(820, 585, 1, 0, "Click Setting")
 	If _Sleep(500) Then Return
@@ -215,8 +219,7 @@ Func SwitchCOCAcc($NextAccount)
 
 			Setlog("please wait for loading CoC")
 			$bResult = True
-			If IsMainPage(100) Then ExitLoop ; Waiting for fully load CoC in 10 sec
-			ExitLoop
+			If _Sleep(5000) Then Return
 		EndIf
 		If $i = 15 Then $bResult = False
 		If _Sleep(900) Then Return
@@ -235,11 +238,12 @@ Func SwitchCOCAcc($NextAccount)
 			DisableGUI_AfterLoadNewProfile()
 		EndIf
 		$StartOnlineTime = TimerInit()
+		SetSwitchAccLog("Switched to Acc [" & $NextAccount + 1 & "]", $COLOR_SUCCESS)
 	Else
 		$iRetry += 1
 		$g_bReMatchAcc = True
 		Setlog("Switching account failed!", $COLOR_RED)
-		SetSwitchAccLog("Switch failed!")
+		SetSwitchAccLog("Switching to Acc " & $NextAccount + 1 & " Failed!", $COLOR_ERROR)
 		If $iRetry <= 3 Then
 			PureClickP($aAway, 3, 500)
 			checkMainScreen()
@@ -299,24 +303,24 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 		$g_aiTimerStart[$g_iCurAccount] = TimerInit() ; start counting elapse of training time of current account
 	EndIf
 
-	SetSwitchAccLog("Train times: ")
+	SetSwitchAccLog(" - Train times: ")
 
 	For $i = 0 To $g_iTotalAcc
 		If $bExcludeCurrent And $i = $g_iCurAccount Then ContinueLoop
 		If $g_abAccountNo[$i] And Not $g_abDonateOnly[$i] Then ;	Only check Active profiles
 			If $g_aiTimerStart[$i] <> 0 Then
-				$g_aiRemainTrainTime[$i] -= Round(TimerDiff($g_aiTimerStart[$i]) / 1000 / 60, 2) ;   updated remain train time of Active accounts
+				$g_aiRemainTrainTime[$i] -= Round(TimerDiff($g_aiTimerStart[$i]) / 1000 / 60, 1) ;   updated remain train time of Active accounts
 				$g_aiTimerStart[$i] = TimerInit() ; reset timer
 				If $g_aiRemainTrainTime[$i] >= 0 Then
 					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " will have full army in:" & $g_aiRemainTrainTime[$i] & " minutes")
 				Else
 					Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " was ready:" & - $g_aiRemainTrainTime[$i] & " minutes ago")
 				EndIf
-				SetSwitchAccLog(" - Acc [" & $i + 1 & "]: " & $g_aiRemainTrainTime[$i] & "m")
+				SetSwitchAccLog("    Acc " & $i + 1 & ": " & $g_aiRemainTrainTime[$i] & "m")
 			Else ; for accounts first Run
 				Setlog("Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " has not been read its remain train time")
 				$g_aiRemainTrainTime[$i] = -999
-				SetSwitchAccLog(" - Acc [" & $i + 1 & "]: Unknown")
+				SetSwitchAccLog("    Acc " & $i + 1 & ": Unknown")
 			EndIf
 		EndIf
 	Next
@@ -358,7 +362,7 @@ Func CreateSwitchLogFile()
 	SetDebugLog("Created attack log file: " & $sSwitchLogPath)
 EndFunc   ;==>CreateSwitchLogFile
 
-Func SetSwitchAccLog($String1, $String2 = "", $Color = $COLOR_BLACK, $Font = "Verdana", $FontSize = 7.5, $time = True)
+Func SetSwitchAccLog($String, $Color = $COLOR_BLACK, $Font = "Verdana", $FontSize = 7.5, $time = True)
 	If $time = True Then
 		$time = Time()
 	Else
@@ -366,10 +370,10 @@ Func SetSwitchAccLog($String1, $String2 = "", $Color = $COLOR_BLACK, $Font = "Ve
 	EndIf
 
 	If $g_hSwitchLogFile = 0 Then CreateSwitchLogFile()
-	_FileWriteLog($g_hSwitchLogFile, $String1 & $String2)
+	_FileWriteLog($g_hSwitchLogFile, $String)
 
 	Dim $a[6]
-	$a[0] = $String1
+	$a[0] = $String
 	$a[1] = $Color
 	$a[2] = $Font
 	$a[3] = $FontSize
