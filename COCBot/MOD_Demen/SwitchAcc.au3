@@ -220,6 +220,7 @@ Func SwitchCOCAcc($NextAccount)
 			Setlog("please wait for loading CoC")
 			$bResult = True
 			If _Sleep(5000) Then Return
+			ExitLoop
 		EndIf
 		If $i = 15 Then $bResult = False
 		If _Sleep(900) Then Return
