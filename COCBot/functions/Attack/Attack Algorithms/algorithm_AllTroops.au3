@@ -19,7 +19,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 
 	If _Sleep($DELAYALGORITHM_ALLTROOPS1) Then Return
 
-	If $g_aiAttackStdDropSides[$g_iMatchMode] <> 4 Then SmartAttackStrategy($g_iMatchMode) ; detect redarea first to drop any troops ; FourFinger Classic - Demen
+	If $g_aiAttackStdDropSides[$g_iMatchMode] <> 4 Then SmartAttackStrategy($g_iMatchMode) ; detect redarea first to drop any troops ; FourFinger Classic - Demen_FF_#9007
 
 	; If one of condtions passed then start TH snipe attack
 	; - detect matchmode TS
@@ -69,7 +69,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 		Case 3 ;All sides ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			SetLog("Attacking on all sides", $COLOR_INFO)
 			$nbSides = 4
-		Case 4 ;Classic FourFinger ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Demen
+		Case 4 ;Classic FourFinger ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Demen_FF_#9007
 			SetLog("Attacking four finger fight style", $COLOR_INFO)
 			$nbSides = 5
 		Case 5 ;DE Side - Live Base only ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +85,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 	If _Sleep($DELAYALGORITHM_ALLTROOPS2) Then Return
 
 	; $ListInfoDeploy = [Troop, No. of Sides, $WaveNb, $MaxWaveNb, $slotsPerEdge]
-	If $g_iMatchMode = $LB And $g_aiAttackStdDropSides[$LB] = 5 Then ; Customise DE side wave deployment here	; Demen
+	If $g_iMatchMode = $LB And $g_aiAttackStdDropSides[$LB] = 5 Then ; Customise DE side wave deployment here	; FourFinger - Demen_FF_#9007
 		Switch $g_aiAttackStdDropOrder[$g_iMatchMode]
 			Case 0
 				Local $listInfoDeploy[21][5] = [[$eGole, $nbSides, 1, 1, 2] _
@@ -134,7 +134,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 						, [$eGobl, $nbSides, 1, 1, 1] _
 						]
 		EndSwitch
-	; Classic FourFinger - Demen
+	; Classic FourFinger - Demen_FF_#9007
 	ElseIf $nbSides = 5 Then
 		Local $listInfoDeploy[21][5] = [[$eGiant, $nbSides, 1, 1, 2], _
 						[$eGole, $nbSides, 1, 1, 2], _

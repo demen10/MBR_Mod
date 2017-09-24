@@ -53,7 +53,7 @@ Func LaunchTroop2($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden)
 	Local $pixelRandomDrop[2]
 	Local $pixelRandomDropcc[2]
 
-	If ($g_abAttackStdSmartAttack[$g_iMatchMode]) And ($g_aiAttackStdDropSides[$g_iMatchMode] <> 4) Then	; FourFinger - Demen
+	If ($g_abAttackStdSmartAttack[$g_iMatchMode]) And ($g_aiAttackStdDropSides[$g_iMatchMode] <> 4) Then	; FourFinger - Demen_FF_#9007
 		For $i = 0 To UBound($listInfoDeploy) - 1
 			Local $troop = -1
 			Local $troopNb = 0
@@ -241,7 +241,7 @@ Func LaunchTroop2($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden)
 	Else
 		For $i = 0 To UBound($listInfoDeploy) - 1
 			If (IsString($listInfoDeploy[$i][0]) And ($listInfoDeploy[$i][0] = "CC" Or $listInfoDeploy[$i][0] = "HEROES")) Then
-				If $g_iMatchMode = $LB And $g_aiAttackStdDropSides[$LB] >= 5 Then ; Used for DE or TH side attack ;Fourfinger - Demen
+				If $g_iMatchMode = $LB And $g_aiAttackStdDropSides[$LB] >= 5 Then ; Used for DE or TH side attack ;Fourfinger - Demen_FF_#9007
 					Local $RandomEdge = $g_aaiEdgeDropPoints[$g_iBuildingEdge]
 					Local $RandomXY = 2
 				Else

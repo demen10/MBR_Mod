@@ -37,7 +37,7 @@ Func AttackBarCheck($Remaining = False)
 		$CheckSlotwHero = False
 	EndIf
 
-	If $g_bDraggedAttackBar Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag for the 2nd Recalc - ExtendedAttackBar - Demen
+	If $g_bDraggedAttackBar Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag for the 2nd Recalc - ExtendedAttackBar - Demen_S11_#9003
 
 	; Reset to level one the Spells level
 	$g_iLSpellLevel = 1
@@ -85,7 +85,7 @@ Func AttackBarCheck($Remaining = False)
 					$aCoordArray[0][1] = -1
 				EndIf
 				If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
-				;;;;;;;; If exist Castle Spell ;;;;;;; - Fix 2 cc spells (Demen)
+				;;;;;;;; If exist Castle Spell ;;;;;;; - Fix 2 cc spells - Demen_S11_#9003
 				If UBound($aCoords) > 1 And StringInStr($aResult[$i][0], "Spell") <> 0 Then
 					If $g_iDebugSetlog = 1 Then Setlog($aResult[$i][0] & " x" & UBound($aCoords) & " multiple detected: " & $aValue)
 
@@ -171,7 +171,7 @@ Func AttackBarCheck($Remaining = False)
 						$aResult[$i][3] = -1
 						$aResult[$i][4] = -1
 					EndIf
-					If $aResult[$i][4] <= 10 Or Not $g_abChkExtendedAttackBar[$g_iMatchMode] Then ; ExtendedAttackBarCheck - Demen
+					If $aResult[$i][4] <= 10 Or Not $g_abChkExtendedAttackBar[$g_iMatchMode] Then ; ExtendedAttackBar - Demen_S11_#9003
 						$strinToReturn &= "|" & TroopIndexLookup($aResult[$i][0]) & "#" & $aResult[$i][4] & "#" & $aResult[$i][3]
 					EndIf
 				EndIf
@@ -202,7 +202,7 @@ Func AttackBarCheck($Remaining = False)
 		_GDIPlus_BitmapDispose($editedImage)
 	EndIf
 
-	; Drag & checking ExtendedAttackBar - Demen
+	; Drag & checking ExtendedAttackBar - Demen_S11_#9003
 	If $g_iMatchMode <= $LB Then
 		If $g_abChkExtendedAttackBar[$g_iMatchMode] And $CheckSlot12 And IsArray($aResult) Then
 			If $g_iDebugSetlog = 1 Then Setlog("$strinToReturn 1st page = " & $strinToReturn)
@@ -216,7 +216,7 @@ Func AttackBarCheck($Remaining = False)
 			If Not $Remaining Then DragAttackBar($g_iTotalAttackSlot, True) ; return drag
 		EndIf
 	EndIf
-	; Drag & checking ExtendedAttackBar - Demen
+	; Drag & checking ExtendedAttackBar - Demen_S11_#9003
 
 	$strinToReturn = StringTrimLeft($strinToReturn, 1)
 

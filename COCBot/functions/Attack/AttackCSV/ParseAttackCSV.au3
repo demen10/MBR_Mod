@@ -272,7 +272,7 @@ Func ParseAttackCSV($debug = False)
 							Setlog("Discard row, " & $sErrorText & ": row " & $iLine + 1)
 							debugAttackCSV("Discard row, " & $sErrorText & ": row " & $iLine + 1)
 						Else
-							; REMAIN CMD from @chalicucu (added by Demen)
+							; REMAIN CMD from @chalicucu (added by Demen - Other mode code ref. Demen_OM_#9009)
 							If $value4 = "REMAIN" Then
 								SetLog("Drop|Remain:  Dropping left over troops", $COLOR_BLUE)
 								; Let's get the troops again and quantities

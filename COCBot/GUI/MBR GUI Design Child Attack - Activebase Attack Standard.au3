@@ -49,12 +49,12 @@ Func CreateAttackSearchActiveBaseStandard()
 								  GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_02", -1) & "|" & _
 								  GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_03", -1) & "|" & _
 							      GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_04", -1) & "|" & _
-							      "Classic Four Fingers" & "|" & _	; Classic FourFinger - Demen
+							      "Classic Four Fingers" & "|" & _	; Classic FourFinger - Demen_FF_#9007
 								  GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_05", "DE Side Attack") & "|" & _
 								  GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_06", "TH Side Attack"), _
 								  GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "CmbStandardDropSides_Item_04", -1))
 			   ;GUICtrlSetOnEvent(-1, "chkDESideEB")
-			   GUICtrlSetOnEvent(-1,"cmbStandardDropSidesAB") ; Uncheck SmartAttack Red Area when enable FourFinger to avoid conflict - Demen
+			   GUICtrlSetOnEvent(-1,"cmbStandardDropSidesAB") ; Uncheck SmartAttack Red Area when enable FourFinger to avoid conflict - Demen_FF_#9007
 
 		   $y += 25
 		   GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Standard", "Lbl-CmbStandardUnitDelay", -1) & ":", $x, $y + 5, -1, -1)

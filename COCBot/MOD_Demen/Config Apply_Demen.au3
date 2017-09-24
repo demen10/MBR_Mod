@@ -12,11 +12,24 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
-Func ApplyConfig_SmartTrain($TypeReadSave)
+Func ApplyConfig_Mod($TypeReadSave)
 	Switch $TypeReadSave
 		Case "Read"
-			; 	QuickTrainCombo (Checkbox)
+			; SwitchAcc - Demen_SA_#9001
+			GUICtrlSetState($g_hChkSwitchAcc, $g_bChkSwitchAcc ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkSmartSwitch, $g_bChkSmartSwitch ? $GUI_CHECKED : $GUI_UNCHECKED)
+			_GUICtrlComboBox_SetCurSel($g_hCmbTotalAccount, $g_iTotalAcc - 1)
+			For $i = 0 To 7
+				GUICtrlSetState($g_ahChkAccount[$i], $g_abAccountNo[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
+				_GUICtrlComboBox_SetCurSel($g_ahCmbProfile[$i], $g_aiProfileNo[$i])
+				GUICtrlSetState($g_ahChkDonate[$i], $g_abDonateOnly[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
+			Next
+			_GUICtrlComboBox_SetCurSel($g_hCmbTrainTimeToSkip, $g_iTrainTimeToSkip)
+			chkSwitchAcc()
+
+			; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006
 			GUICtrlSetState($g_hChkUseQuickTrain, $g_bQuickTrainEnable ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_ahChkArmy[0], $g_bQuickTrainArmy[0] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_ahChkArmy[1], $g_bQuickTrainArmy[1] ? $GUI_CHECKED : $GUI_UNCHECKED)
@@ -24,7 +37,7 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			GUICtrlSetState($g_hChkMultiClick, $g_bChkMultiClick ? $GUI_CHECKED : $GUI_UNCHECKED)
 			chkUseQTrain()
 
-			; SmartTrain (Demen)
+			; SmartTrain - Demen_ST_#9002
 			GUICtrlSetState($g_hchkSmartTrain, $ichkSmartTrain = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hchkPreciseTroops, $ichkPreciseTroops = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hchkFillArcher, $ichkFillArcher = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
@@ -32,11 +45,11 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			GUICtrlSetState($g_hchkFillEQ, $ichkFillEQ = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
 			chkSmartTrain()
 
-			; ExtendedAttackBar
+			; ExtendedAttackBar - Demen_S11+_#9003
 			GUICtrlSetState($g_hChkExtendedAttackBarDB, $g_abChkExtendedAttackBar[$DB] ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkExtendedAttackBarLB, $g_abChkExtendedAttackBar[$LB] ? $GUI_CHECKED : $GUI_UNCHECKED)
 
-			; CheckCCTroops
+			; CheckCCTroops - Demen_CC_#9004
 			GUICtrlSetState($g_hChkTroopsCC, $g_bChkCC ? $GUI_CHECKED : $GUI_UNCHECKED)
 			_GUICtrlComboBox_SetCurSel($g_hCmbCastleCapacityT, $g_iCmbCastleCapacityT)
 			_GUICtrlComboBox_SetCurSel($g_hCmbCastleCapacityS, $g_iCmbCastleCapacityS)
@@ -47,25 +60,36 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			GUIControlCheckCC()
 
 		Case "Save"
-			; 	QuickTrainCombo (Checkbox)
+			; SwitchAcc - Demen_SA_#9001
+			$g_bChkSwitchAcc = GUICtrlRead($g_hChkSwitchAcc) = $GUI_CHECKED
+			$g_bChkSmartSwitch = GUICtrlRead($g_hChkSmartSwitch) = $GUI_CHECKED
+			$g_iTotalAcc = _GUICtrlComboBox_GetCurSel($g_hCmbTotalAccount) + 1 ; at least 2 accounts needed
+			For $i = 0 To 7
+				$g_abAccountNo[$i] = GUICtrlRead($g_ahChkAccount[$i]) = $GUI_CHECKED
+				$g_aiProfileNo[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbProfile[$i])
+				$g_abDonateOnly[$i] = GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED
+			Next
+			$g_iTrainTimeToSkip = _GUICtrlComboBox_GetCurSel($g_hCmbTrainTimeToSkip)
+
+			; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006
 			$g_bQuickTrainEnable = (GUICtrlRead($g_hChkUseQuickTrain) = $GUI_CHECKED)
 			$g_bQuickTrainArmy[0] = (GUICtrlRead($g_ahChkArmy[0]) = $GUI_CHECKED)
 			$g_bQuickTrainArmy[1] = (GUICtrlRead($g_ahChkArmy[1]) = $GUI_CHECKED)
 			$g_bQuickTrainArmy[2] = (GUICtrlRead($g_ahChkArmy[2]) = $GUI_CHECKED)
 			$g_bChkMultiClick = (GUICtrlRead($g_hChkMultiClick) = $GUI_CHECKED)
 
-			;SmartTrain (Demen) - Added by Demen
+			;SmartTrain - Demen_ST_#9002
 			$ichkSmartTrain = GUICtrlRead($g_hchkSmartTrain) = $GUI_CHECKED ? 1 : 0
 			$ichkPreciseTroops = GUICtrlRead($g_hchkPreciseTroops) = $GUI_CHECKED ? 1 : 0
 			$ichkFillArcher = GUICtrlRead($g_hchkFillArcher) = $GUI_CHECKED ? 1 : 0
 			$iFillArcher = GUICtrlRead($g_htxtFillArcher)
 			$ichkFillEQ = GUICtrlRead($g_hchkFillEQ) = $GUI_CHECKED ? 1 : 0
 
-			; ExtendedAttackBar
+			; ExtendedAttackBar - Demen_S11+_#9003
 			$g_abChkExtendedAttackBar[$DB] = GUICtrlRead($g_hChkExtendedAttackBarDB) = $GUI_CHECKED ? True : False
 			$g_abChkExtendedAttackBar[$LB] = GUICtrlRead($g_hChkExtendedAttackBarLB) = $GUI_CHECKED ? True : False
 
-			; CheckCCTroops
+			; CheckCCTroops - Demen_CC_#9004
 			$g_bChkCC = GUICtrlRead($g_hChkTroopsCC) = $GUI_CHECKED ? True : False
 			$g_iCmbCastleCapacityT = _GUICtrlComboBox_GetCurSel($g_hCmbCastleCapacityT)
 			$g_iCmbCastleCapacityS = _GUICtrlComboBox_GetCurSel($g_hCmbCastleCapacityS)
@@ -75,52 +99,5 @@ Func ApplyConfig_SmartTrain($TypeReadSave)
 			Next
 
 	EndSwitch
-EndFunc   ;==>ApplyConfig_SmartTrain
+EndFunc   ;==>ApplyConfig_Mod
 
-Func ApplyConfig_SwitchAcc($TypeReadSave)
-	; <><><> SwitchAcc_Demen_Style <><><>
-	Switch $TypeReadSave
-		Case "Read"
-			GUICtrlSetState($chkSwitchAcc, $ichkSwitchAcc = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
-			chkSwitchAcc()
-			If $ichkSmartSwitch = 1 Then
-				GUICtrlSetState($radSmartSwitch, $GUI_CHECKED)
-			Else
-				GUICtrlSetState($radNormalSwitch, $GUI_CHECKED)
-			EndIf
-			If GUICtrlRead($chkSwitchAcc) = $GUI_CHECKED Then radNormalSwitch()
-			_GUICtrlComboBox_SetCurSel($cmbTotalAccount, $icmbTotalCoCAcc - 1)
-			_GUICtrlComboBox_SetCurSel($g_hCmbTrainTimeToSkip, $g_iTrainTimeToSkip - 1)
-			GUICtrlSetState($g_hChkForceSwitch, $ichkForceSwitch = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
-			GUICtrlSetData($g_txtForceSwitch, $iForceSwitch)
-			If GUICtrlRead($chkSwitchAcc) = $GUI_CHECKED Then chkForceSwitch()
-			GUICtrlSetState($g_hChkForceStayDonate, $ichkForceStayDonate = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
-			If $ichkCloseTraining >= 1 Then
-				GUICtrlSetState($chkUseTrainingClose, $GUI_CHECKED)
-				If $ichkCloseTraining = 1 Then
-					GUICtrlSetState($radCloseCoC, $GUI_CHECKED)
-				Else
-					GUICtrlSetState($radCloseAndroid, $GUI_CHECKED)
-				EndIf
-			Else
-				GUICtrlSetState($chkUseTrainingClose, $GUI_UNCHECKED)
-			EndIf
-			For $i = 0 To 7
-				_GUICtrlComboBox_SetCurSel($cmbAccountNo[$i], $aMatchProfileAcc[$i] - 1)
-				_GUICtrlComboBox_SetCurSel($cmbProfileType[$i], $aProfileType[$i] - 1)
-			Next
-
-		Case "Save"
-			$ichkSwitchAcc = GUICtrlRead($chkSwitchAcc) = $GUI_CHECKED ? 1 : 0
-			$icmbTotalCoCAcc = _GUICtrlComboBox_GetCurSel($cmbTotalAccount) + 1
-			$ichkSmartSwitch = GUICtrlRead($radSmartSwitch) = $GUI_CHECKED ? 1 : 0
-			$g_iTrainTimeToSkip = _GUICtrlComboBox_GetCurSel($g_hCmbTrainTimeToSkip) + 1
-			$ichkForceSwitch = GUICtrlRead($g_hChkForceSwitch) = $GUI_CHECKED ? 1 : 0
-			$ichkForceStayDonate = GUICtrlRead($g_hChkForceStayDonate) = $GUI_CHECKED ? 1 : 0
-			$iForceSwitch = GUICtrlRead($g_txtForceSwitch)
-			$ichkCloseTraining = GUICtrlRead($chkUseTrainingClose) = $GUI_CHECKED ? 1 : 0
-			If $ichkCloseTraining = 1 Then
-				$ichkCloseTraining = GUICtrlRead($radCloseCoC) = $GUI_CHECKED ? 1 : 2
-			EndIf
-	EndSwitch
-EndFunc   ;==>ApplyConfig_SwitchAcc

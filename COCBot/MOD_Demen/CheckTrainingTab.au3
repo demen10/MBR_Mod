@@ -9,6 +9,8 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+; SmartTrain - Demen_ST_#9002
+#include-once
 
 Func CheckTrainingTab($sText = "troop")
 
@@ -80,7 +82,7 @@ Func CheckTrainingTab($sText = "troop")
 			Local $bSkipTraining = $g_bFullArmy
 			If $sText = "spell" Then $bSkipTraining = $g_bFullArmySpells Or $g_bForceBrewSpells
 			If Not $bSkipTraining And _ColorCheck(_GetPixelColor(824, 243, True), Hex(0x949522, 6), 20) Then ; the green check symbol [bottom right] at slot 0 troop
-				If $ichkSwitchAcc = 1 And $aProfileType[$nCurProfile - 1] = $eDonate Then
+				If $g_bChkSwitchAcc And $g_abDonateOnly[$g_iCurAccount] Then ; SwitchAcc - Demen_SA_#9001
 					SetLog("  » A big guy is blocking our camp, but you are in donate account, so just leave it")
 				Else
 					SetLog("  » A big guy is blocking in queue, try delete queued troops")

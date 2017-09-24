@@ -24,8 +24,8 @@ Global $g_hLblResultDENow = 0, $g_hLblResultDEHourNow = 0, $g_hPicResultDENow = 
 Global $g_hLblResultTrophyNow = 0, $g_hPicResultTrophyNow = 0, $g_hLblResultRuntimeNow = 0, $g_hPicResultRuntimeNow = 0, $g_hLblResultBuilderNow = 0, $g_hPicResultBuilderNow = 0
 Global $g_hLblResultAttackedHourNow = 0, $g_hPicResultAttackedHourNow = 0, $g_hLblResultGemNow = 0, $g_hPicResultGemNow = 0, $g_hLblResultSkippedHourNow = 0, $g_hPicResultSkippedHourNow = 0
 Global $g_hLblVillageReportTemp = 0, $g_hBtnTestVillage = 0
-Global $g_hBtnEnableGUI = 0, $g_hBtnDisableGUI = 0	; Adding button to enable/disable GUI while botting (as requested by YScorpion) - Demen
-Global $g_ahLblHero[3], $g_hLblLab, $g_hLblLabTime	; Hero & Lab Status - Demen
+Global $g_hBtnEnableGUI = 0, $g_hBtnDisableGUI = 0	; Adding button to enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
+Global $g_ahLblHero[3], $g_hLblLab, $g_hLblLabTime	; Hero & Lab Status - Demen_HL_#9005
 
 Func CreateBottomPanel()
    Local $sTxtTip = ""
@@ -78,7 +78,8 @@ Func CreateBottomPanel()
 						      GetTranslatedFileIni("MBR GUI Design Bottom", "ChkBackgroundMode_Info_02", "With this you can also hide the Android Emulator window out of sight."))
 		   GUICtrlSetOnEvent(-1, "chkBackground")
 		   GUICtrlSetState(-1, (($g_bAndroidAdbScreencap = True) ? ($GUI_CHECKED) : ($GUI_UNCHECKED)))
-	   $g_hLblDonate = GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Bottom", "LblDonate", "Support the development"), $x + 224, $y + 85, 220, 20, $SS_RIGHT) ; was y+80 x height 24. Sorry I have to move this down a little bit - Demen		   GUICtrlSetCursor(-1, 0) ; https://www.autoitscript.com/autoit3/docs/functions/MouseGetCursor.htm
+	   $g_hLblDonate = GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Bottom", "LblDonate", "Support the development"), $x + 224, $y + 85, 220, 20, $SS_RIGHT) ; was y+80 x height 24. Sorry I have to move this down a little bit - Demen_HL_#9005
+		   GUICtrlSetCursor(-1, 0) ; https://www.autoitscript.com/autoit3/docs/functions/MouseGetCursor.htm
 		   GUICtrlSetFont(-1, 8.5, $FW_BOLD) ;, $GUI_FONTITALIC + $GUI_FONTUNDER)
 		   _GUICtrlSetTip(-1, GetTranslatedFileIni("MBR GUI Design Bottom", "LblDonate_Info_01", "Paypal Donate?"))
 	   $g_hBtnAttackNowDB = GUICtrlCreateButton(GetTranslatedFileIni("MBR GUI Design Bottom", "BtnAttackNowDB", "DB Attack!"), $x + 190, $y - 4, 60, -1)
@@ -88,7 +89,7 @@ Func CreateBottomPanel()
 	   $g_hBtnAttackNowTS = GUICtrlCreateButton(GetTranslatedFileIni("MBR GUI Design Bottom", "BtnAttackNowTS", "TH Snipe!"), $x + 190, $y + 50, 60, -1)
 		   GUICtrlSetState(-1, $GUI_HIDE)
 
-		; Adding button to enable/disable GUI while botting (as requested by YScorpion) - Demen
+		; Adding button to enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
 		$g_hBtnEnableGUI = GUICtrlCreateButton("Enable GUI", $x + 100, $y + 72, 80, 22)
 			_GUICtrlSetTip(-1, 	"Enable GUI control while botting" & @CRLF & _
 								"   Warning:  USE THIS WITH CAUTION!" & @CRLF & _
@@ -109,7 +110,7 @@ Func CreateBottomPanel()
 
    $g_hLblVersion = GUICtrlCreateLabel($g_sBotVersion, 200, $y + 60, 60, 17, $SS_CENTER)
 	   GUICtrlSetColor(-1, $COLOR_MEDGRAY)
-   GUICtrlCreateLabel($g_sModversion, 200, $y + 80, 70, 17, $SS_CENTER) ;- Adding DEMEN Mod Version
+   GUICtrlCreateLabel($g_sModversion, 200, $y + 80, 70, 17, $SS_CENTER) ;- Adding DEMEN Mod Version - Demen_GE_#9000
 	   GUICtrlSetColor(-1, $COLOR_MEDGRAY)
 
    $g_hPicArrowLeft = _GUICtrlCreateIcon($g_sLibIconPath, $eIcnArrowLeft, $x + 249, $y + 30, 16, 16)
@@ -119,9 +120,9 @@ Func CreateBottomPanel()
 	  _GUICtrlSetTip(-1, $sTxtTip)
 
    ;~ Village
-   Local $x = 295, $y = $y_bottom + 20	; y was +20 - Demen
+   Local $x = 295, $y = $y_bottom + 20	; y was +20 - Demen_HL_#9005
    $g_hGrpVillage = GUICtrlCreateGroup(GetTranslatedFileIni("MBR GUI Design Bottom", "GrpVillage", "Village"), $x - 20, $y - 20, 180, 95) ; y height was 85
-	   $y = $y_bottom + 17	; Move up a little bit - Demen
+	   $y = $y_bottom + 17	; Move up a little bit - Demen_HL_#9005
 	   $g_hLblResultGoldNow = GUICtrlCreateLabel("", $x - 5, $y + 2, 60, 15, $SS_RIGHT)
 	   $g_hLblResultGoldHourNow = GUICtrlCreateLabel("", $x, $y + 2, 60, 15, $SS_RIGHT)
 		   GUICtrlSetState(-1, $GUI_HIDE)
@@ -141,7 +142,7 @@ Func CreateBottomPanel()
 		   GUICtrlSetState(-1, $GUI_HIDE)
 	   $g_hPicResultDETemp = _GUICtrlCreateIcon ($g_sLibIconPath, $eIcnDark, $x - 5, $y + 40, 16, 16)
 
-	   ;Hero & Lab status - Demen
+	   ;Hero & Lab status - Demen_HL_#9005
 	   $g_ahLblHero[0] = GUICtrlCreateLabel("K", $x - 5, $y + 60, 12, 14, $SS_CENTER)
 	   GUICtrlSetFont(-1, 8.5)
 	   GUICtrlSetColor(-1, $COLOR_MEDGRAY)

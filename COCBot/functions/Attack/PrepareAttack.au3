@@ -34,7 +34,7 @@ Func PrepareAttack($pMatchMode, $Remaining = False) ;Assigns troops
 				$g_aHeroesTimerActivation[$i] = 0
 			Next
 		EndIf
-		; ExtendedAttackBar Demen
+		; ExtendedAttackBar - Demen_S11_#9003
 		$g_iTotalAttackSlot = 10 ; reset all flag
 		$g_bDraggedAttackBar = False
 	EndIf
@@ -65,14 +65,14 @@ Func PrepareAttack($pMatchMode, $Remaining = False) ;Assigns troops
 	Local $aTroopDataList = StringSplit($result, "|")
 	Local $aTemp[12][3]
 
-	; ExtendedAttackBar Demen
+	; ExtendedAttackBar - Demen_S11_#9003
 	If $pMatchMode <= $LB Then
 		If $g_abChkExtendedAttackBar[$pMatchMode] Then
 			ReDim $aTemp[22][3]
 			ReDim $g_avAttackTroops[22][2]
 		EndIf
 	EndIf
-	; ExtendedAttackBar Demen
+	; ExtendedAttackBar - Demen_S11_#9003
 
 	If $result <> "" Then
 		; example : 0#0#92|1#1#108|2#2#8|22#3#1|20#4#1|21#5#1|26#5#0|23#6#1|24#7#2|25#8#1|29#10#1

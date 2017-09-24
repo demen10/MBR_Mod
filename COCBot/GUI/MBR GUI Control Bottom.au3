@@ -43,6 +43,7 @@ Func Initiate()
 		EndIf
 
 		$g_bFirstStart = True
+		$g_bInitiateSwitchAcc = True ; SwitchAcc - Demen_SA_#9001
 
 		If $g_bNotifyDeleteAllPushesOnStart = True Then _DeletePush()
 
@@ -81,8 +82,6 @@ Func Initiate()
 				$bCheckLanguageFirst = True
 			EndIf
 			If Not $g_bRunState Then Return
-
-			If $ichkSwitchAcc = 1 Then InitiateSwitchAcc(); SwitchAcc Demen
 
 			runBot()
 		EndIf
@@ -191,18 +190,18 @@ EndFunc   ;==>btnSearchMode
 Func btnPause($RunNow = True)
 	;Send("{PAUSE}")
 	TogglePause()
-	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
-	GUICtrlSetState($g_hBtnEnableGUI, $GUI_SHOW)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_SHOW)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
 EndFunc   ;==>btnPause
 
 Func btnResume()
 	;Send("{PAUSE}")
 	TogglePause()
-	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
-	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
+	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE)	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
 EndFunc   ;==>btnResume
 
-Func btnEnableGUI() 	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+Func btnEnableGUI() 	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
 	GUICtrlSetState($g_hBtnEnableGUI, $GUI_HIDE)
 	GUICtrlSetState($g_hBtnDisableGUI, $GUI_SHOW)
 	GUICtrlSetState($g_hBtnResume, $GUI_DISABLE)
@@ -211,7 +210,7 @@ Func btnEnableGUI() 	; Manually enable/disable GUI while botting (as requested b
 	SetLog("Enabled bot controls as you wished", $COLOR_SUCCESS)
 EndFunc
 
-Func btnDisableGUI()	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen
+Func btnDisableGUI()	; Manually enable/disable GUI while botting (as requested by YScorpion) - Demen_EG_#9008
 	GUICtrlSetState($g_hBtnDisableGUI, $GUI_HIDE)
 	GUICtrlSetState($g_hBtnEnableGUI, $GUI_SHOW)
 	GUICtrlSetState($g_hBtnResume, $GUI_ENABLE)

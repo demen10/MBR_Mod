@@ -145,7 +145,7 @@ Func ArmyHeroStatus($i)
 EndFunc   ;==>ArmyHeroStatus
 #CE
 
- ; check hero status by imgloc - Demen
+ ; check hero status by imgloc - HeroLabStatus - Demen_HL_#9005
 Func ArmyHeroStatus($i)
 
 	Local Const $aHeroesRect[3][4] = [[606, 338, 682, 390], [681, 338, 756, 390], [755, 338, 833, 390]]
@@ -168,4 +168,4 @@ Func ArmyHeroStatus($i)
 
 	Return $sResult
 EndFunc   ;==>ArmyHeroStatus
-; check hero status by imgloc - Demen
+; check hero status by imgloc - HeroLabStatus - Demen_HL_#9005

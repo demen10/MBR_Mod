@@ -14,7 +14,9 @@
 ; ===============================================================================================================================
 #include-once
 
-; SwitchAcc_Demen_Style
+; SwitchAcc - Demen_SA_#9001
 #include "GUI Design SwitchAcc.au3"
-#include "GUI Design ProfileStats.au3"
+#include "GUI Design MultiStats.au3"
+
+; CheckCC - Demen_CC_#9004
 #include "GUI Design_CheckTroopsCC.au3"

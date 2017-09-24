@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: CheckCC & remove unexpected troops in CC
+; Name ..........: CheckCC & remove unexpected troops in CC - Demen_CC_#9004
 ; Description ...: This file contains the Sequence that runs all MBR Bot
 ; Author ........: DEMEN
 ; Modified ......:
@@ -9,6 +9,7 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#include-once
 
 Func CheckCC($close = True)
 	Local $directory = @ScriptDir & "\imgxml\ArmyTroops"
