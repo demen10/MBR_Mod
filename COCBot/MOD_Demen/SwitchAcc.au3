@@ -197,7 +197,7 @@ Func SwitchCOCAcc($NextAccount)
 				PureClickP($aAway, 2, 0, "#0167") ;Click Away
 				If _Sleep(500) Then Return
 				$bResult = True
-				ExitLoop
+				ExitLoop 2 ; no more step needed
 			ElseIf _ColorCheck(_GetPixelColor(480, 441, True), "60B010", 20) Then ; Load Button
 				PureClick(443, 430, 1, 0, "Click Load") ;Click Load
 				Setlog("   3. Click load button")
@@ -223,7 +223,7 @@ Func SwitchCOCAcc($NextAccount)
 						Setlog("   5. Click OKAY")
 						ExitLoop
 					EndIf
-					If $k = 15 Then
+					If $k = 10 Then
 						$bResult = False
 						ExitLoop 3
 					EndIf
