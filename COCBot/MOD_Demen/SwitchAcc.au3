@@ -153,78 +153,95 @@ Func SwitchCOCAcc($NextAccount)
 	PureClick(820, 585, 1, 0, "Click Setting")
 	If _Sleep(500) Then Return
 
-	For $i = 0 To 15 ; Checking Green Connect Button continuously in 15sec
-		If _ColorCheck(_GetPixelColor(408, 408, True), "D0E878", 20) Then ;	Green
-			PureClick(440, 420, 2, 1000) ;	Click Connect & Disconnect
-			Setlog("   1. Click connect & disconnect")
-			If _Sleep(200) Then Return
-			ExitLoop
-		ElseIf _ColorCheck(_GetPixelColor(408, 408, True), "F07077", 20) Then ; Red
-			PureClick(440, 420) ;	Click Disconnect
-			Setlog("   1. Click disconnect")
-			If _Sleep(200) Then Return
-			ExitLoop
-		EndIf
-		If $i = 15 Then $bResult = False
-		If _Sleep(900) Then Return
-	Next
+	While 1
+		For $i = 0 To 15 ; Checking Green Connect Button continuously in 15sec
+			If _ColorCheck(_GetPixelColor(408, 408, True), "D0E878", 20) Then ;	Green
+				PureClick(440, 420, 2, 1000) ;	Click Connect & Disconnect
+				Setlog("   1. Click connect & disconnect")
+				If _Sleep(200) Then Return
+				ExitLoop
+			ElseIf _ColorCheck(_GetPixelColor(408, 408, True), "F07077", 20) Then ; Red
+				PureClick(440, 420) ;	Click Disconnect
+				Setlog("   1. Click disconnect")
+				If _Sleep(200) Then Return
+				ExitLoop
+			EndIf
+			If $i = 15 Then
+				$bResult = False
+				ExitLoop 2
+			EndIf
+			If _Sleep(900) Then Return
+		Next
 
-	For $i = 0 To 15 ; Checking Account List continuously in 15sec
-		If _ColorCheck(_GetPixelColor(600, 310, True), "FFFFFF", 20) Then ;	Grey
-			PureClick(383, $YCoord) ;	Click Account
-			Setlog("   2. Click account [" & $NextAccount + 1 & "]")
-			If _Sleep(500) Then Return
-			ExitLoop
-		ElseIf _ColorCheck(_GetPixelColor(408, 408, True), "F07077", 20) And $i = 6 Then ; 	Red, double click did not work, try click Disconnect 1 more time
-			PureClick(440, 420) ;	Click Disconnect
-			Setlog("   1.5. Click disconnect again")
-			If _Sleep(500) Then Return
-		EndIf
-		If $i = 15 Then $bResult = False
-		If _Sleep(900) Then Return
-	Next
+		For $i = 0 To 15 ; Checking Account List continuously in 15sec
+			If _ColorCheck(_GetPixelColor(600, 310, True), "FFFFFF", 20) Then ;	Grey
+				PureClick(383, $YCoord) ;	Click Account
+				Setlog("   2. Click account [" & $NextAccount + 1 & "]")
+				If _Sleep(500) Then Return
+				ExitLoop
+			ElseIf _ColorCheck(_GetPixelColor(408, 408, True), "F07077", 20) And $i = 6 Then ; 	Red, double click did not work, try click Disconnect 1 more time
+				PureClick(440, 420) ;	Click Disconnect
+				Setlog("   1.5. Click disconnect again")
+				If _Sleep(500) Then Return
+			EndIf
+			If $i = 15 Then
+				$bResult = False
+				ExitLoop 2
+			EndIf
+			If _Sleep(900) Then Return
+		Next
 
-	For $i = 0 To 15 ; Checking Load Button continuously in 15sec
-		If _ColorCheck(_GetPixelColor(408, 408, True), "D0E878", 20) Then ; Green
-			Setlog("Already in current account")
-			PureClickP($aAway, 2, 0, "#0167") ;Click Away
-			If _Sleep(500) Then Return
-			$bResult = True
-			ExitLoop
-		ElseIf _ColorCheck(_GetPixelColor(480, 441, True), "60B010", 20) Then ; Load Button
-			PureClick(443, 430, 1, 0, "Click Load") ;Click Load
-			Setlog("   3. Click load button")
+		For $i = 0 To 15 ; Checking Load Button continuously in 15sec
+			If _ColorCheck(_GetPixelColor(408, 408, True), "D0E878", 20) Then ; Green
+				Setlog("Already in current account")
+				PureClickP($aAway, 2, 0, "#0167") ;Click Away
+				If _Sleep(500) Then Return
+				$bResult = True
+				ExitLoop
+			ElseIf _ColorCheck(_GetPixelColor(480, 441, True), "60B010", 20) Then ; Load Button
+				PureClick(443, 430, 1, 0, "Click Load") ;Click Load
+				Setlog("   3. Click load button")
 
-			For $j = 0 To 15 ; Checking Text Box continuously in 15sec
-				If _ColorCheck(_GetPixelColor(585, 16, True), "F88088", 20) Then ; Pink (close icon)
-					PureClick(360, 195, 1, 0, "Click Text box")
-					Setlog("   4. Click text box & type CONFIRM")
-					If _Sleep(500) Then Return
-					AndroidSendText("CONFIRM")
-					ExitLoop
-				EndIf
-				If $j = 15 Then $bResult = False
-				If _Sleep(900) Then Return
-			Next
+				For $j = 0 To 15 ; Checking Text Box continuously in 15sec
+					If _ColorCheck(_GetPixelColor(585, 16, True), "F88088", 20) Then ; Pink (close icon)
+						PureClick(360, 195, 1, 0, "Click Text box")
+						Setlog("   4. Click text box & type CONFIRM")
+						If _Sleep(500) Then Return
+						AndroidSendText("CONFIRM")
+						ExitLoop
+					EndIf
+					If $j = 15 Then
+						$bResult = False
+						ExitLoop 3
+					EndIf
+					If _Sleep(900) Then Return
+				Next
 
-			For $k = 0 To 10 ; Checking OKAY Button continuously in 10sec
-				If _ColorCheck(_GetPixelColor(480, 200, True), "71BB1E", 20) Then
-					PureClick(480, 200, 1, 0, "Click OKAY")
-					Setlog("   5. Click OKAY")
-					ExitLoop
-				EndIf
-				If $j = 15 Then $bResult = False
-				If _Sleep(900) Then Return
-			Next
+				For $k = 0 To 10 ; Checking OKAY Button continuously in 10sec
+					If _ColorCheck(_GetPixelColor(480, 200, True), "71BB1E", 20) Then
+						PureClick(480, 200, 1, 0, "Click OKAY")
+						Setlog("   5. Click OKAY")
+						ExitLoop
+					EndIf
+					If $k = 15 Then
+						$bResult = False
+						ExitLoop 3
+					EndIf
+					If _Sleep(900) Then Return
+				Next
 
-			Setlog("please wait for loading CoC")
-			$bResult = True
-			If _Sleep(5000) Then Return
-			ExitLoop
-		EndIf
-		If $i = 15 Then $bResult = False
-		If _Sleep(900) Then Return
-	Next
+				Setlog("please wait for loading CoC")
+				$bResult = True
+				ExitLoop 2
+			EndIf
+			If $i = 15 Then
+				$bResult = False
+				ExitLoop 2
+			EndIf
+			If _Sleep(900) Then Return
+		Next
+		ExitLoop
+	WEnd
 
 	If $bResult = True Then
 		$iRetry = 0
@@ -253,6 +270,7 @@ Func SwitchCOCAcc($NextAccount)
 			UniversalCloseWaitOpenCoC()
 		EndIf
 	EndIf
+	waitMainScreen()
 	runBot()
 
 EndFunc   ;==>SwitchCOCAcc
