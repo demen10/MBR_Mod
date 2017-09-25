@@ -243,6 +243,7 @@ Func SwitchCOCAcc($NextAccount)
 		ExitLoop
 	WEnd
 
+	If _Sleep(500) Then Return
 	If $bResult = True Then
 		$iRetry = 0
 		$g_bReMatchAcc = False
