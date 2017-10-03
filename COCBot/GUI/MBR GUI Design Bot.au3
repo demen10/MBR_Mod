@@ -24,13 +24,14 @@ Global $g_hGUI_BOT = 0
 
 Global $g_hGUI_BOT_TAB = 0, $g_hGUI_BOT_TAB_ITEM1 = 0, $g_hGUI_BOT_TAB_ITEM2 = 0, $g_hGUI_BOT_TAB_ITEM3 = 0, $g_hGUI_BOT_TAB_ITEM4 = 0, $g_hGUI_BOT_TAB_ITEM5 = 0
 Global $g_hGUI_BOT_TAB_ITEM6 = 0 ; MultiStats For SwitchAcc - Demen_SA_#9001
-Global $g_hGUI_LOG_SA ; Set SwitchAcc Log - Demen_SA_#9001
+Global $g_hGUI_BOT_SWITCH = 0, $g_hGUI_BOT_SWITCH_TAB = 0, $g_hGUI_BOT_SWITCH_TAB1 = 0, $g_hGUI_BOT_SWITCH_TAB2 = 0 ; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+Global $g_hGUI_LOG_SA = 0 ; Set SwitchAcc Log - Demen_SA_#9001
 
 Func CreateBotTab()
 	$g_hGUI_BOT = _GUICreate("", $g_iSizeWGrpTab1, $g_iSizeHGrpTab1, $_GUI_CHILD_LEFT, $_GUI_CHILD_TOP, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hFrmBotEx)
 	;GUISetBkColor($COLOR_WHITE, $g_hGUI_BOT)
 
-	$g_hGUI_LOG_SA = _GUICreate("", 200, 230, 238, 193, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT)
+	$g_hGUI_BOT_SWITCH = _GUICreate("", $g_iSizeWGrpTab2, 342, 5, 90, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
 
 	$g_hGUI_STATS = _GUICreate("", $g_iSizeWGrpTab2, $g_iSizeHGrpTab2, 5, 25, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
 
@@ -44,17 +45,31 @@ Func CreateBotTab()
 	CreateBotDebug()
 	$g_hGUI_BOT_TAB_ITEM4 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_04", "Profiles"))
 	CreateBotProfiles()
-	CreateBotSwitchAcc() ; SwitchAcc GUI Design - Demen_SA_#9001
 	$g_hGUI_BOT_TAB_ITEM5 = GUICtrlCreateTabItem(GetTranslatedFileIni("MBR Main GUI", "Tab_04_STab_05", "Stats"))
 	$g_hGUI_BOT_TAB_ITEM6 = GUICtrlCreateTabItem("Multi Stats") ; MultiStats - SwitchAcc - Demen
+	CreateMultiStats() ; MultiStats - SwitchAcc - Demen_SA_#9001
 
 	; This dummy is used in btnStart and btnStop to disable/enable all labels, text, buttons etc. on all tabs.
 	$g_hLastControlToHide = GUICtrlCreateDummy()
 	ReDim $g_aiControlPrevState[$g_hLastControlToHide + 1]
 
-	CreateBotSwitchAccLog()  ; Set SwitchAcc Log - Demen_SA_#9001
-	CreateMultiStats() ; MultiStats - SwitchAcc - Demen_SA_#9001
-
 	CreateBotStats()
+	CreateBotProfileSwitch()
 	GUICtrlCreateTabItem("")
+
 EndFunc   ;==>CreateBotTab
+
+Func CreateBotProfileSwitch()
+	; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+	$g_hGUI_LOG_SA = _GUICreate("", 200, 230, 230, 113, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT_SWITCH)
+
+	GUISwitch($g_hGUI_BOT_SWITCH)
+	$g_hGUI_BOT_SWITCH_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab2 + 2, 342, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
+	$g_hGUI_BOT_SWITCH_TAB1 = GUICtrlCreateTabItem("Switch Accounts")
+	CreateBotSwitchAcc() ; SwitchAcc GUI Design - Demen_SA_#9001
+	$g_hGUI_BOT_SWITCH_TAB2 = GUICtrlCreateTabItem("Switch Profiles")
+	CreateBotSwitchProfile() ; SwitchProfile - Demen_SP_#9011
+
+	CreateBotSwitchAccLog() ; Set SwitchAcc Log - Demen_SA_#9001
+	GUICtrlCreateTabItem("")
+EndFunc   ;==>CreateBotProfileSwitch

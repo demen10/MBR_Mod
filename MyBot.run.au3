@@ -650,6 +650,7 @@ Func runBot() ;Bot that runs everything in order
 			VillageReport()
 			UpdateHeroStatus() ; Demen_HL_#9005
 			UpdateLabStatus() ; Demen_HL_#9005
+			ProfileSwitch() ; ; SwitchProfile - Demen_SP_#9011
 			If $g_bOutOfGold = True And (Number($g_aiCurrentLoot[$eLootGold]) >= Number($g_iTxtRestartGold)) Then ; check if enough gold to begin searching again
 				$g_bOutOfGold = False ; reset out of gold flag
 				Setlog("Switching back to normal after no gold to search ...", $COLOR_SUCCESS)

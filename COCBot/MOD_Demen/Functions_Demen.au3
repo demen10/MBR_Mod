@@ -37,3 +37,6 @@
 
 ; HeroLabStatus - Demen_HL_#9005
 #include "UpdateLabStatus.au3"
+
+; SwitchProfile - Demen_SP_#9011
+#include "ProfileSwitch.au3"

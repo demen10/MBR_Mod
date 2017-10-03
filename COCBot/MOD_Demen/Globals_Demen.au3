@@ -61,3 +61,7 @@ Global $g_bChkMultiClick, $g_iMultiClick = 1
 ; Other mod's Code ref. Demen_OT_#9009
 ; General common codes - Demen_GE_#9000
 
+; SwitchProfile - Demen_SP_#9011
+Global $g_abChkSwitchMax[4], $g_abChkSwitchMin[4], $g_aiCmbSwitchMax[4], $g_aiCmbSwitchMin[4]
+Global $g_abChkBotTypeMax[4], $g_abChkBotTypeMin[4], $g_aiCmbBotTypeMax[4], $g_aiCmbBotTypeMin[4]
+Global $g_aiConditionMax[4], $g_aiConditionMin[4]

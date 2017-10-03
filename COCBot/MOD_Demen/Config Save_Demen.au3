@@ -28,6 +28,22 @@ Func SaveConfig_Mod()
 	Next
 	IniWriteS($g_sProfilePath & "\Profile.ini", "SwitchAcc", "Train Time To Skip", $g_iTrainTimeToSkip)
 
+	; SwitchProfile - Demen_SP_#9011
+	For $i = 0 To 3
+		_Ini_Add("SwitchProfile", "SwitchProfileMax" & $i, $g_abChkSwitchMax[$i] ? 1 : 0)
+		_Ini_Add("SwitchProfile", "SwitchProfileMin" & $i, $g_abChkSwitchMin[$i] ? 1 : 0)
+		_Ini_Add("SwitchProfile", "TargetProfileMax" & $i, $g_aiCmbSwitchMax[$i])
+		_Ini_Add("SwitchProfile", "TargetProfileMin" & $i, $g_aiCmbSwitchMin[$i])
+
+		_Ini_Add("SwitchProfile", "ChangeBotTypeMax" & $i, $g_abChkBotTypeMax[$i] ? 1 : 0)
+		_Ini_Add("SwitchProfile", "ChangeBotTypeMin" & $i, $g_abChkBotTypeMin[$i] ? 1 : 0)
+		_Ini_Add("SwitchProfile", "TargetBotTypeMax" & $i, $g_aiCmbBotTypeMax[$i])
+		_Ini_Add("SwitchProfile", "TargetBotTypeMin" & $i, $g_aiCmbBotTypeMin[$i])
+
+		_Ini_Add("SwitchProfile", "ConditionMax" & $i, $g_aiConditionMax[$i])
+		_Ini_Add("SwitchProfile", "ConditionMin" & $i, $g_aiConditionMin[$i])
+	Next
+
 	; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006
 	_Ini_Add("other", "ChkUseQTrain", $g_bQuickTrainEnable ? 1 : 0)
 	_Ini_Add("other", "ChkMultiClick", $g_bChkMultiClick ? 1 : 0)

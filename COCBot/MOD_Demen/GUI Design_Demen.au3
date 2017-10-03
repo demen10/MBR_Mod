@@ -18,5 +18,8 @@
 #include "GUI Design SwitchAcc.au3"
 #include "GUI Design MultiStats.au3"
 
+; SwitchProfile - Demen_SP_#9011
+#include "GUI Design SwitchProfile.au3"
+
 ; CheckCC - Demen_CC_#9004
 #include "GUI Design_CheckTroopsCC.au3"

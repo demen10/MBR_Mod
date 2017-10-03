@@ -65,7 +65,7 @@ Func chkFillArcher()
 EndFunc   ;==>chkFillArcher
 
 ; SwitchAcc - Demen_SA_#9001
-Func UpdateMultiStats($Config = True)
+Func UpdateMultiStats()
 	Local $bEnableSwitchAcc = GUICtrlRead($g_hChkSwitchAcc) = $GUI_CHECKED
 	Local $iCmbTotalAcc = _GUICtrlComboBox_GetCurSel($g_hCmbTotalAccount) + 1 ; combobox data starts with 2
 	For $i = 0 To 7
@@ -97,10 +97,20 @@ Func chkSwitchAcc()
 			GUICtrlSetState($i, $GUI_ENABLE)
 		Next
 		cmbTotalAcc()
+		; SwitchProfile - Demen_SP_#9011
+		_GUI_Value_STATE("ENABLE", $g_ahChk_BotTypeMax[0] & "#" & $g_ahChk_BotTypeMax[1] & "#" & $g_ahChk_BotTypeMax[2] & "#" & $g_ahChk_BotTypeMax[3] _
+				 & "#" & $g_ahChk_BotTypeMin[0] & "#" & $g_ahChk_BotTypeMin[1] & "#" & $g_ahChk_BotTypeMin[2] & "#" & $g_ahChk_BotTypeMin[3])
+
 	Else
 		For $i = $g_hCmbTotalAccount To $g_ahChkDonate[7]
 			GUICtrlSetState($i, $GUI_DISABLE)
 		Next
+		; SwitchProfile - Demen_SP_#9011
+		_GUI_Value_STATE("UNCHECKED", $g_ahChk_BotTypeMax[0] & "#" & $g_ahChk_BotTypeMax[1] & "#" & $g_ahChk_BotTypeMax[2] & "#" & $g_ahChk_BotTypeMax[3] _
+				 & "#" & $g_ahChk_BotTypeMin[0] & "#" & $g_ahChk_BotTypeMin[1] & "#" & $g_ahChk_BotTypeMin[2] & "#" & $g_ahChk_BotTypeMin[3])
+		_GUI_Value_STATE("DISABLE", $g_ahChk_BotTypeMax[0] & "#" & $g_ahChk_BotTypeMax[1] & "#" & $g_ahChk_BotTypeMax[2] & "#" & $g_ahChk_BotTypeMax[3] _
+				 & "#" & $g_ahChk_BotTypeMin[0] & "#" & $g_ahChk_BotTypeMin[1] & "#" & $g_ahChk_BotTypeMin[2] & "#" & $g_ahChk_BotTypeMin[3])
+		chkSwitchBotType()
 	EndIf
 EndFunc   ;==>chkSwitchAcc
 
@@ -150,6 +160,37 @@ EndFunc   ;==>chkAccount6
 Func chkAccount7()
 	chkAccount(7)
 EndFunc   ;==>chkAccount7
+
+; SwitchProfile - Demen_SP_#9011
+Func chkSwitchProfile()
+	For $i = 0 To 3
+		If GUICtrlRead($g_ahChk_SwitchMax[$i]) = $GUI_CHECKED Then
+			GUICtrlSetState($g_ahCmb_SwitchMax[$i], $GUI_ENABLE)
+		Else
+			GUICtrlSetState($g_ahCmb_SwitchMax[$i], $GUI_DISABLE)
+		EndIf
+		If GUICtrlRead($g_ahChk_SwitchMin[$i]) = $GUI_CHECKED Then
+			GUICtrlSetState($g_ahCmb_SwitchMin[$i], $GUI_ENABLE)
+		Else
+			GUICtrlSetState($g_ahCmb_SwitchMin[$i], $GUI_DISABLE)
+		EndIf
+	Next
+EndFunc   ;==>chkSwitchProfile
+
+Func chkSwitchBotType()
+	For $i = 0 To 3
+		If GUICtrlRead($g_ahChk_BotTypeMax[$i]) = $GUI_CHECKED Then
+			GUICtrlSetState($g_ahCmb_BotTypeMax[$i], $GUI_ENABLE)
+		Else
+			GUICtrlSetState($g_ahCmb_BotTypeMax[$i], $GUI_DISABLE)
+		EndIf
+		If GUICtrlRead($g_ahChk_BotTypeMin[$i]) = $GUI_CHECKED Then
+			GUICtrlSetState($g_ahCmb_BotTypeMin[$i], $GUI_ENABLE)
+		Else
+			GUICtrlSetState($g_ahCmb_BotTypeMin[$i], $GUI_DISABLE)
+		EndIf
+	Next
+EndFunc   ;==>chkSwitchBotType
 
 ; Classic FourFinger - Demen_FF_#9007
 Func cmbStandardDropSidesAB() ; avoid conflict between FourFinger and SmartAttack

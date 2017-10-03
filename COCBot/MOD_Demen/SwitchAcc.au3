@@ -19,13 +19,16 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 	Setlog("SwitchAccount enable for " & $g_iTotalAcc + 1 & " accounts")
 	SetSwitchAccLog("Initiating: " & $g_iTotalAcc + 1 & " acc", $COLOR_SUCCESS)
 
+	Local $iCurProfile = _GUICtrlComboBox_GetCurSel($g_hCmbProfile)
+
 	For $i = 0 To $g_iTotalAcc
 		; listing all accounts
 		Local $sBotType = "Idle"
 		If $g_abAccountNo[$i] = True Then
 			$sBotType = "Active"
-			If $g_iNextAccount = -1 Then $g_iNextAccount = $i
 			If $g_abDonateOnly[$i] = True Then $sBotType = "Donate"
+			If $g_iNextAccount = -1 Then $g_iNextAccount = $i
+			If $g_aiProfileNo[$i] = $iCurProfile Then $g_iNextAccount = $i
 		EndIf
 		Setlog("  - Account [" & $i + 1 & "]: " & GUICtrlRead($g_ahCmbProfile[$i]) & " - " & $sBotType)
 		SetSwitchAccLog("  - Acc. " & $i + 1 & ": " & $sBotType)
@@ -36,7 +39,7 @@ Func InitiateSwitchAcc() ; Checking profiles setup in Mybot, First matching CoC 
 		$g_aLabTimeAcc[$i] = 0
 		$g_aLabTimerStart[$i] = 0
 	Next
-
+	$g_iCurAccount = $g_iNextAccount ; make sure no crash
 	Setlog("Let's start with Account [" & $g_iNextAccount + 1 & "]")
 
 	SwitchCOCAcc($g_iNextAccount)

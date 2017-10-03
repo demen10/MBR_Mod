@@ -20,10 +20,9 @@ Global $g_hTxtSALog
 
 Func CreateBotSwitchAcc()
 
-	Local $sTxtTip = ""
-	Local $x = 20, $y = 110
+	Local $x = 10, $y = 30
 
-	GUICtrlCreateGroup("Switch Account", $x - 10, $y - 20, 433, 337)
+;	GUICtrlCreateGroup("Switch Account", $x - 10, $y - 20, 433, 337)
 
 		$g_hChkSwitchAcc = GUICtrlCreateCheckbox("Enable Switch Account", $x, $y, -1, -1)
 		GUICtrlSetOnEvent(-1, "chkSwitchAcc")
@@ -60,7 +59,7 @@ Func CreateBotSwitchAcc()
 			$g_ahChkDonate[$i] = GUICtrlCreateCheckbox("", $x + 190, $y + ($i) * 25 - 3, -1, 25)
 		Next
 
-	GUICtrlCreateGroup("", -99, -99, 1, 1)
+;	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 EndFunc   ;==>CreateBotSwitchAcc
 
