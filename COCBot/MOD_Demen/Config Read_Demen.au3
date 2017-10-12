@@ -27,22 +27,19 @@ Func ReadConfig_Mod()
 	Next
 	IniReadS($g_iTrainTimeToSkip, $g_sProfilePath & "\Profile.ini", "SwitchAcc", "Train Time To Skip", 1, "int")
 
-	; SwitchProfile - Demen_SP_#9011
-	Local $aiDefaultMax[4] = ["6000000", "6000000", "180000", "5000"]
-	Local $aiDefaultMin[4] = ["1000000", "1000000", "20000", "3000"]
-	For $i = 0 To 3
-		IniReadS($g_abChkSwitchMax[$i], $g_sProfileConfigPath, "SwitchProfile", "SwitchProfileMax" & $i, False, "Bool")
-		IniReadS($g_abChkSwitchMin[$i], $g_sProfileConfigPath, "SwitchProfile", "SwitchProfileMin" & $i, False, "Bool")
-		IniReadS($g_aiCmbSwitchMax[$i], $g_sProfileConfigPath, "SwitchProfile", "TargetProfileMax" & $i, -1, "Int")
-		IniReadS($g_aiCmbSwitchMin[$i], $g_sProfileConfigPath, "SwitchProfile", "TargetProfileMin" & $i, -1, "Int")
+	; FarmSchedule - Demen_FS_#9012
+	For $i = 0 To 7
+		IniReadS($g_abChkSetFarm[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "ChkSetFarm" & $i, False, "Bool")
 
-		IniReadS($g_abChkBotTypeMax[$i], $g_sProfileConfigPath, "SwitchProfile", "ChangeBotTypeMax" & $i, False, "Bool")
-		IniReadS($g_abChkBotTypeMin[$i], $g_sProfileConfigPath, "SwitchProfile", "ChangeBotTypeMin" & $i, False, "Bool")
-		IniReadS($g_aiCmbBotTypeMax[$i], $g_sProfileConfigPath, "SwitchProfile", "TargetBotTypeMax" & $i, 1, "Int")
-		IniReadS($g_aiCmbBotTypeMin[$i], $g_sProfileConfigPath, "SwitchProfile", "TargetBotTypeMin" & $i, 2, "Int")
+		IniReadS($g_aiCmbAction1[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbAction1" & $i, 0, "Int")
+		IniReadS($g_aiCmbCriteria1[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbCriteria1" & $i, 0, "Int")
+		IniReadS($g_aiTxtResource1[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "TxtResource1" & $i, "")
+		IniReadS($g_aiCmbTime1[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbTime1" & $i, -1, "Int")
 
-		IniReadS($g_aiConditionMax[$i], $g_sProfileConfigPath, "SwitchProfile", "ConditionMax" & $i, $aiDefaultMax[$i], "Int")
-		IniReadS($g_aiConditionMin[$i], $g_sProfileConfigPath, "SwitchProfile", "ConditionMin" & $i, $aiDefaultMin[$i], "Int")
+		IniReadS($g_aiCmbAction2[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbAction2" & $i, 0, "Int")
+		IniReadS($g_aiCmbCriteria2[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbCriteria2" & $i, 0, "Int")
+		IniReadS($g_aiTxtResource2[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "TxtResource2" & $i, "")
+		IniReadS($g_aiCmbTime2[$i], $g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbTime2" & $i, -1, "Int")
 	Next
 
 	; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006

@@ -28,20 +28,19 @@ Func SaveConfig_Mod()
 	Next
 	IniWriteS($g_sProfilePath & "\Profile.ini", "SwitchAcc", "Train Time To Skip", $g_iTrainTimeToSkip)
 
-	; SwitchProfile - Demen_SP_#9011
-	For $i = 0 To 3
-		_Ini_Add("SwitchProfile", "SwitchProfileMax" & $i, $g_abChkSwitchMax[$i] ? 1 : 0)
-		_Ini_Add("SwitchProfile", "SwitchProfileMin" & $i, $g_abChkSwitchMin[$i] ? 1 : 0)
-		_Ini_Add("SwitchProfile", "TargetProfileMax" & $i, $g_aiCmbSwitchMax[$i])
-		_Ini_Add("SwitchProfile", "TargetProfileMin" & $i, $g_aiCmbSwitchMin[$i])
+	; FarmSchedule - Demen_FS_#9012
+	For $i = 0 To 7
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "ChkSetFarm" & $i, $g_abChkSetFarm[$i])
 
-		_Ini_Add("SwitchProfile", "ChangeBotTypeMax" & $i, $g_abChkBotTypeMax[$i] ? 1 : 0)
-		_Ini_Add("SwitchProfile", "ChangeBotTypeMin" & $i, $g_abChkBotTypeMin[$i] ? 1 : 0)
-		_Ini_Add("SwitchProfile", "TargetBotTypeMax" & $i, $g_aiCmbBotTypeMax[$i])
-		_Ini_Add("SwitchProfile", "TargetBotTypeMin" & $i, $g_aiCmbBotTypeMin[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbAction1" & $i, $g_aiCmbAction1[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbCriteria1" & $i, $g_aiCmbCriteria1[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "TxtResource1" & $i, $g_aiTxtResource1[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbTime1" & $i, $g_aiCmbTime1[$i])
 
-		_Ini_Add("SwitchProfile", "ConditionMax" & $i, $g_aiConditionMax[$i])
-		_Ini_Add("SwitchProfile", "ConditionMin" & $i, $g_aiConditionMin[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbAction2" & $i, $g_aiCmbAction2[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbCriteria2" & $i, $g_aiCmbCriteria2[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "TxtResource2" & $i, $g_aiTxtResource2[$i])
+		IniWriteS($g_sProfilePath & "\Profile.ini", "FarmStrategy", "CmbTime2" & $i, $g_aiCmbTime2[$i])
 	Next
 
 	; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006

@@ -32,7 +32,7 @@
 Opt("MustDeclareVars", 1)
 
 Global $g_sBotVersion = "v7.2.5" ;~ Don't add more here, but below. Version can't be longer than vX.y.z because it is also use on Checkversion()
-Global $g_sModversion = "Demen_v5.0" ; <== Just Change This to Version Number - Demen_GE_#9000
+Global $g_sModversion = "Demen_v5.1" ; <== Just Change This to Version Number - Demen_GE_#9000
 Global $g_sBotTitle = "" ;~ Don't assign any title here, use Func UpdateBotTitle()
 Global $g_hFrmBot = 0 ; The main GUI window
 
@@ -650,7 +650,7 @@ Func runBot() ;Bot that runs everything in order
 			VillageReport()
 			UpdateHeroStatus() ; Demen_HL_#9005
 			UpdateLabStatus() ; Demen_HL_#9005
-			ProfileSwitch() ; ; SwitchProfile - Demen_SP_#9011
+			CheckFarmSchedule() ; Demen_FS_#9012
 			If $g_bOutOfGold = True And (Number($g_aiCurrentLoot[$eLootGold]) >= Number($g_iTxtRestartGold)) Then ; check if enough gold to begin searching again
 				$g_bOutOfGold = False ; reset out of gold flag
 				Setlog("Switching back to normal after no gold to search ...", $COLOR_SUCCESS)

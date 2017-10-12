@@ -52,7 +52,7 @@ Global $g_aGroupLeague = ""
 ; Groups of controls
 Global $aTabControlsVillage, $aTabControlsDonate, $aTabControlsUpgrade, $aTabControlsNotify
 Global $aTabControlsAttack, $aTabControlsArmy, $aTabControlsSearch, $aTabControlsDeadbase, $aTabControlsActivebase, $aTabControlsTHSnipe, $aTabControlsAttackOptions
-Global $aTabControlsStrategies, $aTabControlsBot, $aTabControlsStats, $aTabControlsBotSwitch ; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+Global $aTabControlsStrategies, $aTabControlsBot, $aTabControlsStats, $aTabControlsBotSwitch ; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
 Global $oAlwaysEnabledControls = ObjCreate("Scripting.Dictionary")
 
 Func InitializeControlVariables()
@@ -221,7 +221,7 @@ Func InitializeControlVariables()
    Dim $aTabControlsStrategies = [$g_hGUI_STRATEGIES_TAB, $g_hGUI_STRATEGIES_TAB_ITEM1, $g_hGUI_STRATEGIES_TAB_ITEM2]
 
    Dim $aTabControlsBot = [$g_hGUI_BOT_TAB, $g_hGUI_BOT_TAB_ITEM1, $g_hGUI_BOT_TAB_ITEM2, $g_hGUI_BOT_TAB_ITEM3, $g_hGUI_BOT_TAB_ITEM4, $g_hGUI_BOT_TAB_ITEM5]
-   Dim $aTabControlsBotSwitch = [$g_hGUI_BOT_SWITCH_TAB, $g_hGUI_BOT_SWITCH_TAB_ITEM1, $g_hGUI_BOT_SWITCH_TAB_ITEM2] ; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+   Dim $aTabControlsBotSwitch = [$g_hGUI_BOT_SWITCH_TAB, $g_hGUI_BOT_SWITCH_TAB_ITEM1, $g_hGUI_BOT_SWITCH_TAB_ITEM2] ; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
    Dim $aTabControlsStats = [$g_hGUI_STATS_TAB, $g_hGUI_STATS_TAB_ITEM1, $g_hGUI_STATS_TAB_ITEM2, $g_hGUI_STATS_TAB_ITEM3]
 
 	; always enabled / unchanged controls during enabling/disabling all GUI controls function
@@ -314,7 +314,7 @@ Func InitializeControlVariables()
 	For $i in $aTabControlsBot
 		$oAlwaysEnabledControls($i) = 1
 	Next
-	For $i in $aTabControlsBotSwitch ; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+	For $i in $aTabControlsBotSwitch ; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
 		$oAlwaysEnabledControls($i) = 1
 	Next
 	For $i in $aTabControlsStats

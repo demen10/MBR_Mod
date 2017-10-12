@@ -17,6 +17,21 @@
 Func ApplyConfig_Mod($TypeReadSave)
 	Switch $TypeReadSave
 		Case "Read"
+			; FarmSchedule - Demen_FS_#9012
+			For $i = 0 To 7
+				GUICtrlSetState($g_ahChkSetFarm[$i], $g_abChkSetFarm[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
+
+				_GUICtrlComboBox_SetCurSel($g_ahCmbAction1[$i], $g_aiCmbAction1[$i])
+				_GUICtrlComboBox_SetCurSel($g_ahCmbCriteria1[$i], $g_aiCmbCriteria1[$i])
+				GUICtrlSetData($g_ahTxtResource1[$i], $g_aiTxtResource1[$i])
+				_GUICtrlComboBox_SetCurSel($g_ahCmbTime1[$i], $g_aiCmbTime1[$i])
+
+				_GUICtrlComboBox_SetCurSel($g_ahCmbAction2[$i], $g_aiCmbAction2[$i])
+				_GUICtrlComboBox_SetCurSel($g_ahCmbCriteria2[$i], $g_aiCmbCriteria2[$i])
+				GUICtrlSetData($g_ahTxtResource2[$i], $g_aiTxtResource2[$i])
+				_GUICtrlComboBox_SetCurSel($g_ahCmbTime2[$i], $g_aiCmbTime2[$i])
+			Next
+
 			; SwitchAcc - Demen_SA_#9001
 			GUICtrlSetState($g_hChkSwitchAcc, $g_bChkSwitchAcc ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkSmartSwitch, $g_bChkSmartSwitch ? $GUI_CHECKED : $GUI_UNCHECKED)
@@ -28,24 +43,6 @@ Func ApplyConfig_Mod($TypeReadSave)
 			Next
 			_GUICtrlComboBox_SetCurSel($g_hCmbTrainTimeToSkip, $g_iTrainTimeToSkip)
 			chkSwitchAcc()
-
-			; SwitchProfile - Demen_SP_#9011
-			For $i = 0 To 3
-				GUICtrlSetState($g_ahChk_SwitchMax[$i], $g_abChkSwitchMax[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
-				GUICtrlSetState($g_ahChk_SwitchMin[$i], $g_abChkSwitchMin[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
-				_GUICtrlComboBox_SetCurSel($g_ahCmb_SwitchMax[$i], $g_aiCmbSwitchMax[$i])
-				_GUICtrlComboBox_SetCurSel($g_ahCmb_SwitchMin[$i], $g_aiCmbSwitchMin[$i])
-
-				GUICtrlSetState($g_ahChk_BotTypeMax[$i], $g_abChkBotTypeMax[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
-				GUICtrlSetState($g_ahChk_BotTypeMin[$i], $g_abChkBotTypeMin[$i] ? $GUI_CHECKED : $GUI_UNCHECKED)
-				_GUICtrlComboBox_SetCurSel($g_ahCmb_BotTypeMax[$i], $g_aiCmbBotTypeMax[$i])
-				_GUICtrlComboBox_SetCurSel($g_ahCmb_BotTypeMin[$i], $g_aiCmbBotTypeMin[$i])
-
-				GUICtrlSetData($g_ahTxt_ConditionMax[$i], $g_aiConditionMax[$i])
-				GUICtrlSetData($g_ahTxt_ConditionMin[$i], $g_aiConditionMin[$i])
-			Next
-			chkSwitchProfile()
-			chkSwitchBotType()
 
 			; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006
 			GUICtrlSetState($g_hChkUseQuickTrain, $g_bQuickTrainEnable ? $GUI_CHECKED : $GUI_UNCHECKED)
@@ -78,6 +75,21 @@ Func ApplyConfig_Mod($TypeReadSave)
 			GUIControlCheckCC()
 
 		Case "Save"
+			; FarmSchedule - Demen_FS_#9012
+			For $i = 0 To 7
+				$g_abChkSetFarm[$i] = GUICtrlRead($g_ahChkSetFarm[$i]) = $GUI_CHECKED
+
+				$g_aiCmbAction1[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbAction1[$i])
+				$g_aiCmbCriteria1[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCriteria1[$i])
+				$g_aiTxtResource1[$i] = GUICtrlRead($g_ahTxtResource1[$i])
+				$g_aiCmbTime1[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbTime1[$i])
+
+				$g_aiCmbAction2[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbAction2[$i])
+				$g_aiCmbCriteria2[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbCriteria2[$i])
+				$g_aiTxtResource2[$i] = GUICtrlRead($g_ahTxtResource2[$i])
+				$g_aiCmbTime2[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmbTime2[$i])
+			Next
+
 			; SwitchAcc - Demen_SA_#9001
 			$g_bChkSwitchAcc = GUICtrlRead($g_hChkSwitchAcc) = $GUI_CHECKED
 			$g_bChkSmartSwitch = GUICtrlRead($g_hChkSmartSwitch) = $GUI_CHECKED
@@ -88,22 +100,6 @@ Func ApplyConfig_Mod($TypeReadSave)
 				$g_abDonateOnly[$i] = GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED
 			Next
 			$g_iTrainTimeToSkip = _GUICtrlComboBox_GetCurSel($g_hCmbTrainTimeToSkip)
-
-			; SwitchProfile - Demen_SP_#9011
-			For $i = 0 To 3
-				$g_abChkSwitchMax[$i] = GUICtrlRead($g_ahChk_SwitchMax[$i]) = $GUI_CHECKED
-				$g_abChkSwitchMin[$i] = GUICtrlRead($g_ahChk_SwitchMin[$i]) = $GUI_CHECKED
-				$g_aiCmbSwitchMax[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmb_SwitchMax[$i])
-				$g_aiCmbSwitchMin[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmb_SwitchMin[$i])
-
-				$g_abChkBotTypeMax[$i] = GUICtrlRead($g_ahChk_BotTypeMax[$i]) = $GUI_CHECKED
-				$g_abChkBotTypeMin[$i] = GUICtrlRead($g_ahChk_BotTypeMin[$i]) = $GUI_CHECKED
-				$g_aiCmbBotTypeMax[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmb_BotTypeMax[$i])
-				$g_aiCmbBotTypeMin[$i] = _GUICtrlComboBox_GetCurSel($g_ahCmb_BotTypeMin[$i])
-
-				$g_aiConditionMax[$i] = GUICtrlRead($g_ahTxt_ConditionMax[$i])
-				$g_aiConditionMin[$i] = GUICtrlRead($g_ahTxt_ConditionMin[$i])
-			Next
 
 			; 	QuickTrainCombo (Checkbox) - Demen_QT_#9006
 			$g_bQuickTrainEnable = (GUICtrlRead($g_hChkUseQuickTrain) = $GUI_CHECKED)

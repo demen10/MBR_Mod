@@ -24,7 +24,7 @@ Global $g_hGUI_BOT = 0
 
 Global $g_hGUI_BOT_TAB = 0, $g_hGUI_BOT_TAB_ITEM1 = 0, $g_hGUI_BOT_TAB_ITEM2 = 0, $g_hGUI_BOT_TAB_ITEM3 = 0, $g_hGUI_BOT_TAB_ITEM4 = 0, $g_hGUI_BOT_TAB_ITEM5 = 0
 Global $g_hGUI_BOT_TAB_ITEM6 = 0 ; MultiStats For SwitchAcc - Demen_SA_#9001
-Global $g_hGUI_BOT_SWITCH = 0, $g_hGUI_BOT_SWITCH_TAB = 0, $g_hGUI_BOT_SWITCH_TAB_ITEM1 = 0, $g_hGUI_BOT_SWITCH_TAB_ITEM2 = 0 ; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+Global $g_hGUI_BOT_SWITCH = 0, $g_hGUI_BOT_SWITCH_TAB = 0, $g_hGUI_BOT_SWITCH_TAB_ITEM1 = 0, $g_hGUI_BOT_SWITCH_TAB_ITEM2 = 0 ; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
 Global $g_hGUI_LOG_SA = 0 ; Set SwitchAcc Log - Demen_SA_#9001
 
 Func CreateBotTab()
@@ -32,7 +32,7 @@ Func CreateBotTab()
 	;GUISetBkColor($COLOR_WHITE, $g_hGUI_BOT)
 
 	$g_hGUI_BOT_SWITCH = _GUICreate("", $g_iSizeWGrpTab2, 342, 5, 90, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
-	CreateBotProfileSwitch()
+	CreateBotProfileSchedule()
 
 	$g_hGUI_STATS = _GUICreate("", $g_iSizeWGrpTab2, $g_iSizeHGrpTab2, 5, 25, BitOR($WS_CHILD, $WS_TABSTOP), -1, $g_hGUI_BOT)
 
@@ -60,17 +60,17 @@ Func CreateBotTab()
 
 EndFunc   ;==>CreateBotTab
 
-Func CreateBotProfileSwitch()
-	; GUI Tab for SwitchAcc & SwitchProfile - Demen_SA_#9001 & Demen_SP_#9011
+Func CreateBotProfileSchedule()
+	; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
 	$g_hGUI_LOG_SA = _GUICreate("", 200, 230, 230, 113, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT_SWITCH)
 
 	GUISwitch($g_hGUI_BOT_SWITCH)
 	$g_hGUI_BOT_SWITCH_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab2 + 2, 342, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
 	$g_hGUI_BOT_SWITCH_TAB_ITEM1 = GUICtrlCreateTabItem("Switch Accounts")
 	CreateBotSwitchAcc() ; SwitchAcc GUI Design - Demen_SA_#9001
-	$g_hGUI_BOT_SWITCH_TAB_ITEM2 = GUICtrlCreateTabItem("Switch Profiles")
-	CreateBotSwitchProfile() ; SwitchProfile - Demen_SP_#9011
+	$g_hGUI_BOT_SWITCH_TAB_ITEM2 = GUICtrlCreateTabItem("Farming Strategy")
+	CreateBotFarmSchedule() ; FarmSchedule - Demen_FS_#9012
 
 	CreateBotSwitchAccLog() ; Set SwitchAcc Log - Demen_SA_#9001
 	GUICtrlCreateTabItem("")
-EndFunc   ;==>CreateBotProfileSwitch
+EndFunc   ;==>CreateBotProfileSchedule

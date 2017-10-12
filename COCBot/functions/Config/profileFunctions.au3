@@ -36,13 +36,6 @@ Func setupProfileComboBox()
 		GUICtrlSetData($g_ahCmbProfile[$i], $profileString)
 		_GUICtrlComboBox_SetCurSel($g_ahCmbProfile[$i], 0)
 	Next
-	; SwitchProfile - Demen_SP_#9011
-	For $i = 0 To 3
-		GUICtrlSetData($g_ahCmb_SwitchMax[$i], "")
-		GUICtrlSetData($g_ahCmb_SwitchMax[$i], $profileString, "<No Profiles>")
-		GUICtrlSetData($g_ahCmb_SwitchMin[$i], "")
-		GUICtrlSetData($g_ahCmb_SwitchMin[$i], $profileString, "<No Profiles>")
-	Next
 
 EndFunc   ;==>setupProfileComboBox
 

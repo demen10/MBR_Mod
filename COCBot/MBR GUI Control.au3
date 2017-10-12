@@ -682,7 +682,7 @@ Func GUIControl_WM_NOTIFY($hWind, $iMsg, $wParam, $lParam)
 		Case $g_hGUI_BOT_TAB
 			tabBot()
 		Case $g_hGUI_BOT_SWITCH_TAB
-			tabBotProfile() ; Demen_SA_#9001 & Demen_SP_#9011
+			tabBotProfile() ; Demen_SA_#9001 & Demen_FS_#9012
 		Case Else
 			$bCheckEmbeddedShield = False
 	EndSwitch
@@ -1676,24 +1676,24 @@ Func tabBot()
 		Select
 			Case $tabidx = 0 ; Options tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
-				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_SP_#9011
+				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_FS_#9012
 				ControlShow("","",$g_hCmbGUILanguage)
 			Case $tabidx = 1 ; Debug tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
-				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_SP_#9011
+				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_FS_#9012
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 2 ; Profiles tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
-				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_SP_#9011
+				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_FS_#9012
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 3 ; Android tab
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
-				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_SP_#9011
+				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_FS_#9012
 				ControlHide("","",$g_hCmbGUILanguage)
 				tabBotProfile()
 			Case $tabidx = 4 ; Stats tab
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_STATS)
-				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_SP_#9011
+				GUISetState(@SW_HIDE, $g_hGUI_BOT_SWITCH) ; Demen_SA_#9001 & Demen_FS_#9012
 				ControlHide("","",$g_hCmbGUILanguage)
 			Case $tabidx = 5 ; MultiStats tab - SwitchAcc Demen_SA_#9001
 				GUISetState(@SW_HIDE, $g_hGUI_STATS)
@@ -1703,13 +1703,11 @@ Func tabBot()
 		EndSelect
 EndFunc   ;==>tabBot
 
-Func tabBotProfile() ; Demen_SA_#9001 & Demen_SP_#9011
+Func tabBotProfile() ; Demen_SA_#9001 & Demen_FS_#9012
     Local $tabidx = GUICtrlRead($g_hGUI_BOT_SWITCH_TAB)
     Select
         Case $tabidx = 0
             GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_LOG_SA)
-;~         Case $tabidx = 1
-;~             GUISetState(@SW_HIDE, $g_hGUI_LOG_SA)
         Case Else
             GUISetState(@SW_HIDE, $g_hGUI_LOG_SA)
     EndSelect
