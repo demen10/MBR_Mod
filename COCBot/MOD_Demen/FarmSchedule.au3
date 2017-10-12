@@ -97,7 +97,7 @@ Func CheckFarmSchedule()
 						SetSwitchAccLog("   Acc " & $i + 1 & ". Donate")
 					EndIf
 				Case 2 ; turn Active
-					If GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED Then
+					If GUICtrlRead($g_ahChkAccount[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED Then
 						GUICtrlSetState($g_ahChkAccount[$i], $GUI_CHECKED)
 						GUICtrlSetState($g_ahChkDonate[$i], $GUI_UNCHECKED)
 						$bActionDone = True
