@@ -1,0 +1,48 @@
+NOTE  |Author: Demen
+NOTE  |GoVaHog attack
+NOTE  |Make Troops: 2 Golems, 8 Valks, 10 Hogs, 14 Wiza, 5 Wallbreaker, Golem + Giant in CC
+NOTE  |Make Spells: 3 Rages, 2 jumps, 1 Haste, 1 Rage in CC
+
+      |EXTR. GOLD |EXTR.ELIXIR|EXTR. DARK |DEPO. GOLD |DEPO.ELIXIR|DEPO. DARK |TOWNHALL   |FORCED SIDE|,
+SIDE  |0          |0          |0          |0          |0          |0          |10         |           |,
+      |VECTOR_____|SIDE_______|DROP_POINTS|ADDTILES___|VERSUS_____|RANDOMX_PX_|RANDOMY_PX_|___________|,
+MAKE  |H          |FRONT-LEFT |10         |0          |INT-EXT    |0          |1          |           |,1st Haste
+
+MAKE  |N          |FRONT-LEFT |10         |2          |INT-EXT    |0          |1          |           |,was 6
+MAKE  |A          |FRONT-RIGHT|10         |2          |INT-EXT    |0          |1          |           |,was 6
+MAKE  |V          |FRONT-LEFT |10         |5          |INT-EXT    |2          |1          |           |,
+MAKE  |Y          |FRONT-RIGHT|10         |5          |INT-EXT    |1          |2          |           |,
+MAKE  |F          |FRONT-LEFT |10         |2          |INT-EXT    |0          |1          |           |,
+MAKE  |G          |FRONT-RIGHT|10         |2          |INT-EXT    |0          |1          |           |,
+MAKE  |I          |FRONT-LEFT |10         |-7         |INT-EXT    |0          |0          |           |,
+MAKE  |J          |FRONT-RIGHT|10         |-8         |INT-EXT    |0          |0          |           |,
+MAKE  |S          |FRONT-LEFT |10         |-5         |INT-EXT    |0          |0          |           |,first jump
+MAKE  |E          |FRONT-LEFT |10         |-13        |INT-EXT    |0          |0          |           |,second jump
+MAKE  |K          |FRONT-LEFT |10         |-14        |INT-EXT    |0          |0          |           |,was -11 (move last rage deeper)
+MAKE  |L          |FRONT-LEFT |10         |-14        |INT-EXT    |0          |0          |           |,was -13
+      |VECTOR_____|INDEX______|QTY_X_VECT_|TROOPNAME__|DELAY_DROP_|DELAYCHANGE|SLEEPAFTER_|           |,
+DROP  |S          |1          |1          |Jspell     |16         |0          |200        |           |,
+DROP  |E          |1          |1          |Jspell     |16         |0          |1000       |           |,
+DROP  |N          |5          |1          |Gole       |0          |0          |200        |           |,
+DROP  |A          |5          |1          |Gole       |0          |0          |1000       |           |,
+DROP  |N          |5-7        |3          |Wiza	      |0          |0          |500        |           |
+DROP  |A          |5-7        |3          |Wiza	      |0          |0          |1000       |           |
+WAIT  |1500       |           |           |           |           |           |           |           |,
+DROP  |H          |1          |1          |HaSpell    |0          |0          |500        |           |,
+DROP  |N          |1          |1          |castle     |0          |0          |800        |           |,
+DROP  |F-G        |1-2        |8          |Wall       |0          |0          |250        |           |,drop wall breaker
+DROP  |N          |1          |1          |King       |0          |0          |20         |           |,
+DROP  |N          |1          |1          |Queen      |0          |0          |20         |           |,
+DROP  |N          |1          |1          |Warden     |0          |0          |1000       |           |,
+DROP  |N-A        |1-3        |10         |Wiza	      |50         |0          |1000       |           |,
+DROP  |N-A        |1-3        |10         |Valk       |50         |0          |500        |           |,
+DROP  |I          |2-3        |1          |RSpell     |0          |0          |33-66      |           |,
+DROP  |J          |3-4        |1          |RSpell     |0          |0          |1000-1600  |           |,was 2-3
+WAIT  |2000-2500  |           |           |           |           |           |           |           |,
+DROP  |N-A        |1-3        |10         |Hogs       |50         |0          |16-33      |           |,
+DROP  |K          |1          |1          |RSpell     |0          |0          |66-100     |           |,
+WAIT  |2000-2500  |           |           |           |           |           |           |           |,wait 4" more to activate GW ability
+RECALC|           |           |           |           |           |           |           |           |,recalc to use CC spell
+DROP  |L          |3          |1          |RSpell     |0          |0          |66-100     |           |,drop CC rage
+WAIT  |10000      |           |           |           |           |           |           |           |,
+DROP  |N-A        |1          |20         |Remain     |0          |0          |100-500    |           |

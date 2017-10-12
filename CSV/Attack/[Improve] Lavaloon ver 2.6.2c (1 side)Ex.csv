@@ -2,11 +2,11 @@ NOTE  |Author: Ahsan Iqbal & Belmont
 NOTE  |Improve: NguyenAnhHD
 NOTE  |Attack: Lavaloon -ver. 2.6.2c- (1 side) -External Edges-
 NOTE  |Make Troops: 28 loon , 2 lava, 10-20 minions, 5 wallbreaker
-NOTE  |Make Spells: 11 haste ,2 haste (CC)/1 rage (CC)
+NOTE  |Make Spells: 2 rage, 7 haste, 2 haste (CC)/1 rage (CC)
 
       |-----------------------------------------------------------------------------------------------|
       |EXTR. GOLD |EXTR.ELIXIR|EXTR. DARK |DEPO. GOLD |DEPO.ELIXIR|DEPO. DARK |TOWNHALL   |FORCED SIDE|
-SIDE  |0          |0          |0          |0          |0          |0          |10         |           |
+SIDE  |0          |0          |0          |0          |0          |0          |0          |           |
 
       |EAGLE      |INFERNO    |XBOW       |WIZTOWER   |MORTAR     |AIRDEFENSE |GEMBOX     |GEMBOX     |
 SIDEB |15         |5          |0          |0          |0          |0          |           |           |
@@ -32,6 +32,7 @@ MAKE  |U          |RIGHT-FRONT|10         |0          |EXT-INT    |0          |0
 
       |VECTOR_____|INDEX______|QTY_X_VECT_|TROOPNAME__|DELAY_DROP_|DELAYCHANGE|SLEEPAFTER_|SLEEPBEFORE|
 DROP  |A-B        |4          |1          |Lava       |30-50      |30-70      |100-200    |           |
+DROP  |A-B        |4          |1          |Drag       |30-50      |30-70      |100-200    |           |, for event 30Sep
 DROP  |D          |3-8        |7          |Ball       |20-30      |10-20      |0          |           |
 DROP  |A          |1-6        |7          |Ball       |20-30      |10-20      |100-200    |           |
 DROP  |C          |3-8        |7          |Ball       |20-30      |10-20      |0          |           |
@@ -43,20 +44,22 @@ DROP  |N          |1          |1          |FSpell     |0          |0          |5
 DROP  |A          |1          |1          |warden     |30-50      |0          |50-100     |           |
 DROP  |V-U        |5          |1          |BabyD      |30-50      |0          |50-100     |           |
 WAIT  |3500-4000  |           |           |           |           |           |           |           |
-DROP  |H-G        |11         |1          |HaSpell    |0          |0          |0          |           |
-DROP  |G-H        |4          |1          |HaSpell    |0          |0          |50-100     |           |
+DROP  |G          |1          |1          |RSpell     |0          |0          |0          |           |
+DROP  |H          |7          |1          |RSpell     |0          |0          |50-100     |           |
+RECALC|           |           |           |           |           |           |           |           | 
+WAIT  |1000       |           |           |           |           |           |           |           |, event 30Sep
+DROP  |G          |8          |1          |RSpell     |0          |0          |50-100     |           |
 DROP  |D          |2-8        |10         |mini       |20-30      |10-20      |0          |           |
 DROP  |A          |1-7        |10         |mini       |20-30      |10-20      |1000-1500  |           |
 WAIT  |5700-6000  |           |           |           |           |           |           |           |
 DROP  |J          |1          |1          |HaSpell    |0          |0          |0          |           |
-DROP  |I-J        |4          |1          |HaSpell    |0          |0          |1000-1500  |           |
-DROP  |A          |1          |1          |warden     |30-50      |100        |50-100     |           | 
-RECALC|           |           |           |           |           |           |           |           | 
+DROP  |I          |4          |1          |HaSpell    |0          |0          |100        |           |
+DROP  |J          |5          |1          |HaSpell    |0          |0          |1000-1500  |           |
+DROP  |A          |1          |1          |warden     |30-50      |100        |50-100     |           | ,RECALC|           |           |           |           |           |           |           |           | 
 DROP  |K          |1          |1          |RSpell     |0          |0          |100        |           |
 DROP  |M          |1          |1          |FSpell     |0          |0          |100        |           |
 DROP  |K          |2          |1          |HaSpell    |0          |0          |0          |           | 
-DROP  |L          |2          |1          |HaSpell    |0          |0          |100        |           |
-RECALC|           |           |           |           |           |           |           |           | 
+DROP  |L          |2          |1          |HaSpell    |0          |0          |100        |           | ,RECALC|           |           |           |           |           |           |           |           | 
 DROP  |L          |2          |1          |HaSpell    |0          |0          |0          |           | 
 DROP  |K          |2          |1          |HaSpell    |0          |0          |100        |           |
 WAIT  |6500-7500  |           |           |           |           |           |           |           |

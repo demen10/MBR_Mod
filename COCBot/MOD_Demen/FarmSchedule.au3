@@ -49,7 +49,7 @@ Func CheckFarmSchedule()
 					SetLog("Schedule is before BotStart (" & $iStartHour & "h), Skip this action.")
 				EndIf
 			EndIf
-			If $g_iDebugSetlog = 1 Then Setlog("$iTimer1 = " & $iTimer1 & ", $iTimer2 = " & $iTimer2 & ", $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
+ 			If $g_iDebugSetlog = 1 Then Setlog("Acc. " & $i + 1 & ". $iTimer1 = " & $iTimer1 & ", $iTimer2 = " & $iTimer2 & ", $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
 
 			; Check resource criteria for current account
 			If $i = $g_iCurAccount And $iAction = -1 Then
@@ -97,7 +97,7 @@ Func CheckFarmSchedule()
 						SetSwitchAccLog("   Acc " & $i + 1 & ". Donate")
 					EndIf
 				Case 2 ; turn Active
-					If GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Then
+					If GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED Then
 						GUICtrlSetState($g_ahChkAccount[$i], $GUI_CHECKED)
 						GUICtrlSetState($g_ahChkDonate[$i], $GUI_UNCHECKED)
 						$bActionDone = True
