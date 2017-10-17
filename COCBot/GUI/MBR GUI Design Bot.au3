@@ -62,10 +62,10 @@ EndFunc   ;==>CreateBotTab
 
 Func CreateBotProfileSchedule()
 	; GUI Tab for SwitchAcc & FarmSchedule - Demen_SA_#9001 & Demen_FS_#9012
-	$g_hGUI_LOG_SA = _GUICreate("", 200, 230, 230, 113, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT_SWITCH)
+	$g_hGUI_LOG_SA = _GUICreate("", 200, 227, 230, 113, BitOR($WS_CHILD, 0), -1, $g_hGUI_BOT_SWITCH)
 
 	GUISwitch($g_hGUI_BOT_SWITCH)
-	$g_hGUI_BOT_SWITCH_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab2 + 2, 342, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
+	$g_hGUI_BOT_SWITCH_TAB = GUICtrlCreateTab(0, 0, $g_iSizeWGrpTab2, 342, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
 	$g_hGUI_BOT_SWITCH_TAB_ITEM1 = GUICtrlCreateTabItem("Switch Accounts")
 	CreateBotSwitchAcc() ; SwitchAcc GUI Design - Demen_SA_#9001
 	$g_hGUI_BOT_SWITCH_TAB_ITEM2 = GUICtrlCreateTabItem("Farming Schedule")

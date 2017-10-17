@@ -18,9 +18,9 @@ Func CheckFarmSchedule()
 	If Not $g_bChkSwitchAcc Then Return
 
 	Static $iStartHour = @HOUR
-	If $g_bInitiateSwitchAcc And $iStartHour = -1 Then $iStartHour = @HOUR
-	Local $asText1[9] = ["OFF", "ON", "ON", "", " for Donating", " for Farming", "Idle", "Donate", "Active"]
+	If $g_bFirstStart And $iStartHour = -1 Then $iStartHour = @HOUR
 	Local $bActionDone = False
+	Local $sText = ""
 
 	For $i = 0 To 7
 		If $i > $g_iTotalAcc Then ExitLoop
@@ -37,29 +37,27 @@ Func CheckFarmSchedule()
 				$iTimer2 = $g_aiCmbTime2[$i]
 				If $iTimer2 <= @HOUR And ($iTimer2 > $iTimer1 Or $iAction = -1) Then $iAction = $g_aiCmbAction2[$i] - 1
 			EndIf
-			If $iAction >= 0 Then SetLog("Acc [" & $i + 1 & "] is scheduled to turn " & $asText1[$iAction] & $asText1[$iAction + 3] & " now")
 
-			If $iStartHour >= 0 And $iStartHour > _Min($iTimer1, $iTimer2) Then
+ 			If $g_iDebugSetlog = 1 Then Setlog($i + 1 & ". $iTimer1 = " & $iTimer1 & ", $iTimer2 = " & $iTimer2 & ", $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
+
+			If $iStartHour >= 0 And $iStartHour >= _Min($iTimer1, $iTimer2) Then
 				If $iStartHour <= _Max($iTimer1, $iTimer2) Then
 					If @HOUR >= _Max($iTimer1, $iTimer2) Then $iStartHour = -1
 				Else
 					If @HOUR < $iStartHour And @HOUR >= 0 Then $iStartHour = -1
 				EndIf
-				If $iStartHour > -1 And $iAction >= 0 Then
-					$iAction = -1
-					SetLog("Schedule is before BotStart (" & $iStartHour & "h), Skip this action.")
-				EndIf
+				If $iStartHour > -1 And $iAction >= 0 Then $iAction = -1
+				If $g_iDebugSetlog = 1 Then SetLog("   $iStartHour = " & $iStartHour & "$iAction = " & $iAction, $COLOR_DEBUG)
 			EndIf
- 			If $g_iDebugSetlog = 1 Then Setlog("Acc. " & $i + 1 & ". $iTimer1 = " & $iTimer1 & ", $iTimer2 = " & $iTimer2 & ", $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
 
 			; Check resource criteria for current account
 			If $i = $g_iCurAccount And $iAction = -1 Then
-				Local $asText2[5] = ["", "Gold", "Elixir", "DarkE", "Trophy"]
+				Local $asText[4] = ["Gold", "Elixir", "DarkE", "Trophy"]
 				While 1
 					If $g_aiCmbAction1[$i] >= 1 And $g_aiCmbCriteria1[$i] >= 1 And $g_aiCmbCriteria1[$i] <= 4 Then
 						For $r = 1 To 4
 							If $g_aiCmbCriteria1[$i] = $r And Number($g_aiCurrentLoot[$r - 1]) >= Number($g_aiTxtResource1[$i]) Then
-								SetLog("Village " & $asText2[$r] & " detected above 1st criterium: " & $g_aiTxtResource1[$i])
+								$sText = "  Village " & $asText[$r - 1] & " detected above 1st criterium: " & $g_aiTxtResource1[$i]
 								$iAction = $g_aiCmbAction1[$i] - 1
 								ExitLoop 2
 							EndIf
@@ -68,7 +66,7 @@ Func CheckFarmSchedule()
 					If $g_aiCmbAction2[$i] >= 1 And $g_aiCmbCriteria2[$i] >= 1 And $g_aiCmbCriteria2[$i] <= 4 Then
 						For $r = 1 To 4
 							If $g_aiCmbCriteria2[$i] = $r And Number($g_aiCurrentLoot[$r - 1]) < Number($g_aiTxtResource2[$i]) And Number($g_aiCurrentLoot[$r - 1]) > 1 Then
-								SetLog("Village " & $asText2[$r] & " detected below 2nd criterium: " & $g_aiTxtResource2[$i])
+								$sText = "  Village " & $asText[$r - 1] & " detected below 2nd criterium: " & $g_aiTxtResource2[$i]
 								$iAction = $g_aiCmbAction2[$i] - 1
 								ExitLoop 2
 							EndIf
@@ -78,6 +76,10 @@ Func CheckFarmSchedule()
 				WEnd
 			EndIf
 
+			;Setlog
+			If $iAction >= 0 And $bActionDone = False Then Setlog("Checking Farm Schedule...")
+			If $sText <> "" Then Setlog($sText)
+
 			; Action
 			Switch $iAction
 				Case 0 ; turn Off (idle)
@@ -86,16 +88,16 @@ Func CheckFarmSchedule()
 						chkAccount($i)
 						$bActionDone = True
 						If $i = $g_iCurAccount Then $g_bInitiateSwitchAcc = True
-						SetLog("Acc [" & $i + 1 & "] turned OFF")
-						SetSwitchAccLog("   Acc " & $i + 1 & ". Idle")
+						SetLog("  Acc [" & $i + 1 & "] turned OFF")
+						SetSwitchAccLog("   Acc. " & $i + 1 & " now Idle", $COLOR_BLUE)
 					EndIf
 				Case 1 ; turn Donate
 					If GUICtrlRead($g_ahChkDonate[$i]) = $GUI_UNCHECKED Then
 						_GUI_Value_STATE("CHECKED", $g_ahChkAccount[$i] & "#" & $g_ahChkDonate[$i])
 						$bActionDone = True
 						If $i = $g_iCurAccount Then $g_bInitiateSwitchAcc = True
-						SetLog("Acc [" & $i + 1 & "] turned ON for Donating")
-						SetSwitchAccLog("   Acc " & $i + 1 & ". Donate")
+						SetLog("  Acc [" & $i + 1 & "] turned ON for Donating")
+						SetSwitchAccLog("   Acc. " & $i + 1 & "now Donate", $COLOR_BLUE)
 					EndIf
 				Case 2 ; turn Active
 					If GUICtrlRead($g_ahChkAccount[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED Then
@@ -103,8 +105,8 @@ Func CheckFarmSchedule()
 						GUICtrlSetState($g_ahChkDonate[$i], $GUI_UNCHECKED)
 						$bActionDone = True
 						If $i = $g_iCurAccount Then $g_bInitiateSwitchAcc = True
-						SetLog("Acc [" & $i + 1 & "] turned ON for Farming")
-						SetSwitchAccLog("   Acc " & $i + 1 & ". Active")
+						SetLog("  Acc [" & $i + 1 & "] turned ON for Farming")
+						SetSwitchAccLog("   Acc. " & $i + 1 & "now Active", $COLOR_BLUE)
 					EndIf
 			EndSwitch
 		EndIf
