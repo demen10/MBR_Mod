@@ -41,13 +41,13 @@ Func CheckFarmSchedule()
  			If $g_iDebugSetlog = 1 Then Setlog($i + 1 & ". $iTimer1 = " & $iTimer1 & ", $iTimer2 = " & $iTimer2 & ", $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
 
 			If $iStartHour >= 0 And $iStartHour >= _Min($iTimer1, $iTimer2) Then
-				If $iStartHour <= _Max($iTimer1, $iTimer2) Then
+				If $iStartHour < _Max($iTimer1, $iTimer2) Then
 					If @HOUR >= _Max($iTimer1, $iTimer2) Then $iStartHour = -1
 				Else
 					If @HOUR < $iStartHour And @HOUR >= 0 Then $iStartHour = -1
 				EndIf
 				If $iStartHour > -1 And $iAction >= 0 Then $iAction = -1
-				If $g_iDebugSetlog = 1 Then SetLog("   $iStartHour = " & $iStartHour & "$iAction = " & $iAction, $COLOR_DEBUG)
+				If $g_iDebugSetlog = 1 Then SetLog("   $iStartHour = " & $iStartHour & ", $iAction = " & $iAction, $COLOR_DEBUG)
 			EndIf
 
 			; Check resource criteria for current account
@@ -97,7 +97,7 @@ Func CheckFarmSchedule()
 						$bActionDone = True
 						If $i = $g_iCurAccount Then $g_bInitiateSwitchAcc = True
 						SetLog("  Acc [" & $i + 1 & "] turned ON for Donating")
-						SetSwitchAccLog("   Acc. " & $i + 1 & "now Donate", $COLOR_BLUE)
+						SetSwitchAccLog("   Acc. " & $i + 1 & " now Donate", $COLOR_BLUE)
 					EndIf
 				Case 2 ; turn Active
 					If GUICtrlRead($g_ahChkAccount[$i]) = $GUI_UNCHECKED Or GUICtrlRead($g_ahChkDonate[$i]) = $GUI_CHECKED Then
@@ -106,7 +106,7 @@ Func CheckFarmSchedule()
 						$bActionDone = True
 						If $i = $g_iCurAccount Then $g_bInitiateSwitchAcc = True
 						SetLog("  Acc [" & $i + 1 & "] turned ON for Farming")
-						SetSwitchAccLog("   Acc. " & $i + 1 & "now Active", $COLOR_BLUE)
+						SetSwitchAccLog("   Acc. " & $i + 1 & " now Active", $COLOR_BLUE)
 					EndIf
 			EndSwitch
 		EndIf
