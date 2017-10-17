@@ -18,6 +18,7 @@ Func CheckFarmSchedule()
 	If Not $g_bChkSwitchAcc Then Return
 
 	Static $iStartHour = @HOUR
+	If $g_bInitiateSwitchAcc And $iStartHour = -1 Then $iStartHour = @HOUR
 	Local $asText1[9] = ["OFF", "ON", "ON", "", " for Donating", " for Farming", "Idle", "Donate", "Active"]
 	Local $bActionDone = False
 
