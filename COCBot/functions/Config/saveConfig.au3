@@ -128,12 +128,12 @@ Func SaveRegularConfig()
 
 	; Window positions
 	_Ini_Add("general", "cmbProfile", _GUICtrlComboBox_GetCurSel($g_hCmbProfile))
-	_Ini_Add("general", "frmBotPosX", $g_iFrmBotPosX)
-	_Ini_Add("general", "frmBotPosY", $g_iFrmBotPosY)
+	IniWriteS($g_sProfilePath & "\Profile.ini", "general", "frmBotPosX", $g_iFrmBotPosX) ; Demen_OT_#9009
+	IniWriteS($g_sProfilePath & "\Profile.ini", "general", "frmBotPosY", $g_iFrmBotPosY) ; Demen_OT_#9009
 	; read now android position again, as it might have changed
 	If $g_hAndroidWindow <> 0 Then WinGetAndroidHandle()
-	_Ini_Add("general", "AndroidPosX", $g_iAndroidPosX)
-	_Ini_Add("general", "AndroidPosY", $g_iAndroidPosY)
+	IniWriteS($g_sProfilePath & "\Profile.ini", "general", "AndroidPosX", $g_iAndroidPosX) ; Demen_OT_#9009
+	IniWriteS($g_sProfilePath & "\Profile.ini", "general", "AndroidPosY", $g_iAndroidPosY) ; Demen_OT_#9009
 	_Ini_Add("general", "frmBotDockedPosX", $g_iFrmBotDockedPosX)
 	_Ini_Add("general", "frmBotDockedPosY", $g_iFrmBotDockedPosY)
 

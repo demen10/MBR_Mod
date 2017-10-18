@@ -134,16 +134,16 @@ Func ReadRegularConfig()
 	IniReadS($g_iBotDesignFlags, $g_sProfileConfigPath, "general", "botDesignFlags", 0, "int") ; Default for existing profiles is 0, for new is 3
 
 	; Window positions
-	IniReadS($g_iFrmBotPosX, $g_sProfileConfigPath, "general", "frmBotPosX", -1, "int")
-	IniReadS($g_iFrmBotPosY, $g_sProfileConfigPath, "general", "frmBotPosY", -1, "int")
+	IniReadS($g_iFrmBotPosX, $g_sProfilePath & "\Profile.ini", "general", "frmBotPosX", -1, "int") ; Demen_OT_#9009
+	IniReadS($g_iFrmBotPosY, $g_sProfilePath & "\Profile.ini", "general", "frmBotPosY", -1, "int") ; Demen_OT_#9009
 	If $g_iFrmBotPosX < -30000 Or $g_iFrmBotPosY < -30000 Then
 		; bot window was minimized, restore default position
 		$g_iFrmBotPosX = -1
 		$g_iFrmBotPosY = -1
 	EndIf
 
-	IniReadS($g_iAndroidPosX, $g_sProfileConfigPath, "general", "AndroidPosX", -1, "int")
-	IniReadS($g_iAndroidPosY, $g_sProfileConfigPath, "general", "AndroidPosY", -1, "int")
+	IniReadS($g_iAndroidPosX, $g_sProfilePath & "\Profile.ini", "general", "AndroidPosX", -1, "int") ; Demen_OT_#9009
+	IniReadS($g_iAndroidPosY, $g_sProfilePath & "\Profile.ini", "general", "AndroidPosY", -1, "int") ; Demen_OT_#9009
 	If $g_iAndroidPosX < -30000 Or $g_iAndroidPosY < -30000 Then
 		; bot window was minimized, restore default position
 		$g_iAndroidPosX = -1
