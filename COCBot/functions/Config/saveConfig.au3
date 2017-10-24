@@ -375,6 +375,11 @@ Func SaveConfig_600_12()
 			$sIniName = "CustomA"
 		ElseIf $i = $eCustomB Then
 			$sIniName = "CustomB"
+		; Additional Custom Donate Demen_CD_#9011
+		ElseIf $i = $eCustomC Then
+			$sIniName = "CustomC"
+		ElseIf $i = $eCustomD Then
+			$sIniName = "CustomD"
 		EndIf
 
 		_Ini_Add("donate", "chkDonate" & $sIniName, $g_abChkDonateTroop[$i] ? 1 : 0)
@@ -398,6 +403,11 @@ Func SaveConfig_600_12()
 		_Ini_Add("donate", "txtDonateCustomA" & $i + 1, $g_aiDonateCustomTrpNumA[$i][1])
 		_Ini_Add("donate", "cmbDonateCustomB" & $i + 1, $g_aiDonateCustomTrpNumB[$i][0])
 		_Ini_Add("donate", "txtDonateCustomB" & $i + 1, $g_aiDonateCustomTrpNumB[$i][1])
+		; Additional Custom Donate Demen_CD_#9011
+		_Ini_Add("donate", "cmbDonateCustomC" & $i + 1, $g_aiDonateCustomTrpNumC[$i][0])
+		_Ini_Add("donate", "txtDonateCustomC" & $i + 1, $g_aiDonateCustomTrpNumC[$i][1])
+		_Ini_Add("donate", "cmbDonateCustomD" & $i + 1, $g_aiDonateCustomTrpNumD[$i][0])
+		_Ini_Add("donate", "txtDonateCustomD" & $i + 1, $g_aiDonateCustomTrpNumD[$i][1])
 	Next
 
 	_Ini_Add("donate", "chkExtraAlphabets", $g_bChkExtraAlphabets ? 1 : 0)

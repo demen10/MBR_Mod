@@ -106,6 +106,26 @@ Func cmbDonateCustomB()
 	_GUICtrlSetImage($g_ahPicDonateCustomB[2], $g_sLibIconPath, $g_aiDonIcons[$combo3])
 EndFunc   ;==>cmbDonateCustomB
 
+; Additional Custom Donate #3 _ Demen_CD_#9011
+Func cmbDonateCustomC()
+	Local $combo1 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomC[0])
+	Local $combo2 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomC[1])
+	Local $combo3 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomC[2])
+	_GUICtrlSetImage($g_ahPicDonateCustomC[0], $g_sLibIconPath, $g_aiDonIcons[$combo1])
+	_GUICtrlSetImage($g_ahPicDonateCustomC[1], $g_sLibIconPath, $g_aiDonIcons[$combo2])
+	_GUICtrlSetImage($g_ahPicDonateCustomC[2], $g_sLibIconPath, $g_aiDonIcons[$combo3])
+EndFunc   ;==>cmbDonateCustomC
+
+; Additional Custom Donate #4 _ Demen_CD_#9011
+Func cmbDonateCustomD()
+	Local $combo1 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomD[0])
+	Local $combo2 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomD[1])
+	Local $combo3 = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomD[2])
+	_GUICtrlSetImage($g_ahPicDonateCustomD[0], $g_sLibIconPath, $g_aiDonIcons[$combo1])
+	_GUICtrlSetImage($g_ahPicDonateCustomD[1], $g_sLibIconPath, $g_aiDonIcons[$combo2])
+	_GUICtrlSetImage($g_ahPicDonateCustomD[2], $g_sLibIconPath, $g_aiDonIcons[$combo3])
+EndFunc   ;==>cmbDonateCustomD
+
 Func _DonateBtn($hFirstControl, $hLastControl)
     Static $hLastDonateBtn1 = -1, $hLastDonateBtn2 = -1
 

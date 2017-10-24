@@ -409,6 +409,11 @@ Func ReadConfig_600_12()
 			$sIniName = "CustomA"
 		ElseIf $i = $eCustomB Then
 			$sIniName = "CustomB"
+		; Additional Custom Donate Demen_CD_#9011
+		ElseIf $i = $eCustomC Then
+			$sIniName = "CustomC"
+		ElseIf $i = $eCustomD Then
+			$sIniName = "CustomD"
 		EndIf
 
 		$g_abChkDonateTroop[$i] = (IniRead($g_sProfileConfigPath, "donate", "chkDonate" & $sIniName, "0") = "1")
@@ -478,6 +483,13 @@ Func ReadConfig_600_12()
 	$g_asTxtDonateTroop[$eCustomB] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomB", "air support|any air"), "|", @CRLF)
 	$g_asTxtBlacklistTroop[$eCustomB] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtBlacklistCustomB", "no air|air no|only|just"), "|", @CRLF)
 
+	; Additional Custom Donate Demen_CD_#9011
+	$g_asTxtDonateTroop[$eCustomC] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomC", "ground support|ground"), "|", @CRLF)
+	$g_asTxtBlacklistTroop[$eCustomC] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtBlacklistCustomC", "no ground|ground no|nonly"), "|", @CRLF)
+
+	$g_asTxtDonateTroop[$eCustomD] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomD", "air support|any air"), "|", @CRLF)
+	$g_asTxtBlacklistTroop[$eCustomD] = StringReplace(IniRead($g_sProfileConfigPath, "donate", "txtBlacklistCustomD", "no air|air no|only|just"), "|", @CRLF)
+
 	For $i = 0 To $eSpellCount - 1
 		If $i <> $eSpellClone Then
 			Local $sIniName = $g_asSpellNames[$i] & "Spells"
@@ -526,6 +538,21 @@ Func ReadConfig_600_12()
 	$g_aiDonateCustomTrpNumB[0][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomB1", 3))
 	$g_aiDonateCustomTrpNumB[1][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomB2", 13))
 	$g_aiDonateCustomTrpNumB[2][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomB3", 5))
+
+	; Additional Custom Donate Demen_CD_#9011
+	$g_aiDonateCustomTrpNumC[0][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomC1", 6))
+	$g_aiDonateCustomTrpNumC[1][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomC2", 1))
+	$g_aiDonateCustomTrpNumC[2][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomC3", 0))
+	$g_aiDonateCustomTrpNumC[0][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomC1", 2))
+	$g_aiDonateCustomTrpNumC[1][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomC2", 3))
+	$g_aiDonateCustomTrpNumC[2][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomC3", 1))
+
+	$g_aiDonateCustomTrpNumD[0][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomD1", 11))
+	$g_aiDonateCustomTrpNumD[1][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomD2", 1))
+	$g_aiDonateCustomTrpNumD[2][0] = Int(IniRead($g_sProfileConfigPath, "donate", "cmbDonateCustomD3", 6))
+	$g_aiDonateCustomTrpNumD[0][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomD1", 3))
+	$g_aiDonateCustomTrpNumD[1][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomD2", 13))
+	$g_aiDonateCustomTrpNumD[2][1] = Int(IniRead($g_sProfileConfigPath, "donate", "txtDonateCustomD3", 5))
 
 	$g_bChkExtraAlphabets = (IniRead($g_sProfileConfigPath, "donate", "chkExtraAlphabets", "0") = "1")
 	$g_bChkExtraChinese = (IniRead($g_sProfileConfigPath, "donate", "chkExtraChinese", "0") = "1")

@@ -385,6 +385,19 @@ Func ApplyConfig_600_12($TypeReadSave)
 			Next
 			cmbDonateCustomB()
 
+			; Additional Custom Donate Demen_CD_#9011
+			For $i = 0 To 2
+				_GUICtrlComboBox_SetCurSel($g_ahCmbDonateCustomC[$i], $g_aiDonateCustomTrpNumC[$i][0])
+				GUICtrlSetData($g_ahTxtDonateCustomC[$i], $g_aiDonateCustomTrpNumC[$i][1])
+			Next
+			cmbDonateCustomC()
+
+			For $i = 0 To 2
+				_GUICtrlComboBox_SetCurSel($g_ahCmbDonateCustomD[$i], $g_aiDonateCustomTrpNumD[$i][0])
+				GUICtrlSetData($g_ahTxtDonateCustomD[$i], $g_aiDonateCustomTrpNumD[$i][1])
+			Next
+			cmbDonateCustomB()
+
 			GUICtrlSetState($g_hChkExtraAlphabets, $g_bChkExtraAlphabets ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkExtraChinese, $g_bChkExtraChinese ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkExtraKorean, $g_bChkExtraKorean ? $GUI_CHECKED : $GUI_UNCHECKED)
@@ -415,6 +428,11 @@ Func ApplyConfig_600_12($TypeReadSave)
 				$g_aiDonateCustomTrpNumA[$i][1] = GUICtrlRead($g_ahTxtDonateCustomA[$i])
 				$g_aiDonateCustomTrpNumB[$i][0] = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomB[$i])
 				$g_aiDonateCustomTrpNumB[$i][1] = GUICtrlRead($g_ahTxtDonateCustomB[$i])
+				; Additional Custom Donate Demen_CD_#9011
+				$g_aiDonateCustomTrpNumC[$i][0] = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomC[$i])
+				$g_aiDonateCustomTrpNumC[$i][1] = GUICtrlRead($g_ahTxtDonateCustomC[$i])
+				$g_aiDonateCustomTrpNumD[$i][0] = _GUICtrlComboBox_GetCurSel($g_ahCmbDonateCustomD[$i])
+				$g_aiDonateCustomTrpNumD[$i][1] = GUICtrlRead($g_ahTxtDonateCustomD[$i])
 			Next
 
 			$g_bChkExtraAlphabets = (GUICtrlRead($g_hChkExtraAlphabets) = $GUI_CHECKED)

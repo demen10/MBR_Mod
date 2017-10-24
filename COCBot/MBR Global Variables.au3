@@ -760,11 +760,12 @@ Global $g_abRequestCCHours[24] = [False, False, False, False, False, False, Fals
 ; <><><><> Village / Donate - Donate <><><><>
 Global $g_bChkDonate = True
 Global Enum $eCustomA = $eTroopCount, $eCustomB = $eTroopCount + 1
-Global Const $g_iCustomDonateConfigs = 2
-Global $g_abChkDonateTroop[$eTroopCount + $g_iCustomDonateConfigs] = [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
-Global $g_abChkDonateAllTroop[$eTroopCount + $g_iCustomDonateConfigs] = [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
-Global $g_asTxtDonateTroop[$eTroopCount + $g_iCustomDonateConfigs] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ; array of pipe-delimited list of strings to match to a request string
-Global $g_asTxtBlacklistTroop[$eTroopCount + $g_iCustomDonateConfigs] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ; array of pipe-delimited list of strings to prevent a match to a request string
+Global Enum $eCustomC = $eTroopCount + 2, $eCustomD = $eTroopCount + 3 ; Additional Custom Donate Demen_CD_#9011
+Global Const $g_iCustomDonateConfigs = 4; Was 2 - Additional Custom Donate Demen_CD_#9011
+Global $g_abChkDonateTroop[$eTroopCount + $g_iCustomDonateConfigs] = [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False] ; Demen_CD_#9011
+Global $g_abChkDonateAllTroop[$eTroopCount + $g_iCustomDonateConfigs] = [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False] ; Demen_CD_#9011
+Global $g_asTxtDonateTroop[$eTroopCount + $g_iCustomDonateConfigs] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ; array of pipe-delimited list of strings to match to a request string
+Global $g_asTxtBlacklistTroop[$eTroopCount + $g_iCustomDonateConfigs] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ; array of pipe-delimited list of strings to prevent a match to a request string
 
 Global $g_abChkDonateSpell[$eSpellCount] = [False, False, False, False, False, False, False, False, False, False] ; element $eSpellClone (5) is unused
 Global $g_abChkDonateAllSpell[$eSpellCount] = [False, False, False, False, False, False, False, False, False, False] ; element $eSpellClone (5) is unused
@@ -772,6 +773,7 @@ Global $g_asTxtDonateSpell[$eSpellCount] = ["", "", "", "", "", "", "", "", "", 
 Global $g_asTxtBlacklistSpell[$eSpellCount] = ["", "", "", "", "", "", "", "", "", ""] ; element $eSpellClone (5) is unused
 
 Global $g_aiDonateCustomTrpNumA[3][2] = [[0, 0], [0, 0], [0, 0]], $g_aiDonateCustomTrpNumB[3][2] = [[0, 0], [0, 0], [0, 0]]
+Global $g_aiDonateCustomTrpNumC[3][2] = [[0, 0], [0, 0], [0, 0]], $g_aiDonateCustomTrpNumD[3][2] = [[0, 0], [0, 0], [0, 0]]
 
 Global $g_bChkExtraAlphabets = False ; extra alphabets
 Global $g_bChkExtraChinese = False ; extra Chinese alphabets
