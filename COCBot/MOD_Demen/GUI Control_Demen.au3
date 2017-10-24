@@ -105,7 +105,9 @@ Func chkSwitchAcc()
 			GUICtrlSetState($i, $GUI_DISABLE)
 		Next
 		For $i = 0 To 7 ; FarmSchedule - Demen_FS_#9012
-			GUICtrlSetState($g_ahChkSetFarm[$i], $GUI_UNCHECKED + $GUI_DISABLE)
+			For $j = $g_ahChkSetFarm[$i] To $g_ahCmbTime2[$i]
+				GUICtrlSetState($j, $GUI_UNCHECKED + $GUI_DISABLE)
+			Next
 		Next
 	EndIf
 EndFunc   ;==>chkSwitchAcc

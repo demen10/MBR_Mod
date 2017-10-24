@@ -105,7 +105,7 @@ Func cmbCriteria1()
 EndFunc   ;==>cmbCriteria1
 
 Func cmbCriteria2()
-	Local $aiDefaultValue[4] = ["1000000", "1000000", "20000", "3000"]
+	Local $aiDefaultValue[4] = ["1000000", "1000000", "020000", "3000"]
 	Local $aiDefaultLimit[4] = [9999999, 9999999, 199999, 9999]
 	Local $iCmbTotalAcc = _GUICtrlComboBox_GetCurSel($g_hCmbTotalAccount) + 1 ; combobox data starts with 2
 	For $i = 0 To 7
@@ -118,7 +118,7 @@ Func cmbCriteria2()
 			Case 1 To 4
 				GUICtrlSetState($g_ahCmbTime2[$i], $GUI_HIDE)
 				GUICtrlSetState($g_ahTxtResource2[$i], $GUI_SHOW + $GUI_ENABLE)
-				If GUICtrlRead($g_ahTxtResource2[$i]) = "" Or GUICtrlRead($g_ahTxtResource2[$i]) > $aiDefaultLimit[$iCmbCriteria - 1] Then GUICtrlSetData($g_ahTxtResource2[$i], $aiDefaultValue[$iCmbCriteria - 1])
+				If GUICtrlRead($g_ahTxtResource2[$i]) = "" Or GUICtrlRead($g_ahTxtResource2[$i]) > $aiDefaultLimit[$iCmbCriteria - 1] Then GUICtrlSetData($g_ahTxtResource2[$i], Number($aiDefaultValue[$iCmbCriteria - 1]))
 				GUICtrlSetLimit($g_ahTxtResource2[$i], StringLen($aiDefaultValue[$iCmbCriteria - 1]))
 			Case 5
 				GUICtrlSetState($g_ahTxtResource2[$i], $GUI_HIDE)

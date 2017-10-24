@@ -170,7 +170,7 @@ EndFunc   ;==>IsAlwaysEnabledControl
 
 ; Accelerator Key, more responsive than buttons in run-mode
 Func SetAccelerators($bDockedUnshieledFocus = False)
-   Local $aAccelKeys[2][2] = [["{ESC}", $g_hBtnStop], ["{PAUSE}", $g_hBtnPause]]
+   Local $aAccelKeys[2][2] = [["+{ESC}", $g_hBtnStop], ["{PAUSE}", $g_hBtnPause]] ; change Stop hotkey to Shift+ESC for avoidance of accidental bot stop. ESC key is too frequently used. (Other mod's Code ref. Demen_OT_#9009)
    Local $aAccelKeys_DockedUnshieldedFocus[3][2] = [["{ESC}", $g_hFrmBotEmbeddedShieldInput], ["{ENTER}", $g_hFrmBotEmbeddedShieldInput], ["{PAUSE}", $g_hBtnPause]] ; used in docked mode when android has focus to support ESC for android
 
    GUISetAccelerators(0, $g_hFrmBot) ; Remove all accelerators
