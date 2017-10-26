@@ -21,6 +21,7 @@ Func CheckFarmSchedule()
 	If $g_bFirstStart And $iStartHour = -1 Then $iStartHour = @HOUR
 	Local $bActionDone = False
 	Local $sText = ""
+	Setlog("Checking Farm Schedule...")
 
 	For $i = 0 To 7
 		If $i > $g_iTotalAcc Then ExitLoop
@@ -57,7 +58,7 @@ Func CheckFarmSchedule()
 					If $g_aiCmbAction1[$i] >= 1 And $g_aiCmbCriteria1[$i] >= 1 And $g_aiCmbCriteria1[$i] <= 4 Then
 						For $r = 1 To 4
 							If $g_aiCmbCriteria1[$i] = $r And Number($g_aiCurrentLoot[$r - 1]) >= Number($g_aiTxtResource1[$i]) Then
-								$sText = "  Village " & $asText[$r - 1] & " detected above 1st criterium: " & $g_aiTxtResource1[$i]
+								Setlog("  Village " & $asText[$r - 1] & " detected above 1st criterium: " & $g_aiTxtResource1[$i])
 								$iAction = $g_aiCmbAction1[$i] - 1
 								ExitLoop 2
 							EndIf
@@ -66,7 +67,7 @@ Func CheckFarmSchedule()
 					If $g_aiCmbAction2[$i] >= 1 And $g_aiCmbCriteria2[$i] >= 1 And $g_aiCmbCriteria2[$i] <= 4 Then
 						For $r = 1 To 4
 							If $g_aiCmbCriteria2[$i] = $r And Number($g_aiCurrentLoot[$r - 1]) < Number($g_aiTxtResource2[$i]) And Number($g_aiCurrentLoot[$r - 1]) > 1 Then
-								$sText = "  Village " & $asText[$r - 1] & " detected below 2nd criterium: " & $g_aiTxtResource2[$i]
+								Setlog("  Village " & $asText[$r - 1] & " detected below 2nd criterium: " & $g_aiTxtResource2[$i])
 								$iAction = $g_aiCmbAction2[$i] - 1
 								ExitLoop 2
 							EndIf
@@ -75,10 +76,6 @@ Func CheckFarmSchedule()
 					ExitLoop
 				WEnd
 			EndIf
-
-			;Setlog
-			If $iAction >= 0 And $bActionDone = False Then Setlog("Checking Farm Schedule...")
-			If $sText <> "" Then Setlog($sText)
 
 			; Action
 			Switch $iAction
